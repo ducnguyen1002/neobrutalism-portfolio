@@ -8,12 +8,12 @@ const skills = [
 	{ name: "Next.js", color: "purple" },
 	{ name: "TypeScript", color: "green" },
 	{ name: "Tailwind CSS", color: "blue" },
-	{ name: "Framer Motion", color: "red" },
-	{ name: "Node.js", color: "yellow" },
-	{ name: "Supabase", color: "purple" },
-	{ name: "PostgreSQL", color: "green" },
+	{ name: "RESTful API", color: "red" },
+	{ name: "GraphQL", color: "yellow" },
+	{ name: "Zustand", color: "purple" },
+	{ name: "Directus", color: "green" },
 	{ name: "Git", color: "blue" },
-	{ name: "UI Design", color: "red" },
+	{ name: "GSAP", color: "red" },
 ];
 
 export function Skills() {
@@ -22,7 +22,7 @@ export function Skills() {
 	return (
 		<section
 			id="skills"
-			className="py-20 px-4 bg-[#f6f6f6] dark:bg-[#1a1a1a]"
+			className="py-20 px-4 bg-background"
 		>
 			<div className="max-w-7xl mx-auto">
 				<h2 className="text-5xl font-black mb-12 flex items-center gap-4 text-black dark:text-white">

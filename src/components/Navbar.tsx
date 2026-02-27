@@ -25,7 +25,7 @@ export function Navbar() {
 						href="/"
 						className="text-xl md:text-2xl font-black tracking-tighter text-black dark:text-white shrink-0"
 					>
-						PORT<span className="text-neo-purple">FOLIO</span>
+						DUC<span className="text-neo-purple">NV</span>
 					</Link>
 
 					<div className="hidden md:flex items-center gap-8 font-bold text-black dark:text-white">
@@ -42,6 +42,12 @@ export function Navbar() {
 							{t.nav.skills}
 						</Link>
 						<Link
+							href="#game"
+							className="hover:underline decoration-4 underline-offset-4"
+						>
+							{t.nav.game}
+						</Link>
+						<Link
 							href="#about"
 							className="hover:underline decoration-4 underline-offset-4"
 						>
@@ -52,15 +58,15 @@ export function Navbar() {
 					<div className="flex items-center gap-2 md:gap-4">
 						<button
 							onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-							className="hidden md:flex p-2 neo-brutalism-border bg-white hover:translate-x-px hover:translate-y-px transition-all items-center justify-center w-11 h-11"
+							className="hidden md:flex p-2 neo-brutalism-border bg-background hover:translate-x-px hover:translate-y-px transition-all items-center justify-center w-11 h-11"
 							aria-label="Toggle Theme"
 						>
 							{!mounted ? (
 								<div className="w-5 h-5" />
 							) : theme === "dark" ? (
-								<Sun className="w-5 h-5 text-black fill-neo-yellow" />
+								<Sun className="w-5 h-5 text-foreground fill-neo-yellow" />
 							) : (
-								<Moon className="w-5 h-5 text-black fill-black" />
+								<Moon className="w-5 h-5 text-foreground fill-foreground" />
 							)}
 						</button>
 
@@ -97,11 +103,11 @@ export function Navbar() {
 				{isMenuOpen && (
 					<div className="md:hidden border-t-4 border-(--border-color) bg-white dark:bg-[#2a2a2a] p-4 flex flex-col gap-4 font-black">
 						<Link
-							href="#projects"
+							href="#about"
 							onClick={() => setIsMenuOpen(false)}
 							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
 						>
-							{t.nav.projects}
+							{t.nav.about}
 						</Link>
 						<Link
 							href="#skills"
@@ -111,27 +117,35 @@ export function Navbar() {
 							{t.nav.skills}
 						</Link>
 						<Link
-							href="#about"
+							href="#projects"
 							onClick={() => setIsMenuOpen(false)}
 							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
 						>
-							{t.nav.about}
+							{t.nav.projects}
 						</Link>
+						<Link
+							href="#game"
+							onClick={() => setIsMenuOpen(false)}
+							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
+						>
+							{t.nav.game}
+						</Link>
+
 
 						<div className="grid grid-cols-2 gap-4">
 							<button
 								onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-								className="flex p-3 neo-brutalism-border bg-white items-center justify-center gap-2"
+								className="flex p-3 neo-brutalism-border bg-background items-center justify-center gap-2"
 							>
 								{theme === "dark" ? (
 									<>
-										<Sun className="w-5 h-5 text-black fill-neo-yellow" />
-										<span className="text-sm text-black">LIGHT</span>
+										<Sun className="w-5 h-5 text-foreground fill-neo-yellow" />
+										<span className="text-sm text-foreground">{t.nav.light}</span>
 									</>
 								) : (
 									<>
-										<Moon className="w-5 h-5 text-black" />
-										<span className="text-sm text-black">DARK</span>
+										<Moon className="w-5 h-5 text-foreground fill-foreground" />
+										<span className="text-sm text-foreground">{t.nav.dark}</span>
 									</>
 								)}
 							</button>

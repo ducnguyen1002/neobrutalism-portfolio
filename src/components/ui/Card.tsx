@@ -8,7 +8,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
 	({ className, color = "white", ...props }, ref) => {
 		const colors = {
-			white: "bg-white",
+			white: "bg-(--card-background) text-foreground",
 			yellow: "bg-neo-yellow",
 			purple: "bg-neo-purple",
 			green: "bg-neo-green",

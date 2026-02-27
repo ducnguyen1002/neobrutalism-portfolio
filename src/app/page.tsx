@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
+import { SnakeGame } from "@/components/SnakeGame";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 import { LoadingScreen } from "@/components/LoadingScreen";
@@ -19,6 +20,7 @@ export default function Home() {
 			<Marquee />
 			<Skills />
 			<Projects />
+			<SnakeGame />
 			<Footer />
 		</main>
 	);

@@ -14,8 +14,12 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-	title: "Portfolio | Front-End Dev",
-	description: "Neobrutalism Portfolio for Front-End Developer",
+	title: "DucNV | Front-End Dev",
+	description: "Say hi to my visitors! This is my Neobrutalism Portfolio built with strong support from Antigravity.",
+	icons: {
+		icon: "/favicon.png",
+		apple: "/favicon.png",
+	},
 };
 
 import { Providers } from "@/components/Providers";

@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #f6f6f6;
   --foreground: #000000;
+  --section-alt-bg: #ffffff;
 
-  --neo-yellow: #FFD100;
+  --neo-yellow: #ebc313;
   --neo-purple: #A388EE;
   --neo-green: #84cc16;
   --neo-red: #ff6b6b;
@@ -19,6 +22,7 @@
 .dark {
   --background: #1a1a1a;
   --foreground: #ffffff;
+  --section-alt-bg: #000000;
   --border-color: #ffffff;
   --shadow-color: 255, 255, 255;
   --card-background: #2a2a2a;

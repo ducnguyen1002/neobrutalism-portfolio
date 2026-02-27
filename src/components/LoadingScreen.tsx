@@ -62,7 +62,7 @@ export function LoadingScreen() {
 							</span>
 						</h2>
 
-						<div className="neo-brutalism-border bg-white h-12 w-full mb-6 relative overflow-hidden">
+						<div className="neo-brutalism-border bg-(--card-background) h-12 w-full mb-6 relative overflow-hidden">
 							<motion.div
 								className="absolute inset-0 bg-neo-green border-r-4 border-black"
 								style={{ width: `${progress}%` }}

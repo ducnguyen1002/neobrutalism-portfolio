@@ -13,7 +13,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			secondary: "bg-neo-purple",
 			accent: "bg-neo-green",
 			danger: "bg-neo-red",
-			outline: "bg-white",
+			outline: "bg-background text-foreground",
 		};
 
 		const sizes = {
