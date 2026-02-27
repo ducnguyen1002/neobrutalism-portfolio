@@ -47,8 +47,7 @@ export function Footer() {
 					</p>
 					<p className="font-bold flex items-center justify-center md:justify-end gap-2 text-black/70 dark:text-zinc-300">
 						{t.footer.madeWith}{" "}
-						<Heart className="w-4 h-4 fill-neo-red text-neo-red" /> by
-						ducduc1022000
+						<Heart className="w-4 h-4 fill-neo-red text-neo-red" /> Google Antigravity
 					</p>
 					<p className="text-xs font-bold mt-4 opacity-50 text-black dark:text-white">
 						{t.footer.rights} © 2026 PORTFOLIO.
