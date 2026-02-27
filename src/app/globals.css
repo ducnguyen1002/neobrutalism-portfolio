@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f6f6;
+  --foreground: #000000;
+
+  --neo-yellow: #FFD100;
+  --neo-purple: #A388EE;
+  --neo-green: #84cc16;
+  --neo-red: #ff6b6b;
+  --neo-blue: #3b82f6;
+
+  --border-width: 4px;
+  --border-color: #000000;
+  --shadow-color: 0, 0, 0;
+  --card-background: #ffffff;
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --border-color: #ffffff;
+  --shadow-color: 255, 255, 255;
+  --card-background: #2a2a2a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-neo-yellow: var(--neo-yellow);
+  --color-neo-purple: var(--neo-purple);
+  --color-neo-green: var(--neo-green);
+  --color-neo-red: var(--neo-red);
+  --color-neo-blue: var(--neo-blue);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-be-vietnam), sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.neo-brutalism-border {
+  border: var(--border-width) solid var(--border-color);
+}
+
+.neo-brutalism-shadow {
+  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
+}
+
+.neo-brutalism-card {
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
+  background: var(--card-background);
+  transition: all 0.2s ease-in-out;
+}
+
+.neo-brutalism-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px 0px rgba(var(--shadow-color), 1);
+}
+
+.neo-brutalism-button {
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
+  background: var(--neo-yellow);
+  font-weight: 800;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.1s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.neo-brutalism-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0px 0px rgba(var(--shadow-color), 1);
+}
+
+.neo-brutalism-button:active {
+  transform: translate(8px, 8px);
+  box-shadow: 0px 0px 0px 0px rgba(var(--shadow-color), 1);
+}
+
+.grid-bg {
+  background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-color: var(--background);
+  opacity: 0.1;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 1024px) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button {
+    cursor: none !important;
+  }
+}
