@@ -97,6 +97,15 @@ export function SnakeGame() {
   }, [direction, food, isGameOver, isStarted, highScore, generateFood]);
 
   useEffect(() => {
+    const saved = localStorage.getItem("snake-high-score");
+    if (saved) setHighScore(parseInt(saved, 10));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("snake-high-score", highScore.toString());
+  }, [highScore]);
+
+  useEffect(() => {
     if (isStarted && !isGameOver) {
       gameLoopRef.current = setInterval(moveSnake, speed);
     } else {
