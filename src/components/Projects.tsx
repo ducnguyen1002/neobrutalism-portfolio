@@ -32,37 +32,19 @@ export function Projects() {
 				</h2>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{t.projects.items.map((project, index) => {
-						const projectMeta = [
-							{
-								tags: ["Next.js", "TailwindCSS", "Directus"],
-								color: "red",
-								image: "/projects/benhvien175_homepage_screenshot.png",
-							},
-							{
-								tags: ["Next.js", "TailwindCSS", "Echarts", "GraphQL"],
-								color: "purple",
-								image: "/projects/upstock_homepage_screenshot.png",
-							},
-							{
-								tags: ["Next.js", "TailwindCSS", "GSAP"],
-								color: "green",
-								image: "/projects/tanhoangminh_homepage_screenshot.png",
-							},
-						][index];
-
+					{t.projects.items.map((project: any, index: number) => {
 						return (
 							<Card
-								color={projectMeta.color as any}
+								color={project.color as any}
 								key={index}
 								className="flex flex-col h-full group"
-								onClick={() => handleOpenModal(project, projectMeta)}
+								onClick={() => handleOpenModal(project, project)}
 							>
 								<div
 									className="h-48 bg-black/10 neo-brutalism-border mb-6 flex items-center justify-center font-black text-4xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-300 cursor-pointer"
 								>
 									<img
-										src={projectMeta.image}
+										src={project.image}
 										alt={project.title}
 										className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 									/>
@@ -75,7 +57,7 @@ export function Projects() {
 								</p>
 
 								<div className="flex flex-wrap gap-2 mb-6">
-									{projectMeta.tags.map((tag: string, tagIndex: number) => {
+									{project.tags.map((tag: string) => {
 										// Assign a consistent neobrutalism color based on the tag string length or predefined map
 										const tagColorMap: Record<string, string> = {
 											"Next.js": "bg-neo-purple text-white",

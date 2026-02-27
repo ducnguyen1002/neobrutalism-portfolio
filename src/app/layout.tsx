@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 	title: "DucNV | Front-End Dev",
 	description: "Say hi to my visitors! This is my Neobrutalism Portfolio built with strong support from Antigravity.",
 	icons: {
-		icon: "/favicon.png",
-		apple: "/favicon.png",
+		icon: "/neobrutalism-portfolio/favicon.png",
+		apple: "/neobrutalism-portfolio/favicon.png",
 	},
 };
 
