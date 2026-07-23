@@ -19,15 +19,20 @@ interface ProjectModalProps {
   } | null;
 }
 
+const TAG_COLORS: Record<string, { bg: string; color: string }> = {
+  "Next.js": { bg: "#e4e6eb", color: "#050505" },
+  TailwindCSS: { bg: "#dbeafe", color: "#1d4ed8" },
+  Directus: { bg: "#ede9fe", color: "#6d28d9" },
+  Echarts: { bg: "#fef3c7", color: "#92400e" },
+  GSAP: { bg: "#d1fae5", color: "#065f46" },
+  GraphQL: { bg: "#fce7f3", color: "#9d174d" },
+};
+
 export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -44,83 +49,121 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 z-[100] cursor-pointer"
+            className="fixed inset-0 z-[100]"
+            style={{ background: "rgba(0,0,0,0.65)" }}
           />
 
-          {/* Modal Container */}
+          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-10 lg:inset-20 z-[101] pointer-events-none flex items-center justify-center p-4"
+            exit={{ opacity: 0, scale: 0.95, y: 16 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none fixed inset-4 z-[101] flex items-center justify-center md:inset-12 lg:inset-20"
           >
-            <div className="w-full max-w-5xl bg-background neo-brutalism-border neo-brutalism-shadow flex flex-col pointer-events-auto max-h-full overflow-hidden">
-              {/* Browser-like Header */}
-              <div className="bg-neo-blue border-b-4 border-black p-3 flex items-center gap-4">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neo-red" />
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neo-yellow" />
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neo-green" />
-                </div>
-                <div className="flex-1 bg-white/20 border-2 border-black px-3 py-1 text-xs font-bold text-white flex items-center gap-2 overflow-hidden whitespace-nowrap">
-                  <Globe className="w-3 h-3 shrink-0" />
-                  {project.live}
+            <div
+              className="pointer-events-auto flex w-full max-w-4xl flex-col overflow-hidden"
+              style={{
+                background: "var(--fb-card)",
+                borderRadius: "8px",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
+                maxHeight: "calc(100vh - 96px)",
+              }}
+            >
+              {/* Header */}
+              <div
+                className="flex items-center justify-between px-5 py-3"
+                style={{ borderBottom: "1px solid var(--fb-border)" }}
+              >
+                <div
+                  className="flex items-center gap-2"
+                  style={{ color: "var(--fb-muted)" }}
+                >
+                  <Globe
+                    className="h-4 w-4 shrink-0"
+                    style={{ color: "var(--fb-blue)" }}
+                  />
+                  <span className="truncate text-sm">{project.live}</span>
                 </div>
                 <button
                   onClick={onClose}
-                  className="bg-neo-red w-8 h-8 border-2 border-black flex items-center justify-center hover:translate-x-0.5 hover:translate-y-0.5 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:shadow-none translate-x-0"
+                  className="fb-icon-btn ml-3 shrink-0"
+                  style={{ width: "36px", height: "36px" }}
                 >
-                  <X className="w-5 h-5 text-white" />
+                  <X className="h-4 w-4" />
                 </button>
               </div>
 
               {/* Content */}
-              <div className="flex-1 overflow-y-auto p-6 md:p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                  {/* Image Preview */}
-                  <div className="neo-brutalism-border bg-black/10 aspect-video overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-5 md:p-8">
+                <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+                  {/* Image */}
+                  <div
+                    className="aspect-video overflow-hidden rounded-lg"
+                    style={{ background: "var(--fb-icon-bg)" }}
+                  >
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
 
                   {/* Details */}
-                  <div className="flex flex-col h-full">
-                    <h2 className="text-4xl font-black mb-4 dark:text-white uppercase">
+                  <div className="flex h-full flex-col">
+                    <h2
+                      className="mb-3 text-xl font-bold tracking-tight"
+                      style={{ color: "var(--fb-text)" }}
+                    >
                       {project.title}
                     </h2>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="bg-neo-yellow border-2 border-black px-2 py-1 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
+                    {/* Tags */}
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => {
+                        const s = TAG_COLORS[tag] ?? {
+                          bg: "var(--fb-icon-bg)",
+                          color: "var(--fb-text)",
+                        };
+                        return (
+                          <span
+                            key={tag}
+                            className="rounded-full px-2.5 py-0.5 text-xs font-medium"
+                            style={{ background: s.bg, color: s.color }}
+                          >
+                            {tag}
+                          </span>
+                        );
+                      })}
                     </div>
 
-                    <p className="text-xl font-bold mb-8 dark:text-zinc-300 leading-relaxed">
+                    <p
+                      className="mb-6 flex-1 text-sm leading-relaxed"
+                      style={{ color: "var(--fb-text)", opacity: 0.85 }}
+                    >
                       {project.description}
                     </p>
 
-                    <div className="mt-auto flex flex-wrap gap-4 pt-6 border-t-4 border-black/10 border-dashed">
+                    <div
+                      className="flex flex-wrap gap-3 pt-4"
+                      style={{ borderTop: "1px solid var(--fb-border)" }}
+                    >
                       <Button
-                        className="flex-1"
+                        className="flex-1 justify-center"
                         onClick={() => window.open(project.live, "_blank")}
                       >
-                        <ExternalLink className="w-4 h-4" /> {t.projects.live}
+                        <ExternalLink className="h-4 w-4" /> {t.projects.live}
                       </Button>
                       <Button
                         variant="outline"
-                        className="flex-1 px-8 dark:bg-black dark:text-white"
-                        onClick={() => window.open(project.github || "#", "_blank")}
+                        className="flex-1 justify-center"
+                        onClick={() =>
+                          window.open(project.github || "#", "_blank")
+                        }
                       >
-                        <Github className="w-4 h-4" /> {t.projects.code}
+                        <Github className="h-4 w-4" /> {t.projects.code}
                       </Button>
                     </div>
                   </div>

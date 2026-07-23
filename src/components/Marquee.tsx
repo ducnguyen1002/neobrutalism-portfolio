@@ -2,41 +2,53 @@
 
 import { motion } from "framer-motion";
 
-export function Marquee() {
-	const words = [
-		"REACT",
-		"NEXT.JS",
-		"TYPESCRIPT",
-		"TAILWIND",
-		"ANIMATION",
-		"AESTHETIC",
-		"BOLD",
-		"FAST",
-	];
+const words = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Tailwind CSS",
+  "Animation",
+  "UI/UX",
+  "Performance",
+  "Accessibility",
+];
 
-	return (
-		<div className="bg-neo-blue border-y-4 border-(--border-color) py-4 overflow-hidden select-none">
-			<motion.div
-				animate={{ x: [0, -1000] }}
-				transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-				className="flex whitespace-nowrap gap-12"
-			>
-				{[...Array(10)].map((_, i) => (
-					<div
-						key={i}
-						className="flex gap-12 items-center"
-					>
-						{words.map((word) => (
-							<span
-								key={word}
-								className="text-4xl md:text-6xl font-black text-white"
-							>
-								{word}
-							</span>
-						))}
-					</div>
-				))}
-			</motion.div>
-		</div>
-	);
+const separator = (
+  <span className="bg-muted-foreground/40 mx-2 inline-block h-1 w-1 rounded-full" />
+);
+
+export function Marquee() {
+  const items = words.flatMap((word) => [word, null]);
+
+  return (
+    <div className="bg-surface overflow-hidden border-y border-[var(--border)] py-8">
+      <motion.div
+        animate={{ x: [0, -1200] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="flex items-center whitespace-nowrap"
+      >
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="flex items-center gap-0">
+            {items.map((item, j) =>
+              item === null ? (
+                <span
+                  key={`sep-${j}`}
+                  className="text-muted-foreground/30 mx-4"
+                >
+                  ·
+                </span>
+              ) : (
+                <span
+                  key={`${item}-${j}`}
+                  className="text-muted-foreground mx-4 text-sm font-medium tracking-wide"
+                >
+                  {item}
+                </span>
+              ),
+            )}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
 }

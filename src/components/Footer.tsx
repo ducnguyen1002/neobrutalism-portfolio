@@ -1,58 +1,33 @@
 "use client";
 
-import { Github, Twitter, Linkedin, Heart } from "lucide-react";
-import { useLanguage } from "./Providers";
-
 export function Footer() {
-	const { t } = useLanguage();
+	const links = [
+		"Quyền riêng tư",
+		"Điều khoản",
+		"Quảng cáo",
+		"Lựa chọn quảng cáo",
+		"Cookie",
+		"Thông tin thêm",
+	];
 
 	return (
-		<footer className="py-20 px-4 bg-(--section-alt-bg) border-t-4 border-(--border-color)">
-			<div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-				<div>
-					<h2 className="text-4xl font-black mb-4 text-black dark:text-white">
-						{t.footer.talk}{" "}
-						<span className="text-neo-yellow underline">
-							{t.footer.talkHighlight}
+		<footer className="mt-2 flex justify-center px-4 py-6">
+			<div className="max-w-3xl">
+				<div className="mb-1 flex flex-wrap gap-x-1.5 gap-y-1">
+					{links.map((link) => (
+						<span
+							key={link}
+							className="cursor-pointer text-xs hover:underline"
+							style={{ color: "var(--fb-muted)" }}
+						>
+							{link} ·
 						</span>
-					</h2>
-					<p className="text-xl font-bold max-w-md mb-8 text-black/70 dark:text-zinc-400">
-						{t.footer.desc}
-					</p>
-					<div className="flex gap-6">
-						<a
-							href="#"
-							className="p-3 bg-neo-purple neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
-						>
-							<Github className="w-6 h-6 text-white" />
-						</a>
-						<a
-							href="#"
-							className="p-3 bg-neo-yellow neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all text-black"
-						>
-							<Linkedin className="w-6 h-6" />
-						</a>
-						<a
-							href="#"
-							className="p-3 bg-neo-green neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all text-black"
-						>
-							<Twitter className="w-6 h-6" />
-						</a>
-					</div>
+					))}
 				</div>
-
-				<div className="text-center md:text-right">
-					<p className="text-2xl font-black mb-2 italic text-black dark:text-white">
-						ducduc1022000@gmail.com
-					</p>
-					<p className="font-bold flex items-center justify-center md:justify-end gap-2 text-black/70 dark:text-zinc-300">
-						{t.footer.madeWith}{" "}
-						<Heart className="w-4 h-4 fill-neo-red text-neo-red" /> Google Antigravity
-					</p>
-					<p className="text-xs font-bold mt-4 opacity-50 text-black dark:text-white">
-						{t.footer.rights} © 2026 PORTFOLIO.
-					</p>
-				</div>
+				<p className="text-xs" style={{ color: "var(--fb-muted)" }}>
+					<span className="font-semibold">Meta</span> © 2026 &nbsp;|&nbsp; DucNV
+					Portfolio · Made with ❤️ Google Antigravity
+				</p>
 			</div>
 		</footer>
 	);

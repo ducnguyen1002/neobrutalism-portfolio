@@ -1,100 +1,317 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Button } from "./ui/Button";
-import { ArrowRight, Star } from "lucide-react";
-import { Sticker } from "./Sticker";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Camera, PenLine, Plus, ChevronDown } from "lucide-react";
 import { useLanguage } from "./Providers";
 
 export function Hero() {
-	const { t } = useLanguage();
+	const { language } = useLanguage();
+	const [activeTab, setActiveTab] = useState("posts");
+	const [showSkillsList, setShowSkillsList] = useState(false);
+
+	const tabs = [
+		{ id: "posts", labelVi: "Bài viết", labelEn: "Posts", href: "#" },
+		{ id: "about", labelVi: "Giới thiệu", labelEn: "About", href: "#skills" },
+		{
+			id: "projects",
+			labelVi: "Dự án",
+			labelEn: "Projects",
+			href: "#projects",
+		},
+		{ id: "game", labelVi: "Trò chơi", labelEn: "Game", href: "#game" },
+	];
+
+	const handleTabClick = (tab: (typeof tabs)[0]) => {
+		setActiveTab(tab.id);
+		if (tab.href !== "#") {
+			const el = document.getElementById(tab.href.replace("#", ""));
+			el?.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+	/* Decorative avatar row — friend-like colored circles */
+	const avatarColors = ["#1b74e4", "#7c3aed", "#db2777", "#f59e0b", "#31a24c"];
 
 	return (
-		<section className="pt-32 pb-20 px-4 relative overflow-hidden">
-			<Sticker
-				text="🚀 Top Rated"
-				color="bg-neo-green"
-				rotate={10}
-				className="top-40 left-10 hidden xl:block"
-			/>
-			<Sticker
-				text="✨ Creative"
-				color="bg-neo-purple"
-				rotate={-15}
-				className="bottom-40 left-20 hidden xl:block"
-			/>
-			<Sticker
-				text="🔥 Fast AF"
-				color="bg-neo-red"
-				rotate={5}
-				className="top-60 right-20 hidden xl:block"
-			/>
-
-			<div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-0">
-				<motion.div
-					initial={{ opacity: 0, x: -50 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+		<div style={{ marginTop: "var(--fb-topbar-h)" }}>
+			<div className="mx-auto max-w-6xl">
+				{/* ── Cover Photo ── */}
+				<div
+					className="relative overflow-hidden rounded-b-xl"
+					style={{ background: "var(--fb-card)" }}
 				>
-					<div className="inline-flex items-center gap-2 bg-neo-green neo-brutalism-border px-4 py-1 mb-6 font-bold text-sm dark:text-black">
-						<Star className="w-4 h-4 fill-black" />
-						{t.hero.status}
+					<div
+						className="relative overflow-hidden rounded-b-xl"
+						style={{ height: "clamp(200px, 30vw, 350px)" }}
+					>
+						{/* Gradient cover */}
+						<div
+							className="absolute inset-0"
+							style={{
+								background:
+									"linear-gradient(135deg, #1877f2 0%, #7c3aed 35%, #db2777 65%, #f59e0b 100%)",
+							}}
+						/>
+						{/* Subtle dot pattern overlay */}
+						<div
+							className="absolute inset-0 opacity-[0.15]"
+							style={{
+								backgroundImage:
+									"radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 0)",
+								backgroundSize: "28px 28px",
+							}}
+						/>
+						{/* Gradient fade at bottom for smooth blend */}
+						<div
+							className="absolute right-0 bottom-0 left-0 h-24"
+							style={{
+								background:
+									"linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%)",
+							}}
+						/>
+
+						{/* Add cover photo button */}
+						<button
+							className="absolute right-4 bottom-4 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold shadow-sm transition-colors"
+							style={{
+								background: "rgba(255,255,255,0.88)",
+								color: "#050505",
+							}}
+						>
+							<Camera className="h-4 w-4" />
+							{language === "vi" ? "Thêm ảnh bìa" : "Add cover photo"}
+						</button>
 					</div>
 
-					<h1 className="text-4xl md:text-8xl font-black leading-none mb-6 text-black dark:text-white">
-						{t.hero.title1} <br />
-						<span className="text-neo-purple">{t.hero.title2}</span>
-					</h1>
+					{/* ── Profile Section ── */}
+					<div style={{ background: "var(--fb-card)" }}>
+						<div className="p-4">
+							<div className="flex flex-col sm:flex-row sm:items-end sm:justify-between">
+								{/* Avatar + name block */}
+								<div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+									{/* Avatar circle — overlaps cover by ~40px */}
+									<div className="relative -mt-[60px] shrink-0 sm:-mt-[80px]">
+										<div
+											className="flex h-[140px] w-[140px] items-center justify-center rounded-full text-5xl font-bold text-white sm:h-[168px] sm:w-[168px]"
+											style={{
+												background:
+													"linear-gradient(135deg, #1b74e4 0%, #7c3aed 100%)",
+												border: "4px solid var(--fb-card)",
+												boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+											}}
+										>
+											DN
+										</div>
+										{/* Green online dot */}
+										<div
+											className="absolute right-2 bottom-2 h-7 w-7 rounded-full"
+											style={{
+												background: "var(--fb-green)",
+												border: "4px solid var(--fb-card)",
+											}}
+										/>
+									</div>
 
-					<p
-						className="text-xl md:text-2xl font-bold mb-8 max-w-xl text-black dark:text-zinc-300"
-						dangerouslySetInnerHTML={{ __html: t.hero.desc }}
-					/>
+									{/* Name & stats */}
+									<div className="pb-3 sm:pb-4">
+										<h1
+											className="text-3xl leading-tight font-bold"
+											style={{ color: "var(--fb-text)" }}
+										>
+											Duc Nguyen
+										</h1>
+										<p
+											className="mt-0.5 text-sm"
+											style={{ color: "var(--fb-muted)" }}
+										>
+											Front-End Developer
+										</p>
 
-					<div className="flex flex-wrap gap-6">
-						<Button size="lg">
-							{t.hero.work} <ArrowRight className="w-5 h-5 ml-2" />
-						</Button>
-						<Button
-							size="lg"
-							variant="outline"
-							className="dark:bg-black dark:text-white"
-						>
-							{t.hero.contact}
-						</Button>
-					</div>
-				</motion.div>
+										{/* Stats line */}
+										<p
+											className="mt-0.5 text-[13px] font-semibold"
+											style={{ color: "var(--fb-muted)" }}
+										>
+											{language === "vi"
+												? "3 dự án nổi bật · 10 kỹ năng"
+												: "3 featured projects · 10 skills"}
+										</p>
 
-				<motion.div
-					initial={{ opacity: 0, scale: 0.8 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.5, delay: 0.2 }}
-					className="relative"
-				>
-					<div className="w-full aspect-square bg-neo-yellow neo-brutalism-border neo-brutalism-shadow relative overflow-hidden">
-						{/* Placeholder for Profile Image */}
-						<div className="absolute inset-0 flex items-center justify-center text-8xl font-black opacity-20 select-none dark:text-black">
-							DEV
-						</div>
-						<motion.div
-							animate={{ rotate: 360 }}
-							transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-							className="absolute top-10 right-10 flex items-center justify-center"
-						>
-							<div className="w-32 h-32 bg-neo-purple neo-brutalism-border neo-brutalism-shadow flex items-center justify-center text-white font-black text-center p-2 leading-none">
-								{t.hero.hireNow}
+										{/* Decorative avatar row (skills/connections) */}
+										<div className="relative mt-2">
+											<div
+												className="flex cursor-pointer items-center gap-1 hover:underline"
+												onClick={() => setShowSkillsList(!showSkillsList)}
+											>
+												{avatarColors.map((color, i) => (
+													<div
+														key={i}
+														className="h-8 w-8 rounded-full"
+														style={{
+															background: `linear-gradient(135deg, ${color} 0%, ${color}99 100%)`,
+															border: "2px solid var(--fb-card)",
+															marginLeft: i === 0 ? 0 : "-8px",
+														}}
+													/>
+												))}
+												<span
+													className="ml-2 text-[13px] font-semibold select-none"
+													style={{ color: "var(--fb-muted)" }}
+												>
+													{language === "vi"
+														? "React, Next.js và 8 công nghệ khác"
+														: "React, Next.js and 8 more technologies"}
+												</span>
+											</div>
+
+											{/* Skills Popover */}
+											<AnimatePresence>
+												{showSkillsList && (
+													<motion.div
+														initial={{ opacity: 0, y: 5 }}
+														animate={{ opacity: 1, y: 0 }}
+														exit={{ opacity: 0, y: 5 }}
+														transition={{ duration: 0.15 }}
+														className="absolute bottom-full left-0 z-50 mt-2 w-[320px] rounded-xl p-3 shadow-lg"
+														style={{
+															background: "var(--fb-card)",
+															border: "1px solid var(--fb-border)",
+														}}
+													>
+														<p
+															className="mb-2 text-xs font-bold uppercase"
+															style={{ color: "var(--fb-muted)" }}
+														>
+															{language === "vi"
+																? "Kỹ năng chuyên môn"
+																: "Technical Skills"}
+														</p>
+														<div className="flex flex-wrap gap-1.5">
+															{[
+																"React",
+																"Next.js",
+																"TypeScript",
+																"Tailwind CSS",
+																"RESTful API",
+																"GraphQL",
+																"Zustand",
+																"Directus",
+																"WordPress",
+																"Git",
+																"GSAP",
+															].map((skill) => (
+																<span
+																	key={skill}
+																	className="rounded-md border px-2.5 py-1 text-[13px] font-medium"
+																	style={{
+																		background: "var(--fb-bg)",
+																		color: "var(--fb-text)",
+																		borderColor: "var(--fb-divider)",
+																	}}
+																>
+																	{skill}
+																</span>
+															))}
+														</div>
+													</motion.div>
+												)}
+											</AnimatePresence>
+										</div>
+									</div>
+								</div>
+
+								{/* Action buttons */}
+								<div className="mt-2 flex flex-wrap items-center gap-2 pb-4 sm:mt-0">
+									<button className="fb-btn-primary">
+										<Plus className="h-4 w-4" />
+										{language === "vi" ? "Thêm vào tin" : "Add to story"}
+									</button>
+									<button className="fb-btn-secondary">
+										<PenLine className="h-4 w-4" />
+										{language === "vi" ? "Chỉnh sửa trang" : "Edit profile"}
+									</button>
+									<button
+										className="fb-btn-secondary"
+										style={{
+											width: "36px",
+											padding: 0,
+											justifyContent: "center",
+										}}
+									>
+										<ChevronDown className="h-5 w-5" />
+									</button>
+								</div>
 							</div>
-						</motion.div>
-					</div>
+						</div>
 
-					{/* Decorative floating elements */}
-					<motion.div
-						animate={{ y: [0, -20, 0] }}
-						transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-						className="absolute -bottom-6 -left-6 w-24 h-24 bg-neo-red neo-brutalism-border neo-brutalism-shadow"
-					/>
-				</motion.div>
+						{/* Divider */}
+						<div
+							style={{
+								borderTop: "1px solid var(--fb-border)",
+								marginLeft: "16px",
+								marginRight: "16px",
+							}}
+						/>
+
+						{/* ── Tab Bar ── */}
+						<div className="scrollbar-hide flex items-stretch overflow-x-auto px-2 pt-2 md:px-6">
+							{tabs.map((tab) => {
+								const isActive = activeTab === tab.id;
+								return (
+									<button
+										key={tab.id}
+										onClick={() => handleTabClick(tab)}
+										className="relative mx-0.5 shrink-0 rounded-lg px-4 py-3 text-[15px] font-semibold transition-colors"
+										style={{
+											color: isActive ? "var(--fb-blue)" : "var(--fb-muted)",
+										}}
+										onMouseEnter={(e) => {
+											if (!isActive)
+												(e.currentTarget as HTMLElement).style.background =
+													"var(--fb-hover)";
+										}}
+										onMouseLeave={(e) => {
+											if (!isActive)
+												(e.currentTarget as HTMLElement).style.background =
+													"transparent";
+										}}
+									>
+										{language === "vi" ? tab.labelVi : tab.labelEn}
+
+										{isActive && (
+											<motion.div
+												layoutId="fb-tab-bar"
+												className="absolute right-0 bottom-0 left-0 rounded-full"
+												style={{
+													height: "3px",
+													background: "var(--fb-blue)",
+												}}
+											/>
+										)}
+									</button>
+								);
+							})}
+
+							{/* More button */}
+							<button
+								className="ml-auto shrink-0 rounded-lg px-4 py-3 text-[15px] font-semibold"
+								style={{ color: "var(--fb-muted)" }}
+								onMouseEnter={(e) => {
+									(e.currentTarget as HTMLElement).style.background =
+										"var(--fb-hover)";
+								}}
+								onMouseLeave={(e) => {
+									(e.currentTarget as HTMLElement).style.background =
+										"transparent";
+								}}
+							>
+								···
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
-		</section>
+		</div>
 	);
 }

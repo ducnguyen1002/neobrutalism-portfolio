@@ -2,7 +2,21 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, RefreshCw, Play, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Bug } from "lucide-react";
+import {
+  Trophy,
+  RefreshCw,
+  Play,
+  ChevronUp,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Bug,
+  Globe,
+  MoreHorizontal,
+  ThumbsUp,
+  MessageCircle,
+  Share2,
+} from "lucide-react";
 import { useLanguage } from "./Providers";
 import { Button } from "./ui/Button";
 
@@ -13,7 +27,7 @@ const SPEED_INCREMENT = 2;
 type Point = { x: number; y: number };
 
 export function SnakeGame() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [snake, setSnake] = useState<Point[]>([{ x: 10, y: 10 }]);
   const [food, setFood] = useState<Point>({ x: 15, y: 10 });
   const [direction, setDirection] = useState<Point>({ x: 0, y: -1 });
@@ -43,7 +57,8 @@ export function SnakeGame() {
       };
       // Don't spawn food on snake
       const isOnSnake = snake.some(
-        (segment: Point) => segment.x === newFood!.x && segment.y === newFood!.y,
+        (segment: Point) =>
+          segment.x === newFood!.x && segment.y === newFood!.y,
       );
       if (!isOnSnake) break;
     }
@@ -71,7 +86,12 @@ export function SnakeGame() {
       };
 
       // Check collision with self
-      if (prevSnake.some((segment: Point) => segment.x === newHead.x && segment.y === newHead.y)) {
+      if (
+        prevSnake.some(
+          (segment: Point) =>
+            segment.x === newHead.x && segment.y === newHead.y,
+        )
+      ) {
         setIsGameOver(true);
         setIsStarted(false);
         return prevSnake;
@@ -149,46 +169,122 @@ export function SnakeGame() {
       "#00FF00", // Green
       "#0000FF", // Blue
       "#4B0082", // Indigo
-      "#8B00FF"  // Violet
+      "#8B00FF", // Violet
     ];
     return rainbow[index % rainbow.length];
   };
 
   return (
-    <section id="game" className="py-20 px-4 bg-background border-t-4 border-black dark:border-white overflow-hidden">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
-          <div>
-            <h2 className="text-5xl font-black mb-4 flex items-center gap-4 text-black dark:text-white uppercase">
-              {t.snake?.title || "MINI GAME"}{" "}
-              <span className="bg-neo-red px-4 py-1 neo-brutalism-border text-white text-2xl -rotate-2">
-                {t.snake?.badge || "FOR FUN"}
-              </span>
-            </h2>
-            <p className="font-bold text-xl text-black/70 dark:text-white/70 max-w-md">
-              {t.snake?.desc || "Use arrow keys to control the snake. Eat red dots to grow!"}
-            </p>
+    <div id="game" className="fb-card overflow-hidden">
+      {/* ── FB Post Header ── */}
+      <div className="flex items-start justify-between p-4 pb-3">
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--fb-blue) 0%, #7c3aed 100%)",
+            }}
+          >
+            DN
           </div>
-
-          <div className="flex gap-4">
-            <div className="bg-neo-green neo-brutalism-border p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              <div className="text-xs font-black uppercase mb-1">{t.snake?.score || "Score"}</div>
-              <div className="text-3xl font-black">{score}</div>
-            </div>
-            <div className="bg-neo-yellow neo-brutalism-border p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              <div className="text-xs font-black uppercase mb-1">{t.snake?.highScore || "High"}</div>
-              <div className="text-3xl font-black">{highScore}</div>
+          <div>
+            <p
+              className="text-[15px] font-semibold"
+              style={{ color: "var(--fb-text)" }}
+            >
+              Duc Nguyen
+            </p>
+            <div className="flex items-center gap-1">
+              <span className="text-xs" style={{ color: "var(--fb-muted)" }}>
+                7 ngày trước
+              </span>
+              <span style={{ color: "var(--fb-muted)" }}>·</span>
+              <Globe className="h-3 w-3" style={{ color: "var(--fb-muted)" }} />
             </div>
           </div>
         </div>
-
-        <div className="relative aspect-square md:aspect-video w-full max-w-2xl mx-auto bg-white dark:bg-black/50 neo-brutalism-border neo-brutalism-shadow overflow-hidden">
+        <button
+          className="fb-icon-btn"
+          style={{ width: "36px", height: "36px" }}
+        >
+          <MoreHorizontal className="h-5 w-5" />
+        </button>
+      </div>
+      {/* Post text */}
+      <div className="px-4 pb-3">
+        <p
+          className="text-[15px] leading-relaxed"
+          style={{ color: "var(--fb-text)" }}
+        >
+          🎮 {t.snake?.badge || "FOR FUN"} —{" "}
+          <span className="font-semibold">{t.snake?.title || "Mini Game"}</span>
+        </p>
+        <p
+          className="mt-1 text-[15px] leading-relaxed"
+          style={{ color: "var(--fb-text)", opacity: 0.85 }}
+        >
+          {t.snake?.desc ||
+            "Use arrow keys to control the snake. Eat the bugs to grow!"}
+        </p>
+      </div>
+      {/* Score badges */}
+      <div className="flex gap-3 px-4 pb-4">
+        <div
+          className="fb-card min-w-[80px] px-5 py-3 text-center"
+          style={{ background: "var(--fb-icon-bg)", boxShadow: "none" }}
+        >
+          <div
+            className="mb-1 text-xs font-medium tracking-wider uppercase"
+            style={{ color: "var(--fb-muted)" }}
+          >
+            {t.snake?.score || "Score"}
+          </div>
+          <div
+            className="text-2xl font-bold"
+            style={{ color: "var(--fb-blue)" }}
+          >
+            {score}
+          </div>
+        </div>
+        <div
+          className="fb-card min-w-[80px] px-5 py-3 text-center"
+          style={{ background: "var(--fb-icon-bg)", boxShadow: "none" }}
+        >
+          <div
+            className="mb-1 text-xs font-medium tracking-wider uppercase"
+            style={{ color: "var(--fb-muted)" }}
+          >
+            {t.snake?.highScore || "Best"}
+          </div>
+          <div
+            className="text-2xl font-bold"
+            style={{ color: "var(--fb-text)" }}
+          >
+            {highScore}
+          </div>
+        </div>
+      </div>
+      {/* Game area */}
+      <div
+        style={{
+          borderTop: "1px solid var(--fb-border)",
+          padding: "12px 16px",
+        }}
+      >
+        <div
+          className="relative mx-auto aspect-square w-full max-w-2xl overflow-hidden rounded-xl md:aspect-video"
+          style={{
+            background: "var(--fb-card)",
+            border: "1px solid var(--fb-border)",
+          }}
+        >
           {/* Grid Layout */}
           <div
-            className="grid w-full h-full"
+            className="grid h-full w-full"
             style={{
               gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-              gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`
+              gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
             }}
           >
             {/* Render Snake */}
@@ -214,7 +310,7 @@ export function SnakeGame() {
               }}
               className="flex items-center justify-center"
             >
-              <Bug className="w-full h-full text-neo-red fill-neo-red p-[2px]" />
+              <Bug className="h-full w-full fill-rose-500 p-[2px] text-rose-500" />
             </motion.div>
           </div>
 
@@ -225,30 +321,63 @@ export function SnakeGame() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 text-center"
+                className="absolute inset-0 flex items-center justify-center bg-black/60 p-6 text-center backdrop-blur-sm"
               >
-                <div className="bg-white dark:bg-[#1a1a1a] neo-brutalism-border p-8 max-w-sm w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.5)]">
+                <div
+                  className="w-full max-w-sm rounded-xl p-8"
+                  style={{
+                    background: "var(--fb-card)",
+                    border: "1px solid var(--fb-border)",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+                  }}
+                >
                   {isGameOver ? (
                     <>
-                      <Trophy className="w-16 h-16 mx-auto mb-4 text-neo-yellow" />
-                      <h3 className="text-4xl font-black mb-2 text-neo-red uppercase">
-                        {t.snake?.gameOver || "GAME OVER!"}
+                      <Trophy
+                        className="mx-auto mb-4 h-12 w-12"
+                        style={{ color: "#f59e0b" }}
+                      />
+                      <h3
+                        className="mb-2 text-2xl font-bold"
+                        style={{ color: "var(--fb-text)" }}
+                      >
+                        {t.snake?.gameOver || "Game Over"}
                       </h3>
-                      <p className="font-bold mb-6 text-xl">
-                        Final Score: <span className="text-neo-purple">{score}</span>
+                      <p className="mb-6" style={{ color: "var(--fb-muted)" }}>
+                        Score:{" "}
+                        <span
+                          className="font-semibold"
+                          style={{ color: "var(--fb-blue)" }}
+                        >
+                          {score}
+                        </span>
                       </p>
-                      <Button onClick={resetGame} className="w-full justify-center">
-                        <RefreshCw className="w-5 h-5 mr-2" /> {t.snake?.playAgain || "PLAY AGAIN"}
+                      <Button
+                        onClick={resetGame}
+                        className="w-full justify-center"
+                      >
+                        <RefreshCw className="mr-2 h-4 w-4" />{" "}
+                        {t.snake?.playAgain || "Play Again"}
                       </Button>
                     </>
                   ) : (
                     <>
-                      <Play className="w-16 h-16 mx-auto mb-4 text-neo-green" />
-                      <h3 className="text-3xl font-black mb-6 uppercase">
+                      <Play
+                        className="mx-auto mb-4 h-12 w-12"
+                        style={{ color: "var(--fb-blue)" }}
+                      />
+                      <h3
+                        className="mb-5 text-2xl font-bold"
+                        style={{ color: "var(--fb-text)" }}
+                      >
                         {t.snake?.ready || "Ready to play?"}
                       </h3>
-                      <Button onClick={resetGame} size="lg" className="w-full justify-center">
-                        {t.snake?.start || "START GAME"}
+                      <Button
+                        onClick={resetGame}
+                        size="lg"
+                        className="w-full justify-center"
+                      >
+                        {t.snake?.start || "Start Game"}
                       </Button>
                     </>
                   )}
@@ -262,37 +391,75 @@ export function SnakeGame() {
         <div className="mt-12 flex flex-col items-center gap-2 md:hidden">
           <button
             onClick={() => setDirectionSafe({ x: 0, y: -1 })}
-            className="w-16 h-16 bg-white dark:bg-zinc-800 neo-brutalism-border flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all"
+            className="flex h-14 w-14 items-center justify-center rounded-xl transition-all active:scale-95"
+            style={{
+              background: "var(--fb-icon-bg)",
+              color: "var(--fb-muted)",
+            }}
           >
-            <ChevronUp className="w-8 h-8" />
+            <ChevronUp className="h-6 w-6" />
           </button>
           <div className="flex gap-2">
             <button
               onClick={() => setDirectionSafe({ x: -1, y: 0 })}
-              className="w-16 h-16 bg-white dark:bg-zinc-800 neo-brutalism-border flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all"
+              className="flex h-14 w-14 items-center justify-center rounded-xl transition-all active:scale-95"
+              style={{
+                background: "var(--fb-icon-bg)",
+                color: "var(--fb-muted)",
+              }}
             >
-              <ChevronLeft className="w-8 h-8" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={() => setDirectionSafe({ x: 0, y: 1 })}
-              className="w-16 h-16 bg-white dark:bg-zinc-800 neo-brutalism-border flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all"
+              className="flex h-14 w-14 items-center justify-center rounded-xl transition-all active:scale-95"
+              style={{
+                background: "var(--fb-icon-bg)",
+                color: "var(--fb-muted)",
+              }}
             >
-              <ChevronDown className="w-8 h-8" />
+              <ChevronDown className="h-6 w-6" />
             </button>
             <button
               onClick={() => setDirectionSafe({ x: 1, y: 0 })}
-              className="w-16 h-16 bg-white dark:bg-zinc-800 neo-brutalism-border flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all"
+              className="flex h-14 w-14 items-center justify-center rounded-xl transition-all active:scale-95"
+              style={{
+                background: "var(--fb-icon-bg)",
+                color: "var(--fb-muted)",
+              }}
             >
-              <ChevronRight className="w-8 h-8" />
+              <ChevronRight className="h-6 w-6" />
             </button>
           </div>
         </div>
 
         {/* Desktop Hint */}
-        <p className="hidden md:block text-center mt-8 font-bold opacity-50">
+        <p
+          className="mt-6 hidden text-center text-sm font-medium md:block"
+          style={{ color: "var(--fb-muted)", opacity: 0.7 }}
+        >
           Tip: Use Keyboard Arrow Keys to Play
         </p>
+      </div>{" "}
+      {/* end game area */}
+      {/* ── Post reaction bar ── */}
+      <div
+        style={{ borderTop: "1px solid var(--fb-border)", margin: "0 16px" }}
+      />
+      <div className="flex px-2 py-1">
+        <button className="fb-post-action">
+          <ThumbsUp className="h-5 w-5" />{" "}
+          {language === "vi" ? "Thích" : "Like"}
+        </button>
+        <button className="fb-post-action">
+          <MessageCircle className="h-5 w-5" />{" "}
+          {language === "vi" ? "Bình luận" : "Comment"}
+        </button>
+        <button className="fb-post-action">
+          <Share2 className="h-5 w-5" />{" "}
+          {language === "vi" ? "Chia sẻ" : "Share"}
+        </button>
       </div>
-    </section>
+    </div>
   );
 }

@@ -2,28 +2,15 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-	color?: "white" | "yellow" | "purple" | "green" | "red" | "blue";
+  variant?: "default" | "elevated" | "flat";
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-	({ className, color = "white", ...props }, ref) => {
-		const colors = {
-			white: "bg-(--card-background) text-foreground",
-			yellow: "bg-neo-yellow",
-			purple: "bg-neo-purple",
-			green: "bg-neo-green",
-			red: "bg-neo-red",
-			blue: "bg-neo-blue",
-		};
-
-		return (
-			<div
-				ref={ref}
-				className={cn("neo-brutalism-card p-6", colors[color], className)}
-				{...props}
-			/>
-		);
-	},
+  ({ className, variant = "default", ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn("fb-card p-4", className)} {...props} />
+    );
+  },
 );
 Card.displayName = "Card";
 
