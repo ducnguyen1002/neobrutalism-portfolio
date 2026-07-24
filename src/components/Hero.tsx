@@ -4,8 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, PenLine, Plus, ChevronDown } from "lucide-react";
 import { useLanguage } from "./Providers";
+import { Tooltip } from "./ui/Tooltip";
+import type { Profile } from "@/types/database";
 
-export function Hero() {
+interface HeroProps {
+	profile?: Profile | null;
+}
+
+export function Hero({ profile }: HeroProps) {
 	const { language } = useLanguage();
 	const [activeTab, setActiveTab] = useState("posts");
 	const [showSkillsList, setShowSkillsList] = useState(false);
@@ -72,16 +78,18 @@ export function Hero() {
 						/>
 
 						{/* Add cover photo button */}
-						<button
-							className="absolute right-4 bottom-4 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold shadow-sm transition-colors"
-							style={{
-								background: "rgba(255,255,255,0.88)",
-								color: "#050505",
-							}}
-						>
-							<Camera className="h-4 w-4" />
-							{language === "vi" ? "Thêm ảnh bìa" : "Add cover photo"}
-						</button>
+						<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+							<button
+								className="absolute right-4 bottom-4 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold shadow-sm transition-colors"
+								style={{
+									background: "rgba(255,255,255,0.88)",
+									color: "#050505",
+								}}
+							>
+								<Camera className="h-4 w-4" />
+								{language === "vi" ? "Thêm ảnh bìa" : "Add cover photo"}
+							</button>
+						</Tooltip>
 					</div>
 
 					{/* ── Profile Section ── */}
@@ -91,9 +99,9 @@ export function Hero() {
 								{/* Avatar + name block */}
 								<div className="flex flex-col gap-4 sm:flex-row sm:items-end">
 									{/* Avatar circle — overlaps cover by ~40px */}
-									<div className="relative -mt-[60px] shrink-0 sm:-mt-[80px]">
+									<div className="relative -mt-15 shrink-0 sm:-mt-20">
 										<div
-											className="flex h-[140px] w-[140px] items-center justify-center rounded-full text-5xl font-bold text-white sm:h-[168px] sm:w-[168px]"
+											className="flex h-35 w-35 items-center justify-center rounded-full text-5xl font-bold text-white sm:h-[168px] sm:w-[168px]"
 											style={{
 												background:
 													"linear-gradient(135deg, #1b74e4 0%, #7c3aed 100%)",
@@ -101,7 +109,9 @@ export function Hero() {
 												boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
 											}}
 										>
-											DN
+											{profile?.full_name
+												? profile.full_name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
+												: "DN"}
 										</div>
 										{/* Green online dot */}
 										<div
@@ -119,13 +129,13 @@ export function Hero() {
 											className="text-3xl leading-tight font-bold"
 											style={{ color: "var(--fb-text)" }}
 										>
-											Duc Nguyen
+											{profile?.full_name ?? "Duc Nguyen"}
 										</h1>
 										<p
 											className="mt-0.5 text-sm"
 											style={{ color: "var(--fb-muted)" }}
 										>
-											Front-End Developer
+											{profile?.title ?? "Front-End Developer"}
 										</p>
 
 										{/* Stats line */}
@@ -223,24 +233,30 @@ export function Hero() {
 
 								{/* Action buttons */}
 								<div className="mt-2 flex flex-wrap items-center gap-2 pb-4 sm:mt-0">
-									<button className="fb-btn-primary">
-										<Plus className="h-4 w-4" />
-										{language === "vi" ? "Thêm vào tin" : "Add to story"}
-									</button>
-									<button className="fb-btn-secondary">
-										<PenLine className="h-4 w-4" />
-										{language === "vi" ? "Chỉnh sửa trang" : "Edit profile"}
-									</button>
-									<button
-										className="fb-btn-secondary"
-										style={{
-											width: "36px",
-											padding: 0,
-											justifyContent: "center",
-										}}
-									>
-										<ChevronDown className="h-5 w-5" />
-									</button>
+									<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+										<button className="fb-btn-primary">
+											<Plus className="h-4 w-4" />
+											{language === "vi" ? "Thêm vào tin" : "Add to story"}
+										</button>
+									</Tooltip>
+									<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+										<button className="fb-btn-secondary">
+											<PenLine className="h-4 w-4" />
+											{language === "vi" ? "Chỉnh sửa trang" : "Edit profile"}
+										</button>
+									</Tooltip>
+									<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+										<button
+											className="fb-btn-secondary"
+											style={{
+												width: "36px",
+												padding: 0,
+												justifyContent: "center",
+											}}
+										>
+											<ChevronDown className="h-5 w-5" />
+										</button>
+									</Tooltip>
 								</div>
 							</div>
 						</div>
@@ -294,20 +310,22 @@ export function Hero() {
 							})}
 
 							{/* More button */}
-							<button
-								className="ml-auto shrink-0 rounded-lg px-4 py-3 text-[15px] font-semibold"
-								style={{ color: "var(--fb-muted)" }}
-								onMouseEnter={(e) => {
-									(e.currentTarget as HTMLElement).style.background =
-										"var(--fb-hover)";
-								}}
-								onMouseLeave={(e) => {
-									(e.currentTarget as HTMLElement).style.background =
-										"transparent";
-								}}
-							>
-								···
-							</button>
+							<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+								<button
+									className="ml-auto shrink-0 rounded-lg px-4 py-3 text-[15px] font-semibold"
+									style={{ color: "var(--fb-muted)" }}
+									onMouseEnter={(e) => {
+										(e.currentTarget as HTMLElement).style.background =
+											"var(--fb-hover)";
+									}}
+									onMouseLeave={(e) => {
+										(e.currentTarget as HTMLElement).style.background =
+											"transparent";
+									}}
+								>
+									···
+								</button>
+							</Tooltip>
 						</div>
 					</div>
 				</div>

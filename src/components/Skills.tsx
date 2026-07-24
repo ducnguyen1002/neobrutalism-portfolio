@@ -8,10 +8,17 @@ import {
 	Github,
 	Linkedin,
 	Mail,
-	ChevronDown,
 } from "lucide-react";
+import type { Profile, Skill } from "@/types/database";
+import { Tooltip } from "./ui/Tooltip";
 
-const skills = [
+interface SkillsProps {
+	profile?: Profile | null;
+	skills?: Skill[];
+}
+
+// Fallback data when Supabase is empty
+const FALLBACK_SKILLS = [
 	"React",
 	"Next.js",
 	"TypeScript",
@@ -31,8 +38,25 @@ const photos = [
 	"/projects/tanhoangminh_homepage_screenshot.png",
 ];
 
-export function Skills() {
+export function Skills({ profile, skills }: SkillsProps) {
 	const { language } = useLanguage();
+
+	const skillNames =
+		skills && skills.length > 0
+			? skills.map((s) => s.name)
+			: FALLBACK_SKILLS;
+
+	const displayName = profile?.full_name ?? "Duc Nguyen";
+	const displayTitle = profile?.title ?? "Front-End Developer";
+	const displayBio =
+		profile?.bio ??
+		(language === "vi"
+			? "Lập trình viên Front-End với 3+ năm kinh nghiệm, chuyên về React & Next.js. Đam mê tạo ra những giao diện đẹp và hiệu năng cao."
+			: "Front-End Developer with 3+ years of experience, specializing in React & Next.js. Passionate about creating beautiful, high-performance UIs.");
+	const displayEmail = profile?.email ?? "ducduc1022000@gmail.com";
+	const displayGithub = profile?.github ?? "github.com/ducnguyen1002";
+	const displayLinkedin = profile?.linkedin ?? "linkedin.com/in/ducnguyen";
+	const displayLocation = profile?.location ?? "Hà Nội, Việt Nam";
 
 	return (
 		<div id="skills" className="flex flex-col gap-3">
@@ -50,9 +74,7 @@ export function Skills() {
 					className="mb-4 text-center text-[15px] leading-relaxed"
 					style={{ color: "var(--fb-text)" }}
 				>
-					{language === "vi"
-						? "Lập trình viên Front-End với 3+ năm kinh nghiệm, chuyên về React & Next.js. Đam mê tạo ra những giao diện đẹp và hiệu năng cao."
-						: "Front-End Developer with 3+ years of experience, specializing in React & Next.js. Passionate about creating beautiful, high-performance UIs."}
+					{displayBio}
 				</p>
 
 				{/* Open to work badge */}
@@ -75,7 +97,7 @@ export function Skills() {
 							{language === "vi" ? "Đang tìm việc" : "Open to work"}
 						</p>
 						<p className="mt-0.5 text-xs" style={{ color: "var(--fb-muted)" }}>
-							Front-End Developer · {language === "vi" ? "Hà Nội" : "Hanoi"}
+							{displayTitle} · {displayLocation}
 						</p>
 					</div>
 				</div>
@@ -89,7 +111,7 @@ export function Skills() {
 						/>
 						<span>
 							{language === "vi" ? "Làm việc tại " : "Works as "}
-							<span className="font-semibold">Front-End Developer</span>
+							<span className="font-semibold">{displayTitle}</span>
 						</span>
 					</div>
 
@@ -112,12 +134,12 @@ export function Skills() {
 						/>
 						<span>
 							{language === "vi" ? "Sống tại " : "Lives in "}
-							<span className="font-semibold">Hà Nội, Việt Nam</span>
+							<span className="font-semibold">{displayLocation}</span>
 						</span>
 					</div>
 
 					<a
-						href="mailto:ducduc1022000@gmail.com"
+						href={`mailto:${displayEmail}`}
 						className="fb-info-row"
 						style={{ textDecoration: "none" }}
 					>
@@ -125,13 +147,15 @@ export function Skills() {
 							className="h-5 w-5 shrink-0"
 							style={{ color: "var(--fb-text)" }}
 						/>
-						<span style={{ color: "var(--fb-blue)" }}>
-							ducduc1022000@gmail.com
-						</span>
+						<span style={{ color: "var(--fb-blue)" }}>{displayEmail}</span>
 					</a>
 
 					<a
-						href="https://github.com"
+						href={
+							displayGithub.startsWith("http")
+								? displayGithub
+								: `https://${displayGithub}`
+						}
 						target="_blank"
 						rel="noreferrer"
 						className="fb-info-row"
@@ -141,13 +165,15 @@ export function Skills() {
 							className="h-5 w-5 shrink-0"
 							style={{ color: "var(--fb-text)" }}
 						/>
-						<span style={{ color: "var(--fb-blue)" }}>
-							github.com/ducnguyen1002
-						</span>
+						<span style={{ color: "var(--fb-blue)" }}>{displayGithub}</span>
 					</a>
 
 					<a
-						href="https://linkedin.com"
+						href={
+							displayLinkedin.startsWith("http")
+								? displayLinkedin
+								: `https://${displayLinkedin}`
+						}
 						target="_blank"
 						rel="noreferrer"
 						className="fb-info-row"
@@ -157,27 +183,27 @@ export function Skills() {
 							className="h-5 w-5 shrink-0"
 							style={{ color: "var(--fb-text)" }}
 						/>
-						<span style={{ color: "var(--fb-blue)" }}>
-							linkedin.com/in/ducnguyen
-						</span>
+						<span style={{ color: "var(--fb-blue)" }}>{displayLinkedin}</span>
 					</a>
 				</div>
 
 				{/* Edit button */}
-				<button
-					className="mt-3 w-full rounded-lg py-2 text-sm font-semibold transition-colors"
-					style={{ background: "var(--fb-icon-bg)", color: "var(--fb-text)" }}
-					onMouseEnter={(e) =>
-					((e.currentTarget as HTMLElement).style.background =
-						"var(--fb-divider)")
-					}
-					onMouseLeave={(e) =>
-					((e.currentTarget as HTMLElement).style.background =
-						"var(--fb-icon-bg)")
-					}
-				>
-					{language === "vi" ? "Chỉnh sửa chi tiết" : "Edit details"}
-				</button>
+				<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+					<button
+						className="mt-3 w-full rounded-lg py-2 text-sm font-semibold transition-colors"
+						style={{ background: "var(--fb-icon-bg)", color: "var(--fb-text)" }}
+						onMouseEnter={(e) =>
+							((e.currentTarget as HTMLElement).style.background =
+								"var(--fb-divider)")
+						}
+						onMouseLeave={(e) =>
+							((e.currentTarget as HTMLElement).style.background =
+								"var(--fb-icon-bg)")
+						}
+					>
+						{language === "vi" ? "Chỉnh sửa chi tiết" : "Edit details"}
+					</button>
+				</Tooltip>
 			</div>
 
 			{/* ── Photos Panel ── */}
@@ -186,12 +212,14 @@ export function Skills() {
 					<h2 className="text-xl font-bold" style={{ color: "var(--fb-text)" }}>
 						{language === "vi" ? "Ảnh" : "Photos"}
 					</h2>
-					<button
-						className="text-sm font-semibold transition-colors"
-						style={{ color: "var(--fb-blue)" }}
-					>
-						{language === "vi" ? "Xem tất cả ảnh" : "See all photos"}
-					</button>
+					<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+						<button
+							className="text-sm font-semibold transition-colors"
+							style={{ color: "var(--fb-blue)" }}
+						>
+							{language === "vi" ? "Xem tất cả ảnh" : "See all photos"}
+						</button>
+					</Tooltip>
 				</div>
 
 				<div className="grid grid-cols-3 gap-1">
@@ -223,16 +251,18 @@ export function Skills() {
 					<h2 className="text-xl font-bold" style={{ color: "var(--fb-text)" }}>
 						{language === "vi" ? "Kỹ năng" : "Skills"}
 					</h2>
-					<button
-						className="text-sm font-semibold"
-						style={{ color: "var(--fb-blue)" }}
-					>
-						{language === "vi" ? "Chỉnh sửa" : "Edit"}
-					</button>
+					<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+						<button
+							className="text-sm font-semibold"
+							style={{ color: "var(--fb-blue)" }}
+						>
+							{language === "vi" ? "Chỉnh sửa" : "Edit"}
+						</button>
+					</Tooltip>
 				</div>
 
 				<div className="flex flex-wrap gap-2">
-					{skills.map((skill) => (
+					{skillNames.map((skill) => (
 						<span
 							key={skill}
 							className="cursor-default rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
@@ -241,12 +271,12 @@ export function Skills() {
 								color: "var(--fb-text)",
 							}}
 							onMouseEnter={(e) =>
-							((e.currentTarget as HTMLElement).style.background =
-								"var(--fb-divider)")
+								((e.currentTarget as HTMLElement).style.background =
+									"var(--fb-divider)")
 							}
 							onMouseLeave={(e) =>
-							((e.currentTarget as HTMLElement).style.background =
-								"var(--fb-icon-bg)")
+								((e.currentTarget as HTMLElement).style.background =
+									"var(--fb-icon-bg)")
 							}
 						>
 							{skill}
@@ -261,12 +291,14 @@ export function Skills() {
 					<h2 className="text-xl font-bold" style={{ color: "var(--fb-text)" }}>
 						{language === "vi" ? "Sở thích" : "Hobbies"}
 					</h2>
-					<button
-						className="text-sm font-semibold transition-colors"
-						style={{ color: "var(--fb-blue)" }}
-					>
-						{language === "vi" ? "Chỉnh sửa" : "Edit"}
-					</button>
+					<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+						<button
+							className="text-sm font-semibold transition-colors"
+							style={{ color: "var(--fb-blue)" }}
+						>
+							{language === "vi" ? "Chỉnh sửa" : "Edit"}
+						</button>
+					</Tooltip>
 				</div>
 				<div className="flex flex-wrap gap-2">
 					{[
@@ -284,12 +316,12 @@ export function Skills() {
 								background: "transparent",
 							}}
 							onMouseEnter={(e) =>
-							((e.currentTarget as HTMLElement).style.background =
-								"var(--fb-icon-bg)")
+								((e.currentTarget as HTMLElement).style.background =
+									"var(--fb-icon-bg)")
 							}
 							onMouseLeave={(e) =>
-							((e.currentTarget as HTMLElement).style.background =
-								"transparent")
+								((e.currentTarget as HTMLElement).style.background =
+									"transparent")
 							}
 						>
 							{language === "vi" ? hobby.vi : hobby.en}

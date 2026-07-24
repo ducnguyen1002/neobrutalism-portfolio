@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "./Providers";
 import { ProjectModal } from "./ui/ProjectModal";
+import { Tooltip } from "./ui/Tooltip";
+import type { Project } from "@/types/database";
 import {
 	ThumbsUp,
 	MessageCircle,
@@ -164,21 +166,68 @@ export const REACTIONS = [
 	},
 ];
 
-export function Projects() {
+// Normalized project shape used across the component
+interface NormalizedProject {
+	id?: number;
+	title: string;
+	description: string;
+	github: string;
+	live: string;
+	image: string;
+	tags: string[];
+}
+
+interface ProjectsProps {
+	projects?: Project[];
+}
+
+// Shape DB projects to match existing UI expectations
+function normalizeProject(p: Project): NormalizedProject {
+	const tags = (p.project_tags ?? []).map((t: any) =>
+		typeof t === "string" ? t : t.tag
+	);
+	return {
+		id: p.id,
+		title: p.title,
+		description: p.short_description ?? p.content ?? "",
+		github: p.github_url ?? "#",
+		live: p.live_url ?? "#",
+		image: p.cover_image ?? "",
+		tags,
+	};
+}
+
+export function Projects({ projects: dbProjects }: ProjectsProps) {
 	const { t, language } = useLanguage();
-	const [selectedProject, setSelectedProject] = useState<any>(null);
+
+	// Merge DB projects (preferred) with fallback translation data
+	const projectList: NormalizedProject[] = dbProjects && dbProjects.length > 0
+		? dbProjects.map(normalizeProject)
+		: (t.projects.items as any[]).map((p: any) => ({
+			title: p.title,
+			description: p.description,
+			github: p.github,
+			live: p.live,
+			image: p.image,
+			tags: p.tags,
+		}));
+	const [selectedProject, setSelectedProject] = useState<NormalizedProject | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [reactions, setReactions] = useState<Record<number, string>>({});
-	const [activeReactionPost, setActiveReactionPost] = useState<number | null>(
-		null,
-	);
+	// reactionDbIds: maps postIndex → reaction id in DB (for DELETE)
+	const [reactionDbIds, setReactionDbIds] = useState<Record<number, number>>({});
+	// reactionCounts from DB
+	const [reactionCounts, setReactionCounts] = useState<Record<number, number>>({});
+	const [activeReactionPost, setActiveReactionPost] = useState<number | null>(null);
 	const [savedPosts, setSavedPosts] = useState<Set<number>>(new Set());
 	const [openMenu, setOpenMenu] = useState<number | null>(null);
 	const [showComments, setShowComments] = useState<Set<number>>(new Set());
-	const [comments, setComments] = useState(INITIAL_COMMENTS);
-	const [commentInputs, setCommentInputs] = useState<Record<number, string>>(
-		{},
-	);
+	const [comments, setComments] = useState<Record<number, Comment[]>>(INITIAL_COMMENTS);
+	const [commentInputs, setCommentInputs] = useState<Record<number, string>>({});
+	// Comment form: require name+email before submitting
+	const [commentName, setCommentName] = useState("");
+	const [commentEmail, setCommentEmail] = useState("");
+	const [commentSubmitting, setCommentSubmitting] = useState<Record<number, boolean>>({});
 	const [commentLikes, setCommentLikes] = useState<Record<string, boolean>>({});
 	const menuRefs = useRef<Record<number, HTMLDivElement | null>>({});
 	const reactionTimeoutRefs = useRef<Record<number, NodeJS.Timeout | null>>({});
@@ -195,28 +244,106 @@ export function Projects() {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, [openMenu]);
 
-	const toggleLike = (i: number) => {
-		setReactions((prev) => ({
-			...prev,
-			[i]: prev[i] ? "" : "like",
-		}));
+	// Fetch reaction counts from DB on mount
+	useEffect(() => {
+		projectList.forEach((project, i) => {
+			if (!project.id) return;
+			fetch(`/api/reactions?project_id=${project.id}`)
+				.then((r) => r.json())
+				.then((data) => {
+					if (typeof data.count === "number") {
+						setReactionCounts((prev) => ({ ...prev, [i]: data.count }));
+					}
+				})
+				.catch(() => { });
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const fetchComments = useCallback(async (postIndex: number) => {
+		const project = projectList[postIndex];
+		if (!project?.id) return;
+		try {
+			const res = await fetch(`/api/comments?project_id=${project.id}`);
+			const data = await res.json();
+			if (Array.isArray(data)) {
+				const mapped: Comment[] = data.map((c: any) => ({
+					id: c.id,
+					author: c.name,
+					avatar: c.name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase(),
+					text: c.content,
+					time: new Date(c.created_at).toLocaleDateString(language === "vi" ? "vi-VN" : "en-US"),
+					likes: 0,
+					liked: false,
+				}));
+				setComments((prev) => ({ ...prev, [postIndex]: mapped }));
+			}
+		} catch { /* keep existing comments */ }
+	}, [projectList, language]);
+
+	const toggleLike = async (i: number) => {
+		const project = projectList[i];
+		const currentReaction = reactions[i];
+
+		if (currentReaction) {
+			// Remove reaction
+			const dbId = reactionDbIds[i];
+			if (dbId) {
+				fetch(`/api/reactions?id=${dbId}`, { method: "DELETE" }).catch(() => { });
+			}
+			setReactions((prev) => ({ ...prev, [i]: "" }));
+			setReactionCounts((prev) => ({ ...prev, [i]: Math.max(0, (prev[i] ?? 1) - 1) }));
+		} else {
+			// Add reaction
+			setReactions((prev) => ({ ...prev, [i]: "like" }));
+			setReactionCounts((prev) => ({ ...prev, [i]: (prev[i] ?? 0) + 1 }));
+			if (project?.id) {
+				fetch("/api/reactions", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ project_id: project.id, name: "Anonymous" }),
+				})
+					.then((r) => r.json())
+					.then((data) => {
+						if (data?.id) setReactionDbIds((prev) => ({ ...prev, [i]: data.id }));
+					})
+					.catch(() => { });
+			}
+		}
 	};
 
-	const handleSetReaction = (i: number, reactionId: string) => {
-		setReactions((prev) => ({
-			...prev,
-			[i]: reactionId,
-		}));
+	const handleSetReaction = async (i: number, reactionId: string) => {
+		const project = projectList[i];
+		const currentReaction = reactions[i];
+
+		if (!currentReaction) {
+			// New reaction
+			setReactionCounts((prev) => ({ ...prev, [i]: (prev[i] ?? 0) + 1 }));
+			if (project?.id) {
+				fetch("/api/reactions", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ project_id: project.id, name: reactionId }),
+				})
+					.then((r) => r.json())
+					.then((data) => {
+						if (data?.id) setReactionDbIds((prev) => ({ ...prev, [i]: data.id }));
+					})
+					.catch(() => { });
+			}
+		}
+		setReactions((prev) => ({ ...prev, [i]: reactionId }));
 		setActiveReactionPost(null);
 	};
 
 	const handleReactionMouseEnter = (i: number) => {
-		if (reactionTimeoutRefs.current[i])
+		if (reactionTimeoutRefs.current?.[i])
 			clearTimeout(reactionTimeoutRefs.current[i]!);
 		setActiveReactionPost(i);
 	};
 
 	const handleReactionMouseLeave = (i: number) => {
+		if (!reactionTimeoutRefs.current) reactionTimeoutRefs.current = {};
 		reactionTimeoutRefs.current[i] = setTimeout(() => {
 			setActiveReactionPost((prev) => (prev === i ? null : prev));
 		}, 300);
@@ -234,28 +361,67 @@ export function Projects() {
 	const toggleComments = (i: number) => {
 		setShowComments((prev) => {
 			const next = new Set(prev);
-			next.has(i) ? next.delete(i) : next.add(i);
+			if (next.has(i)) {
+				next.delete(i);
+			} else {
+				next.add(i);
+				// Fetch from DB when opening for the first time
+				if (!comments[i]) fetchComments(i);
+			}
 			return next;
 		});
 	};
 
-	const submitComment = (postIndex: number) => {
+	const submitComment = async (postIndex: number) => {
 		const text = (commentInputs[postIndex] || "").trim();
-		if (!text) return;
-		const newComment: Comment = {
-			id: Date.now(),
-			author: "Duc Nguyen",
-			avatar: "DN",
-			text,
-			time: language === "vi" ? "Vừa xong" : "Just now",
-			likes: 0,
-			liked: false,
-		};
-		setComments((prev) => ({
-			...prev,
-			[postIndex]: [...(prev[postIndex] || []), newComment],
-		}));
-		setCommentInputs((prev) => ({ ...prev, [postIndex]: "" }));
+		if (!text || !commentName.trim() || !commentEmail.trim()) return;
+		const project = projectList[postIndex];
+
+		setCommentSubmitting((prev) => ({ ...prev, [postIndex]: true }));
+		try {
+			if (project?.id) {
+				// Submit to Supabase via API
+				const res = await fetch("/api/comments", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						project_id: project.id,
+						name: commentName,
+						email: commentEmail,
+						content: text,
+					}),
+				});
+				if (res.ok) {
+					const saved = await res.json();
+					const newComment: Comment = {
+						id: saved.id,
+						author: commentName,
+						avatar: commentName.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase(),
+						text,
+						time: language === "vi" ? "Vừa xong" : "Just now",
+						likes: 0,
+						liked: false,
+					};
+					setComments((prev) => ({ ...prev, [postIndex]: [...(prev[postIndex] || []), newComment] }));
+					setCommentInputs((prev) => ({ ...prev, [postIndex]: "" }));
+				}
+			} else {
+				// Fallback: local only
+				const newComment: Comment = {
+					id: Date.now(),
+					author: commentName || "Duc Nguyen",
+					avatar: (commentName || "DN").split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase(),
+					text,
+					time: language === "vi" ? "Vừa xong" : "Just now",
+					likes: 0,
+					liked: false,
+				};
+				setComments((prev) => ({ ...prev, [postIndex]: [...(prev[postIndex] || []), newComment] }));
+				setCommentInputs((prev) => ({ ...prev, [postIndex]: "" }));
+			}
+		} finally {
+			setCommentSubmitting((prev) => ({ ...prev, [postIndex]: false }));
+		}
 	};
 
 	const toggleCommentLike = (postIndex: number, commentId: number) => {
@@ -268,7 +434,7 @@ export function Projects() {
 		setOpenMenu(null);
 	};
 
-	const MORE_ACTIONS = (index: number, project: any) => [
+	const MORE_ACTIONS = (index: number, project: NormalizedProject) => [
 		{
 			icon: <Bookmark className="h-4 w-4" />,
 			labelVi: savedPosts.has(index) ? "Đã lưu bài viết" : "Lưu bài viết",
@@ -316,14 +482,15 @@ export function Projects() {
 
 	return (
 		<div id="projects" className="flex flex-col gap-3">
-			{t.projects.items.map((project: any, index: number) => {
+			{projectList.map((project, index) => {
 				const meta = POST_META[index] ?? POST_META[0];
 				const currentReaction = reactions[index];
 				const reactionData = currentReaction
 					? REACTIONS.find((r) => r.id === currentReaction)
 					: null;
 				const saved = savedPosts.has(index);
-				const likeCount = meta.likes + (currentReaction ? 1 : 0);
+				const dbCount = reactionCounts[index] ?? 0;
+				const likeCount = dbCount > 0 ? dbCount : meta.likes + (currentReaction ? 1 : 0);
 				const postComments = comments[index] || [];
 				const isCommentsOpen = showComments.has(index);
 
@@ -652,10 +819,12 @@ export function Projects() {
 								<MessageCircle className="mr-1.5 h-5 w-5" />
 								{language === "vi" ? "Bình luận" : "Comment"}
 							</button>
-							<button className="fb-post-action flex-1">
-								<Share2 className="mr-1.5 h-5 w-5" />
-								{language === "vi" ? "Chia sẻ" : "Share"}
-							</button>
+							<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+								<button className="fb-post-action flex-1">
+									<Share2 className="mr-1.5 h-5 w-5" />
+									{language === "vi" ? "Chia sẻ" : "Share"}
+								</button>
+							</Tooltip>
 						</div>
 
 						{/* ── Comments Section ── */}
@@ -726,12 +895,14 @@ export function Projects() {
 																{language === "vi" ? "Thích" : "Like"}
 																{cLikeCount > 0 && ` · ${cLikeCount}`}
 															</button>
-															<button
-																className="text-xs font-bold"
-																style={{ color: "var(--fb-muted)" }}
-															>
-																{language === "vi" ? "Phản hồi" : "Reply"}
-															</button>
+															<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+																<button
+																	className="text-xs font-bold"
+																	style={{ color: "var(--fb-muted)" }}
+																>
+																	{language === "vi" ? "Phản hồi" : "Reply"}
+																</button>
+															</Tooltip>
 															<span
 																className="text-xs"
 																style={{ color: "var(--fb-muted)" }}
@@ -746,79 +917,112 @@ export function Projects() {
 									</div>
 
 									{/* Comment Input */}
-									<div className="flex gap-2 px-4 py-3">
-										<div
-											className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
-											style={{
-												background:
-													"linear-gradient(135deg, var(--fb-blue) 0%, #7c3aed 100%)",
-											}}
-										>
-											DN
-										</div>
-										<div
-											className="flex flex-1 items-center gap-2 rounded-full px-3 pr-2"
-											style={{ background: "var(--fb-icon-bg)" }}
-										>
+									<div className="flex flex-col gap-2 px-4 py-3">
+										{/* Name & Email fields */}
+										<div className="flex gap-2">
 											<input
 												type="text"
-												value={commentInputs[index] || ""}
-												onChange={(e) =>
-													setCommentInputs((prev) => ({
-														...prev,
-														[index]: e.target.value,
-													}))
-												}
-												onKeyDown={(e) => {
-													if (e.key === "Enter" && !e.shiftKey) {
-														e.preventDefault();
-														submitComment(index);
-													}
+												value={commentName}
+												onChange={(e) => setCommentName(e.target.value)}
+												placeholder={language === "vi" ? "Tên của bạn *" : "Your name *"}
+												className="flex-1 rounded-lg px-3 py-1.5 text-xs outline-none"
+												style={{
+													background: "var(--fb-icon-bg)",
+													color: "var(--fb-text)",
+													border: "1px solid var(--fb-border)",
 												}}
-												placeholder={
-													language === "vi"
-														? "Viết bình luận..."
-														: "Write a comment..."
-												}
-												className="flex-1 bg-transparent py-2 text-sm outline-none"
-												style={{ color: "var(--fb-text)" }}
-												autoFocus
 											/>
-											<div className="flex shrink-0 items-center gap-1">
-												<button
-													className="flex h-8 w-8 items-center justify-center rounded-full"
-													style={{ color: "var(--fb-muted)" }}
-													onMouseEnter={(e) =>
-													((e.currentTarget as HTMLElement).style.background =
-														"var(--fb-hover)")
+											<input
+												type="email"
+												value={commentEmail}
+												onChange={(e) => setCommentEmail(e.target.value)}
+												placeholder="Email *"
+												className="flex-1 rounded-lg px-3 py-1.5 text-xs outline-none"
+												style={{
+													background: "var(--fb-icon-bg)",
+													color: "var(--fb-text)",
+													border: "1px solid var(--fb-border)",
+												}}
+											/>
+										</div>
+										{/* Comment input row */}
+										<div className="flex gap-2">
+											<div
+												className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+												style={{
+													background: commentName
+														? `linear-gradient(135deg, ${getAvatarColor(commentName)} 0%, #7c3aed 100%)`
+														: "linear-gradient(135deg, var(--fb-blue) 0%, #7c3aed 100%)",
+												}}
+											>
+												{commentName
+													? commentName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
+													: "?"}
+											</div>
+											<div
+												className="flex flex-1 items-center gap-2 rounded-full px-3 pr-2"
+												style={{ background: "var(--fb-icon-bg)" }}
+											>
+												<input
+													type="text"
+													value={commentInputs[index] || ""}
+													onChange={(e) =>
+														setCommentInputs((prev) => ({
+															...prev,
+															[index]: e.target.value,
+														}))
 													}
-													onMouseLeave={(e) =>
-													((e.currentTarget as HTMLElement).style.background =
-														"transparent")
-													}
-												>
-													<Smile className="h-4 w-4" />
-												</button>
-												<button
-													className="flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-													style={{
-														color: commentInputs[index]?.trim()
-															? "var(--fb-blue)"
-															: "var(--fb-muted)",
-														background: "transparent",
+													onKeyDown={(e) => {
+														if (e.key === "Enter" && !e.shiftKey) {
+															e.preventDefault();
+															submitComment(index);
+														}
 													}}
-													onClick={() => submitComment(index)}
-													onMouseEnter={(e) =>
-													((e.currentTarget as HTMLElement).style.background =
-														"var(--fb-hover)")
+													placeholder={
+														language === "vi"
+															? "Viết bình luận..."
+															: "Write a comment..."
 													}
-													onMouseLeave={(e) =>
-													((e.currentTarget as HTMLElement).style.background =
-														"transparent")
-													}
-												>
-													<Send className="h-4 w-4" />
-												</button>
+													className="flex-1 bg-transparent py-2 text-sm outline-none"
+													style={{ color: "var(--fb-text)" }}
+													autoFocus
+												/>
+												<div className="flex shrink-0 items-center gap-1">
+													<Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}>
+														<button
+															className="flex h-8 w-8 items-center justify-center rounded-full"
+															style={{ color: "var(--fb-muted)" }}
+															onMouseEnter={(e) =>
+																((e.currentTarget as HTMLElement).style.background = "var(--fb-hover)")
+															}
+															onMouseLeave={(e) =>
+																((e.currentTarget as HTMLElement).style.background = "transparent")
+															}
+														>
+															<Smile className="h-4 w-4" />
+														</button>
+													</Tooltip>
+													<button
+														className="flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+														style={{
+															color:
+																commentInputs[index]?.trim() && commentName && commentEmail
+																	? "var(--fb-blue)"
+																	: "var(--fb-muted)",
+															background: "transparent",
+														}}
+														onClick={() => submitComment(index)}
+														disabled={commentSubmitting[index]}
+														onMouseEnter={(e) =>
+															((e.currentTarget as HTMLElement).style.background = "var(--fb-hover)")
+														}
+														onMouseLeave={(e) =>
+															((e.currentTarget as HTMLElement).style.background = "transparent")
+														}
+													>
+														<Send className="h-4 w-4" />
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "./Providers";
+import { Tooltip } from "./ui/Tooltip";
 import {
   Home,
   PlaySquare,
@@ -60,36 +61,43 @@ export function Navbar() {
         </div>
 
         {/* Search bar */}
-        <div
-          className="hidden h-10 w-60 items-center gap-2 rounded-full px-3 sm:flex"
-          style={{ background: "var(--fb-icon-bg)" }}
-        >
-          <Search
-            className="h-4 w-4 shrink-0"
-            style={{ color: "var(--fb-muted)" }}
-          />
-          <input
-            type="text"
-            readOnly
-            placeholder={
-              language === "vi" ? "Tìm kiếm trên Portfolio" : "Search Portfolio"
-            }
-            className="w-full bg-transparent text-sm text-[var(--fb-text)] outline-none placeholder:text-[var(--fb-muted)]"
-          />
-        </div>
+        <Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"} placement="bottom">
+          <div
+            className="hidden h-10 w-60 cursor-not-allowed items-center gap-2 rounded-full px-3 sm:flex"
+            style={{ background: "var(--fb-icon-bg)" }}
+          >
+            <Search
+              className="h-4 w-4 shrink-0"
+              style={{ color: "var(--fb-muted)" }}
+            />
+            <input
+              type="text"
+              readOnly
+              placeholder={
+                language === "vi" ? "Tìm kiếm trên Portfolio" : "Search Portfolio"
+              }
+              className="w-full cursor-not-allowed bg-transparent text-sm text-[var(--fb-text)] outline-none placeholder:text-[var(--fb-muted)]"
+            />
+          </div>
+        </Tooltip>
       </div>
 
       {/* ── CENTER: Nav icons ── */}
       <div className="absolute left-1/2 hidden h-full -translate-x-1/2 items-stretch md:flex">
         {navItems.map(({ id, icon: Icon, href }) => {
           const isActive = activeNav === id;
-          return (
+          const isUnavailable = href === "#";
+          const navLink = (
             <a
               key={id}
               href={href}
               onClick={(e) => {
                 if (href === "#") e.preventDefault();
                 setActiveNav(id);
+                if (href !== "#") {
+                  const el = document.getElementById(href.replace("#", ""));
+                  el?.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               className="relative flex w-[116px] items-center justify-center transition-colors"
               style={{
@@ -111,6 +119,15 @@ export function Navbar() {
               <Icon className="h-6 w-6" />
             </a>
           );
+          return isUnavailable ? (
+            <Tooltip
+              key={id}
+              content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}
+              placement="bottom"
+            >
+              {navLink}
+            </Tooltip>
+          ) : navLink;
         })}
       </div>
 
@@ -141,36 +158,44 @@ export function Navbar() {
         </button>
 
         {/* Apps grid */}
-        <button className="fb-icon-btn">
-          <Grid3x3 className="h-5 w-5" />
-        </button>
+        <Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"} placement="bottom">
+          <button className="fb-icon-btn">
+            <Grid3x3 className="h-5 w-5" />
+          </button>
+        </Tooltip>
 
         {/* Messenger */}
-        <button className="fb-icon-btn">
-          <MessageCircle className="h-5 w-5" />
-        </button>
+        <Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"} placement="bottom">
+          <button className="fb-icon-btn">
+            <MessageCircle className="h-5 w-5" />
+          </button>
+        </Tooltip>
 
         {/* Notifications */}
-        <button className="fb-icon-btn relative">
-          <Bell className="h-5 w-5" />
-          <span
-            className="absolute -top-0.5 -right-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full font-bold text-white"
-            style={{ background: "#e41e3f", fontSize: "10px" }}
-          >
-            3
-          </span>
-        </button>
+        <Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"} placement="bottom">
+          <button className="fb-icon-btn relative">
+            <Bell className="h-5 w-5" />
+            <span
+              className="absolute -top-0.5 -right-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full font-bold text-white"
+              style={{ background: "#e41e3f", fontSize: "10px" }}
+            >
+              3
+            </span>
+          </button>
+        </Tooltip>
 
         {/* Profile avatar */}
-        <div
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-sm font-bold text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--fb-blue) 0%, #7c3aed 100%)",
-          }}
-        >
-          DN
-        </div>
+        <Tooltip content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"} placement="bottom">
+          <div
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-sm font-bold text-white"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--fb-blue) 0%, #7c3aed 100%)",
+            }}
+          >
+            DN
+          </div>
+        </Tooltip>
       </div>
     </nav>
   );

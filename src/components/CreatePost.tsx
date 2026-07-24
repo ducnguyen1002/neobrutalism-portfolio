@@ -2,6 +2,7 @@
 
 import { Video, Image, Smile } from "lucide-react";
 import { useLanguage } from "./Providers";
+import { Tooltip } from "./ui/Tooltip";
 
 export function CreatePost() {
   const { language } = useLanguage();
@@ -24,6 +25,9 @@ export function CreatePost() {
     },
   ];
 
+  const unavailableText =
+    language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable";
+
   return (
     <div className="fb-card mb-3 p-3">
       {/* Input row */}
@@ -40,23 +44,25 @@ export function CreatePost() {
         </div>
 
         {/* Fake input */}
-        <div
-          className="flex-1 cursor-text rounded-full px-4 py-2.5 text-sm transition-colors"
-          style={{
-            background: "var(--fb-hover)",
-            color: "var(--fb-muted)",
-          }}
-          onMouseEnter={(e) =>
-            ((e.target as HTMLElement).style.background = "var(--fb-icon-bg)")
-          }
-          onMouseLeave={(e) =>
-            ((e.target as HTMLElement).style.background = "var(--fb-hover)")
-          }
-        >
-          {language === "vi"
-            ? "Duc ơi, bạn đang nghĩ gì thế?"
-            : "What's on your mind, Duc?"}
-        </div>
+        <Tooltip content={unavailableText} placement="bottom">
+          <div
+            className="flex-1 cursor-not-allowed rounded-full px-4 py-2.5 text-sm transition-colors"
+            style={{
+              background: "var(--fb-hover)",
+              color: "var(--fb-muted)",
+            }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLElement).style.background = "var(--fb-icon-bg)")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLElement).style.background = "var(--fb-hover)")
+            }
+          >
+            {language === "vi"
+              ? "Duc ơi, bạn đang nghĩ gì thế?"
+              : "What's on your mind, Duc?"}
+          </div>
+        </Tooltip>
       </div>
 
       {/* Divider */}
@@ -67,24 +73,25 @@ export function CreatePost() {
       {/* Action buttons */}
       <div className="flex">
         {actions.map((action, i) => (
-          <button
-            key={i}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-[15px] font-semibold transition-colors"
-            style={{ color: "var(--fb-muted)" }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                "var(--fb-hover)")
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                "transparent")
-            }
-          >
-            {action.icon}
-            <span className="hidden sm:inline">
-              {language === "vi" ? action.labelVi : action.labelEn}
-            </span>
-          </button>
+          <Tooltip key={i} content={unavailableText}>
+            <button
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-[15px] font-semibold transition-colors"
+              style={{ color: "var(--fb-muted)" }}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLElement).style.background =
+                  "var(--fb-hover)")
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLElement).style.background =
+                  "transparent")
+              }
+            >
+              {action.icon}
+              <span className="hidden sm:inline">
+                {language === "vi" ? action.labelVi : action.labelEn}
+              </span>
+            </button>
+          </Tooltip>
         ))}
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "./Providers";
 import { Plus, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import { Tooltip } from "./ui/Tooltip";
 
 const STORIES = [
   {
@@ -116,8 +117,12 @@ export function StoryCarousel() {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {STORIES.map((story, i) => (
-          <motion.div
+          <Tooltip
             key={story.id}
+            content={language === "vi" ? "Chức năng này không khả dụng" : "This feature is unavailable"}
+            placement="bottom"
+          >
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05, duration: 0.3 }}
@@ -189,6 +194,7 @@ export function StoryCarousel() {
               </div>
             )}
           </motion.div>
+          </Tooltip>
         ))}
       </div>
     </div>
