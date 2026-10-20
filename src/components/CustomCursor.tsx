@@ -76,14 +76,14 @@ export function CustomCursor() {
 			>
 				<motion.div
 					animate={{
-						width: isHovering ? 48 : 28,
-						height: isHovering ? 48 : 28,
+						width: isHovering ? 50 : 28,
+						height: isHovering ? 50 : 28,
 						backgroundColor: isHovering
-							? "rgba(128, 128, 128, 0.12)"
-							: "rgba(128, 128, 128, 0.04)",
+							? "rgba(10, 25, 47, 0.12)"
+							: "rgba(10, 25, 47, 0.04)",
 					}}
 					transition={{ type: "spring", stiffness: 450, damping: 25 }}
-					className="rounded-full border border-foreground/30 backdrop-blur-[2px] flex items-center justify-center shadow-sm"
+					className="rounded-full border border-blue-900/30 dark:border-blue-300/35 backdrop-blur-[2px] flex items-center justify-center shadow-sm"
 				>
 					{isHovering && cursorText && (
 						<motion.span

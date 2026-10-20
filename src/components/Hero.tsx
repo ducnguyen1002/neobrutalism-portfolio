@@ -45,8 +45,8 @@ export function Hero() {
 					{/* Archival metadata stamp */}
 					<div className="flex flex-wrap items-center gap-2 mb-6">
 						<div className="office-stamp rounded-md bg-foreground/5 border-foreground/15 text-foreground flex items-center gap-1.5 py-1 px-2.5">
-							<span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping opacity-75" />
-							<span className="w-1.5 h-1.5 rounded-full bg-emerald-600 -ml-3 mr-1" />
+							<span className="w-2 h-2 rounded-full bg-blue-500 animate-ping opacity-75" />
+							<span className="w-1.5 h-1.5 rounded-full bg-blue-600 -ml-3 mr-1" />
 							{t.hero.status}
 						</div>
 						<span className="font-mono text-xs text-muted">

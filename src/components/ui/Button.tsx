@@ -13,13 +13,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 		const variants = {
 			primary:
-				"bg-foreground text-background border border-foreground/80 hover:bg-foreground/90 shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-[0_4px_20px_rgba(255,255,255,0.08)]",
+				"bg-[#0a192f] text-[#f2f6fa] dark:bg-[#93c5fd] dark:text-[#070e18] border border-[#0a192f] dark:border-[#93c5fd] hover:bg-[#132744] dark:hover:bg-[#bfdbfe] shadow-[0_4px_20px_-4px_rgba(10,25,47,0.25)] dark:shadow-[0_4px_24px_-4px_rgba(147,197,253,0.35)]",
 			secondary:
-				"liquid-glass text-foreground hover:bg-white/85 dark:hover:bg-zinc-800/85 hover:border-foreground/30",
+				"liquid-glass text-foreground hover:bg-white/90 dark:hover:bg-[#102038]/90 hover:border-blue-400/40",
 			glass:
-				"bg-white/50 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/15 text-foreground hover:bg-white/80 dark:hover:bg-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.2)]",
+				"bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/90 dark:border-blue-200/20 text-foreground hover:bg-white/90 dark:hover:bg-white/20 shadow-[0_4px_16px_rgba(10,25,47,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(147,197,253,0.25)]",
 			outline:
-				"bg-transparent border border-foreground/20 text-foreground hover:border-foreground hover:bg-foreground/5",
+				"bg-transparent border border-foreground/20 text-foreground hover:border-[#0a192f] dark:hover:border-blue-300 hover:bg-foreground/5",
 			subtle:
 				"bg-foreground/5 text-foreground border border-transparent hover:border-foreground/15 hover:bg-foreground/10",
 		};

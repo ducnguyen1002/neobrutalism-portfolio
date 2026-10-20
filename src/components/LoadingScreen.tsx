@@ -50,7 +50,7 @@ export function LoadingScreen() {
 
 						{/* Top Archival Tag */}
 						<div className="font-mono text-[10px] tracking-widest text-muted uppercase mb-6 flex items-center justify-center gap-2">
-							<span className="w-1.5 h-1.5 rounded-full bg-foreground animate-ping" />
+							<span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-ping" />
 							SYSTEM REQUISITION // 2026
 						</div>
 
@@ -61,7 +61,7 @@ export function LoadingScreen() {
 								transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
 								className="w-10 h-10 rounded-xl border border-dashed border-foreground/40 flex items-center justify-center"
 							>
-								<Cpu className="w-5 h-5 text-foreground opacity-80" />
+								<Cpu className="w-5 h-5 text-blue-600 dark:text-blue-400 opacity-80" />
 							</motion.div>
 						</div>
 
@@ -76,7 +76,7 @@ export function LoadingScreen() {
 						{/* Refined Progress Bar */}
 						<div className="h-2 w-full rounded-full bg-foreground/10 mb-4 relative overflow-hidden">
 							<motion.div
-								className="absolute inset-y-0 left-0 bg-foreground rounded-full"
+								className="absolute inset-y-0 left-0 bg-[#0a192f] dark:bg-blue-400 rounded-full"
 								style={{ width: `${progress}%` }}
 							/>
 						</div>

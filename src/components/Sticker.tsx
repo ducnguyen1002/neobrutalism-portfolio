@@ -28,9 +28,9 @@ export function Sticker({
 			className={`absolute z-10 cursor-grab active:cursor-grabbing select-none ${className}`}
 		>
 			<div className="liquid-glass rounded-xl px-4 py-2.5 flex items-center gap-2.5 border border-foreground/15 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.6)]">
-				{icon === "shield" && <ShieldCheck className="w-4 h-4 text-foreground/70" />}
-				{icon === "sparkles" && <Sparkles className="w-4 h-4 text-foreground/70" />}
-				{icon === "terminal" && <Terminal className="w-4 h-4 text-foreground/70" />}
+				{icon === "shield" && <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+				{icon === "sparkles" && <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+				{icon === "terminal" && <Terminal className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
 				
 				<div className="flex flex-col">
 					<span className="font-mono text-[11px] font-bold tracking-wider uppercase text-foreground">

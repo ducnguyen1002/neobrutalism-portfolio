@@ -3,57 +3,69 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8f9fa;
-  --foreground: #09090b;
-  --muted: #71717a;
-  --muted-light: #a1a1aa;
-  --section-alt-bg: #f1f2f4;
+  /* Ice White with Blue Undertone & Navy Blue Primary */
+  --background: #f2f6fa;
+  --foreground: #0a192f;
+  --muted: #4a617c;
+  --muted-light: #8da2bc;
+  --section-alt-bg: #eaf0f7;
   
-  --border-color: rgba(9, 9, 11, 0.12);
-  --border-subtle: rgba(9, 9, 11, 0.06);
+  --navy-primary: #0a192f;
+  --navy-secondary: #172a45;
+  --navy-accent: #1e3a8a;
+  --navy-glow: rgba(10, 25, 47, 0.15);
 
-  /* Liquid Glass light tokens */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-bg-hover: rgba(255, 255, 255, 0.88);
-  --glass-border: rgba(255, 255, 255, 0.85);
-  --glass-border-outer: rgba(9, 9, 11, 0.08);
-  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 100%);
-  --glass-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.07), 0 4px 16px -4px rgba(0, 0, 0, 0.04);
-  --glass-inset-glow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04);
+  --border-color: rgba(10, 25, 47, 0.12);
+  --border-subtle: rgba(10, 25, 47, 0.06);
+
+  /* Liquid Glass tokens with ice blue tint */
+  --glass-bg: rgba(255, 255, 255, 0.76);
+  --glass-bg-hover: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --glass-border-outer: rgba(10, 25, 47, 0.08);
+  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.35) 100%);
+  --glass-shadow: 0 12px 36px -8px rgba(10, 25, 47, 0.08), 0 4px 16px -4px rgba(10, 25, 47, 0.04);
+  --glass-inset-glow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(10, 25, 47, 0.03);
 
   /* Archival office tokens */
-  --office-card-bg: rgba(255, 255, 255, 0.82);
-  --office-tag-bg: rgba(9, 9, 11, 0.05);
-  --office-tag-border: rgba(9, 9, 11, 0.15);
-  --office-accent: #09090b;
-  --office-accent-fg: #ffffff;
+  --office-card-bg: rgba(255, 255, 255, 0.84);
+  --office-tag-bg: rgba(10, 25, 47, 0.05);
+  --office-tag-border: rgba(10, 25, 47, 0.14);
+  --office-accent: #0a192f;
+  --office-accent-fg: #f2f6fa;
 }
 
 .dark {
-  --background: #09090b;
-  --foreground: #f4f4f5;
-  --muted: #a1a1aa;
-  --muted-light: #71717a;
-  --section-alt-bg: #0d0e11;
+  /* Abyssal Midnight Navy & Ice Blue Accents */
+  --background: #070e18;
+  --foreground: #edf3fc;
+  --muted: #93a7c1;
+  --muted-light: #627791;
+  --section-alt-bg: #0b1524;
 
-  --border-color: rgba(244, 244, 245, 0.14);
-  --border-subtle: rgba(244, 244, 245, 0.06);
+  --navy-primary: #93c5fd;
+  --navy-secondary: #60a5fa;
+  --navy-accent: #38bdf8;
+  --navy-glow: rgba(56, 189, 248, 0.2);
+
+  --border-color: rgba(219, 234, 254, 0.14);
+  --border-subtle: rgba(219, 234, 254, 0.06);
 
   /* Liquid Glass dark tokens */
-  --glass-bg: rgba(18, 18, 22, 0.7);
-  --glass-bg-hover: rgba(26, 26, 32, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-border-outer: rgba(255, 255, 255, 0.07);
-  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.02) 100%);
-  --glass-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 6px 20px -6px rgba(0, 0, 0, 0.4);
-  --glass-inset-glow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(0, 0, 0, 0.6);
+  --glass-bg: rgba(11, 22, 38, 0.72);
+  --glass-bg-hover: rgba(16, 31, 54, 0.86);
+  --glass-border: rgba(147, 197, 253, 0.2);
+  --glass-border-outer: rgba(219, 234, 254, 0.08);
+  --glass-shine: linear-gradient(135deg, rgba(147, 197, 253, 0.22) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 6px 20px -6px rgba(4, 10, 20, 0.5);
+  --glass-inset-glow: inset 0 1px 0 0 rgba(147, 197, 253, 0.25), inset 0 -1px 0 0 rgba(0, 0, 0, 0.6);
 
   /* Archival office tokens */
-  --office-card-bg: rgba(14, 14, 17, 0.78);
-  --office-tag-bg: rgba(255, 255, 255, 0.06);
-  --office-tag-border: rgba(255, 255, 255, 0.18);
-  --office-accent: #ffffff;
-  --office-accent-fg: #09090b;
+  --office-card-bg: rgba(10, 20, 36, 0.8);
+  --office-tag-bg: rgba(147, 197, 253, 0.08);
+  --office-tag-border: rgba(147, 197, 253, 0.2);
+  --office-accent: #93c5fd;
+  --office-accent-fg: #070e18;
 }
 
 @theme inline {
@@ -61,6 +73,7 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-light: var(--muted-light);
+  --color-navy-primary: var(--navy-primary);
   --color-office-accent: var(--office-accent);
   --color-office-accent-fg: var(--office-accent-fg);
 }
@@ -92,7 +105,7 @@ h6 {
   letter-spacing: -0.03em;
 }
 
-/* Archival Ledger / Blueprint Grid */
+/* Archival Ledger / Blueprint Grid with Ice-Blue Tint */
 .archival-grid {
   position: fixed;
   inset: 0;
@@ -120,12 +133,12 @@ h6 {
   inset: 0;
   z-index: 9998;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 /* ========================================================
-   LIQUID GLASS DESIGN SYSTEM
+   LIQUID GLASS DESIGN SYSTEM (Navy & Ice White Palette)
    ======================================================== */
 
 .liquid-glass {
@@ -139,17 +152,17 @@ h6 {
 }
 
 .liquid-glass-subtle {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 16px rgba(10, 25, 47, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .dark .liquid-glass-subtle {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(147, 197, 253, 0.06);
+  border: 1px solid rgba(147, 197, 253, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(147, 197, 253, 0.15);
 }
 
 .liquid-glass-pill {
@@ -157,7 +170,7 @@ h6 {
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06), var(--glass-inset-glow);
+  box-shadow: 0 8px 24px -6px rgba(10, 25, 47, 0.06), var(--glass-inset-glow);
   border-radius: 9999px;
 }
 
@@ -181,25 +194,25 @@ h6 {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-  opacity: 0.6;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  opacity: 0.7;
   pointer-events: none;
 }
 
 .dark .liquid-glass-card::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.4), transparent);
   opacity: 0.8;
 }
 
 .liquid-glass-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(9, 9, 11, 0.25);
-  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.12), var(--glass-inset-glow);
+  border-color: rgba(10, 25, 47, 0.28);
+  box-shadow: 0 20px 48px -12px rgba(10, 25, 47, 0.14), var(--glass-inset-glow);
 }
 
 .dark .liquid-glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.75), var(--glass-inset-glow);
+  border-color: rgba(147, 197, 253, 0.35);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), var(--glass-inset-glow);
 }
 
 /* ========================================================
@@ -222,10 +235,10 @@ h6 {
 }
 
 .office-stamp-filled {
-  background: var(--foreground);
+  background: var(--navy-primary);
   color: var(--background);
-  border: 1px solid var(--foreground);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--navy-primary);
+  box-shadow: 0 2px 8px rgba(10, 25, 47, 0.2);
 }
 
 .office-mono {
@@ -241,7 +254,7 @@ h6 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border-bottom: 2px solid var(--foreground);
+  border-bottom: 2px solid var(--navy-primary);
 }
 
 /* Interactive Cursor */

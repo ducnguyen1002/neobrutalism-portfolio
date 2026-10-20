@@ -34,7 +34,7 @@ export function Marquee() {
 								className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-foreground/70 uppercase flex items-center gap-4"
 							>
 								{item}
-								<span className="w-1.5 h-1.5 rounded-full bg-foreground/30 inline-block" />
+								<span className="w-1.5 h-1.5 rounded-full bg-blue-600/40 dark:bg-blue-400/40 inline-block" />
 							</span>
 						))}
 					</div>

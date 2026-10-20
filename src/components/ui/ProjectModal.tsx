@@ -59,7 +59,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-4 sm:inset-8 md:inset-16 z-[101] pointer-events-none flex items-center justify-center p-2 sm:p-4"
           >
-            <div className="w-full max-w-4xl bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl rounded-3xl border border-black/10 dark:border-white/15 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto max-h-[90vh] overflow-hidden">
+            <div className="w-full max-w-4xl bg-white/95 dark:bg-[#070e18]/95 backdrop-blur-2xl rounded-3xl border border-[#0a192f]/10 dark:border-blue-200/15 shadow-[0_25px_60px_-15px_rgba(10,25,47,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto max-h-[90vh] overflow-hidden">
               {/* Executive Document Header */}
               <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between gap-4 bg-foreground/[0.02]">
                 <div className="flex items-center gap-2">

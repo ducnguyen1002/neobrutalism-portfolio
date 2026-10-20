@@ -29,7 +29,7 @@ export function Skills() {
 				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-6 border-b border-foreground/10 gap-4">
 					<div>
 						<div className="font-mono text-xs uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
-							<span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+							<span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
 							SECTION 02 // TECHNICAL REGISTRY
 						</div>
 						<h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
@@ -49,14 +49,14 @@ export function Skills() {
 					{skills.map((skill) => (
 						<div
 							key={skill.id}
-							className="liquid-glass rounded-2xl p-5 flex flex-col justify-between group hover:border-foreground/30 transition-all duration-300 relative overflow-hidden"
+							className="liquid-glass rounded-2xl p-5 flex flex-col justify-between group hover:border-blue-400/40 transition-all duration-300 relative overflow-hidden"
 						>
 							{/* Top Specifier */}
 							<div className="flex items-center justify-between mb-4">
 								<span className="font-mono text-[10px] font-semibold tracking-wider text-muted group-hover:text-foreground transition-colors">
 									{skill.id}
 								</span>
-								<CheckCircle2 className="w-3.5 h-3.5 text-muted group-hover:text-foreground transition-colors opacity-60 group-hover:opacity-100" />
+								<CheckCircle2 className="w-3.5 h-3.5 text-blue-600/70 dark:text-blue-400/80 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors opacity-70 group-hover:opacity-100" />
 							</div>
 
 							{/* Skill Name */}

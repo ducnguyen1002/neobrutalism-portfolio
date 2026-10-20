@@ -26,7 +26,7 @@ export function Projects() {
 				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 pb-6 border-b border-foreground/10 gap-4">
 					<div>
 						<div className="font-mono text-xs uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
-							<span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+							<span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
 							SECTION 03 // ARCHIVED CASE FILES
 						</div>
 						<h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
@@ -52,7 +52,7 @@ export function Projects() {
 								{/* Dossier Header */}
 								<div className="px-6 py-3.5 border-b border-foreground/10 flex items-center justify-between font-mono text-xs text-muted bg-foreground/[0.02]">
 									<span className="font-bold text-foreground tracking-wider flex items-center gap-1.5">
-										<FolderOpen className="w-3.5 h-3.5" />
+										<FolderOpen className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
 										{project.id || `CASE-0${index + 1}`}
 									</span>
 									<span className="office-stamp rounded py-0.5 px-2 bg-foreground/5 border-foreground/15 text-[10px] text-foreground">

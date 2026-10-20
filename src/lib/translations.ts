@@ -3,7 +3,6 @@ export const translations = {
 		nav: {
 			projects: "Hồ sơ dự án",
 			skills: "Thông số kỹ thuật",
-			game: "Trạm mô phỏng",
 			about: "Lưu trữ cá nhân",
 			hire: "Tuyển dụng",
 			light: "Chế độ Sáng",
@@ -104,7 +103,6 @@ export const translations = {
 		nav: {
 			projects: "Case Files",
 			skills: "Specifications",
-			game: "Simulation",
 			about: "Archive",
 			hire: "Requisition",
 			light: "Light Mode",

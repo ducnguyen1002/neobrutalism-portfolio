@@ -21,8 +21,8 @@ export function Footer() {
 				{/* Left Dispatch Column */}
 				<div className="max-w-xl">
 					<div className="font-mono text-xs uppercase tracking-widest text-muted mb-3 flex items-center gap-2">
-						<span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-						SECTION 05 // FORMAL DISPATCH
+						<span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+						SECTION 04 // FORMAL DISPATCH
 					</div>
 
 					<h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 text-foreground">
@@ -36,13 +36,13 @@ export function Footer() {
 						{t.footer.desc}
 					</p>
 
-					{/* Monochromatic Liquid Glass Social Badges */}
+					{/* Liquid Glass Social Badges */}
 					<div className="flex gap-3">
 						<a
 							href="https://github.com/ducnguyen1002"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-foreground/30 transition-all hover:-translate-y-0.5"
+							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-blue-400/30 transition-all hover:-translate-y-0.5"
 							aria-label="GitHub Profile"
 						>
 							<Github className="w-5 h-5" />
@@ -51,7 +51,7 @@ export function Footer() {
 							href="https://linkedin.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-foreground/30 transition-all hover:-translate-y-0.5"
+							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-blue-400/30 transition-all hover:-translate-y-0.5"
 							aria-label="LinkedIn Profile"
 						>
 							<Linkedin className="w-5 h-5" />
@@ -60,7 +60,7 @@ export function Footer() {
 							href="https://twitter.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-foreground/30 transition-all hover:-translate-y-0.5"
+							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-blue-400/30 transition-all hover:-translate-y-0.5"
 							aria-label="Twitter Profile"
 						>
 							<Twitter className="w-5 h-5" />
@@ -82,7 +82,7 @@ export function Footer() {
 							title="Copy email"
 						>
 							{copied ? (
-								<Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+								<Check className="w-4 h-4 text-blue-600 dark:text-blue-400" />
 							) : (
 								<Copy className="w-4 h-4" />
 							)}

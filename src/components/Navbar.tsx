@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "./ui/Button";
 import { useTheme } from "next-themes";
 import { useLanguage } from "./Providers";
-import { Sun, Moon, Languages, Menu, X, FileText, Compass } from "lucide-react";
+import { Sun, Moon, Languages, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -29,8 +29,8 @@ export function Navbar() {
 			<div
 				className={`max-w-6xl mx-auto rounded-2xl transition-all duration-300 ${
 					scrolled
-						? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl border border-black/10 dark:border-white/15 shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)] dark:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.7)]"
-						: "bg-white/60 dark:bg-zinc-900/50 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.04)]"
+						? "bg-white/85 dark:bg-[#070e18]/85 backdrop-blur-2xl border border-[#0a192f]/10 dark:border-blue-200/15 shadow-[0_12px_40px_-10px_rgba(10,25,47,0.08)] dark:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.7)]"
+						: "bg-white/65 dark:bg-[#0b1524]/60 backdrop-blur-xl border border-[#0a192f]/8 dark:border-blue-200/10 shadow-[0_8px_24px_-6px_rgba(10,25,47,0.04)]"
 				}`}
 			>
 				<div className="flex items-center justify-between px-5 py-3 md:px-7 md:py-3.5">
@@ -44,36 +44,30 @@ export function Navbar() {
 						</span>
 						<span className="font-bold text-lg tracking-tight text-foreground flex items-center gap-1.5">
 							DUC.NV
-							<span className="inline-block w-1.5 h-1.5 rounded-full bg-foreground opacity-60 animate-pulse" />
+							<span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
 						</span>
 						<span className="hidden sm:inline-block font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded border border-foreground/15 bg-foreground/5 text-muted">
-							ARCHIVE
+							NAVY ARCHIVE
 						</span>
 					</Link>
 
-					{/* Desktop Navigation */}
+					{/* Desktop Navigation (Without Game Section) */}
 					<nav className="hidden md:flex items-center gap-1 text-sm font-medium text-foreground/80">
 						<Link
 							href="#projects"
-							className="px-3.5 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
+							className="px-4 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
 							{t.nav.projects}
 						</Link>
 						<Link
 							href="#skills"
-							className="px-3.5 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
+							className="px-4 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
 							{t.nav.skills}
 						</Link>
 						<Link
-							href="#game"
-							className="px-3.5 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
-						>
-							{t.nav.game}
-						</Link>
-						<Link
 							href="#contact"
-							className="px-3.5 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
+							className="px-4 py-1.5 rounded-lg hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
 							{t.nav.about}
 						</Link>
@@ -90,9 +84,9 @@ export function Navbar() {
 							{!mounted ? (
 								<div className="w-4 h-4" />
 							) : theme === "dark" ? (
-								<Sun className="w-4 h-4 transition-transform hover:rotate-45" />
+								<Sun className="w-4 h-4 text-amber-300 transition-transform hover:rotate-45" />
 							) : (
-								<Moon className="w-4 h-4 transition-transform hover:-rotate-12" />
+								<Moon className="w-4 h-4 text-blue-900 transition-transform hover:-rotate-12" />
 							)}
 						</button>
 
@@ -164,23 +158,15 @@ export function Navbar() {
 								<span className="font-mono text-xs opacity-40">02</span>
 							</Link>
 							<Link
-								href="#game"
-								onClick={() => setIsMenuOpen(false)}
-								className="flex items-center justify-between p-2.5 rounded-lg text-foreground/80 hover:text-foreground hover:bg-foreground/5"
-							>
-								<span>{t.nav.game}</span>
-								<span className="font-mono text-xs opacity-40">03</span>
-							</Link>
-							<Link
 								href="#contact"
 								onClick={() => setIsMenuOpen(false)}
 								className="flex items-center justify-between p-2.5 rounded-lg text-foreground/80 hover:text-foreground hover:bg-foreground/5"
 							>
 								<span>{t.nav.about}</span>
-								<span className="font-mono text-xs opacity-40">04</span>
+								<span className="font-mono text-xs opacity-40">03</span>
 							</Link>
 
-							<div className="pt-2 border-t border-foreground/10 flex items-center justify-between">
+							<div className="pt-3 border-t border-foreground/10 flex items-center justify-between">
 								<span className="font-mono text-xs text-muted">
 									LOC: HANOI, VN // UTC+7
 								</span>
