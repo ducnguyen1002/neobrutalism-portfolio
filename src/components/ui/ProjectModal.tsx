@@ -58,12 +58,12 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 20 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-4 sm:inset-8 md:inset-16 z-[101] pointer-events-none flex items-center justify-center p-2 sm:p-4"
+            className="fixed inset-2 sm:inset-6 md:inset-12 z-[101] pointer-events-none flex items-center justify-center p-1 sm:p-4"
           >
-            <div className="w-full max-w-5xl liquid-glass rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.6)] flex flex-col pointer-events-auto max-h-[90vh] overflow-hidden">
+            <div className="w-full max-w-5xl liquid-glass rounded-2xl sm:rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.6)] flex flex-col pointer-events-auto max-h-[92vh] sm:max-h-[90vh] overflow-hidden">
               {/* Header Bar */}
-              <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2.5">
+              <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-foreground/10 flex items-center justify-between gap-3 sm:gap-4">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#4285F4]" />
                   <span className="font-semibold text-xs tracking-wider uppercase text-muted">
                     {project.classification}
@@ -78,7 +78,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
                   <button
                     onClick={onClose}
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-muted hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
                     aria-label="Close"
                   >
                     <MdClose className="w-5 h-5" />
@@ -87,16 +87,16 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
               </div>
 
               {/* Body */}
-              <div className="flex-1 overflow-y-auto p-6 md:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-start">
                   {/* Left: Cinematic Preview */}
-                  <div className="md:col-span-6 rounded-2xl overflow-hidden border border-foreground/10 bg-black/10 aspect-16/10 relative shadow-inner">
+                  <div className="md:col-span-6 rounded-xl sm:rounded-2xl overflow-hidden border border-foreground/10 bg-black/10 aspect-16/10 relative shadow-inner">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
+                    <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 border border-white/20">
                       <MdCheckCircle className="w-3.5 h-3.5 text-emerald-400" />
                       {project.metrics || "Active"}
                     </div>
@@ -104,24 +104,24 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
                   {/* Right: Technical Specs */}
                   <div className="md:col-span-6 flex flex-col">
-                    <h2 className="text-3xl font-black tracking-tight mb-4 text-foreground">
+                    <h2 className="text-2xl sm:text-3xl font-black tracking-tight mb-3 sm:mb-4 text-foreground">
                       {project.title}
                     </h2>
 
-                    <p className="text-foreground/80 dark:text-zinc-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+                    <p className="text-foreground/80 dark:text-zinc-300 text-xs sm:text-sm md:text-base leading-relaxed mb-5 sm:mb-6 font-normal">
                       {project.description}
                     </p>
 
                     {/* Chips */}
-                    <div className="mb-8">
-                      <div className="text-xs uppercase font-bold text-muted tracking-wider mb-2.5">
+                    <div className="mb-6 sm:mb-8">
+                      <div className="text-xs uppercase font-bold text-muted tracking-wider mb-2">
                         {t.projects.stackLabel}
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs px-3 py-1.5 rounded-full bg-foreground/5 dark:bg-white/10 text-foreground font-semibold border border-foreground/10"
+                            className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-foreground/5 dark:bg-white/10 text-foreground font-semibold border border-foreground/10"
                           >
                             {tag}
                           </span>
@@ -130,17 +130,17 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="pt-6 border-t border-foreground/10 flex flex-wrap gap-3 mt-auto">
+                    <div className="pt-4 sm:pt-6 border-t border-foreground/10 flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-auto">
                       <Button
                         variant="aurora"
-                        className="flex-1 gap-2"
+                        className="w-full sm:flex-1 gap-2 justify-center py-2.5 sm:py-3 text-xs sm:text-sm font-semibold"
                         onClick={() => window.open(project.live, "_blank")}
                       >
                         <MdOpenInNew className="w-4 h-4" /> {t.projects.live}
                       </Button>
                       <Button
                         variant="outline"
-                        className="flex-1 gap-2"
+                        className="w-full sm:flex-1 gap-2 justify-center py-2.5 sm:py-3 text-xs sm:text-sm font-medium"
                         onClick={() => window.open(project.github || "#", "_blank")}
                       >
                         <FaGithub className="w-4 h-4" /> {t.projects.code}

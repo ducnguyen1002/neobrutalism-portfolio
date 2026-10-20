@@ -13,6 +13,26 @@ export function RotatingGlobe({ className = "", size = 280 }: RotatingGlobeProps
   const containerRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
+  const [effectiveSize, setEffectiveSize] = useState(size);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== "undefined") {
+        if (window.innerWidth < 360) {
+          setEffectiveSize(Math.min(size, 210));
+        } else if (window.innerWidth < 480) {
+          setEffectiveSize(Math.min(size, 230));
+        } else if (window.innerWidth < 640) {
+          setEffectiveSize(Math.min(size, 250));
+        } else {
+          setEffectiveSize(size);
+        }
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [size]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -34,15 +54,15 @@ export function RotatingGlobe({ className = "", size = 280 }: RotatingGlobeProps
 
     // Setup High-DPI Canvas
     const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 2) : 1;
-    const width = size;
-    const height = size;
+    const width = effectiveSize;
+    const height = effectiveSize;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     ctx.scale(dpr, dpr);
 
-    const radius = size * 0.38;
+    const radius = effectiveSize * 0.38;
     const cx = width / 2;
     const cy = height / 2;
 
@@ -231,7 +251,7 @@ export function RotatingGlobe({ className = "", size = 280 }: RotatingGlobeProps
 
     render();
 
-    // Mouse drag interaction for interactive spinning
+    // Mouse & Touch drag interaction for interactive spinning
     const handleMouseDown = (e: MouseEvent) => {
       isDragging = true;
       lastMouseX = e.clientX;
@@ -252,9 +272,34 @@ export function RotatingGlobe({ className = "", size = 280 }: RotatingGlobeProps
       isDragging = false;
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const dx = e.touches[0].clientX - lastMouseX;
+      const dy = e.touches[0].clientY - lastMouseY;
+      rotationAngle += dx * 0.008;
+      tiltAngle = Math.max(-0.6, Math.min(0.6, tiltAngle + dy * 0.005));
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = () => {
+      isDragging = false;
+    };
+
     canvas.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
+    canvas.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
@@ -262,8 +307,11 @@ export function RotatingGlobe({ className = "", size = 280 }: RotatingGlobeProps
       canvas.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [size]);
+  }, [effectiveSize]);
 
   return (
     <div

@@ -17,15 +17,15 @@ export function Marquee() {
 
 	return (
 		<div
-			className="border-y border-foreground/10 py-7 md:py-8 overflow-hidden select-none bg-black/5 dark:bg-white/[0.02] backdrop-blur-md relative"
+			className="border-y border-foreground/10 py-5 sm:py-7 md:py-8 overflow-hidden select-none bg-black/5 dark:bg-white/[0.02] backdrop-blur-md relative"
 			style={{
 				WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
 				maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
 			}}
 		>
 			{/* Feathered Edge Overlays */}
-			<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-r from-background via-background/70 to-transparent z-10" />
-			<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-l from-background via-background/70 to-transparent z-10" />
+			<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 sm:w-28 md:w-40 bg-gradient-to-r from-background via-background/70 to-transparent z-10" />
+			<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 sm:w-28 md:w-40 bg-gradient-to-l from-background via-background/70 to-transparent z-10" />
 
 			<motion.div
 				animate={{ x: [0, -1200] }}

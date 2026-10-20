@@ -57,6 +57,14 @@ export function Skills() {
 
   // Distance-based Proximity Dimming: dimming increases with geometric distance
   const handleCardHover = (hoveredIdx: number) => {
+    // Only apply on devices with mouse/hover pointer to prevent stuck dimmed states on mobile touch
+    if (
+      typeof window !== "undefined" &&
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return;
+    }
+
     if (!matrixRef.current) return;
     const cards = Array.from(matrixRef.current.children) as HTMLElement[];
     const hoveredCard = cards[hoveredIdx];
@@ -116,6 +124,13 @@ export function Skills() {
   };
 
   const handleCardLeave = () => {
+    if (
+      typeof window !== "undefined" &&
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return;
+    }
+
     if (!matrixRef.current) return;
     const cards = Array.from(matrixRef.current.children) as HTMLElement[];
     gsap.to(cards, {
@@ -133,7 +148,7 @@ export function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 relative bg-section-alt-bg/60 border-t border-foreground/10 overflow-hidden"
+      className="py-20 sm:py-28 md:py-44 px-4 sm:px-6 lg:px-8 relative bg-section-alt-bg/60 border-t border-foreground/10 overflow-hidden"
     >
       {/* Parallax Background Typography */}
       <div
@@ -146,7 +161,7 @@ export function Skills() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header with Generous Spacing */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-20 pb-8 border-b border-foreground/10 gap-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 sm:mb-20 pb-6 sm:pb-8 border-b border-foreground/10 gap-6 sm:gap-8">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-4">
               <MdCode className="w-4 h-4" />
@@ -165,16 +180,16 @@ export function Skills() {
         <div
           ref={matrixRef}
           onMouseLeave={handleCardLeave}
-          className="proximity-dim-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
+          className="proximity-dim-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6"
         >
           {t.skills.capabilities.map((item, index) => (
             <div
               key={item.name}
               onMouseEnter={() => handleCardHover(index)}
-              className="proximity-card liquid-glass-card p-7 flex flex-col justify-between group cursor-default"
+              className="proximity-card liquid-glass-card p-5 sm:p-7 flex flex-col justify-between group cursor-default"
             >
               {/* Top Specifier */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-5 sm:mb-6">
                 <span
                   className="w-3 h-3 rounded-full shadow-sm"
                   style={{ backgroundColor: item.dot }}
@@ -185,8 +200,8 @@ export function Skills() {
               </div>
 
               {/* Title & Role */}
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-foreground tracking-tight mb-1.5 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
+              <div className="mb-3.5 sm:mb-4">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight mb-1 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
                   {item.name}
                 </h3>
                 <div className="text-xs font-medium text-muted">

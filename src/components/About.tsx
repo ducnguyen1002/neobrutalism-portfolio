@@ -106,7 +106,7 @@ export function About() {
 		<section
 			ref={sectionRef}
 			id="about"
-			className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 relative border-t border-foreground/10 overflow-hidden"
+			className="py-20 sm:py-28 md:py-44 px-4 sm:px-6 lg:px-8 relative border-t border-foreground/10 overflow-hidden"
 		>
 			{/* Parallax Background Typography */}
 			<div
@@ -119,7 +119,7 @@ export function About() {
 
 			<div className="max-w-7xl mx-auto relative z-10">
 				{/* Section Header */}
-				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-20 pb-8 border-b border-foreground/10 gap-8">
+				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 sm:mb-20 pb-6 sm:pb-8 border-b border-foreground/10 gap-6 sm:gap-8">
 					<div>
 						<div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-4">
 							<MdPersonOutline className="w-4 h-4" />
@@ -142,11 +142,11 @@ export function About() {
 				{/* Bento Grid Layout with Liquid Glass & Focus Dimming */}
 				<div
 					ref={gridRef}
-					className="focus-dim-group grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-stretch"
+					className="focus-dim-group grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 items-stretch"
 				>
 					{/* Left Large Card: Bio & Direct Contacts (7 Cols) */}
 					<div
-						className="lg:col-span-7 focus-card liquid-glass-card p-8 sm:p-10 flex flex-col justify-between"
+						className="lg:col-span-7 focus-card liquid-glass-card p-5 sm:p-8 md:p-10 flex flex-col justify-between"
 					>
 						<div>
 							{/* Profile Subheader */}
@@ -167,7 +167,7 @@ export function About() {
 							</div>
 
 							{/* Bio Text with Line Breaks & Highlights */}
-							<div className="space-y-4 mb-8 text-base sm:text-lg text-foreground/80 dark:text-zinc-300 leading-relaxed font-normal">
+							<div className="space-y-4 mb-6 sm:mb-8 text-sm sm:text-base md:text-lg text-foreground/80 dark:text-zinc-300 leading-relaxed font-normal">
 								{(t.about.bioParagraphs || [t.about.bio]).map(
 									(paragraph: string, idx: number) => (
 										<p key={idx} className="leading-relaxed">
@@ -179,20 +179,20 @@ export function About() {
 						</div>
 
 						{/* Direct Contact Pills */}
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-foreground/10 mt-6">
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-5 sm:pt-6 border-t border-foreground/10 mt-6">
 							{/* Phone Pill */}
-							<div className="liquid-glass rounded-2xl p-4 flex items-center justify-between gap-3 border border-foreground/10 hover:border-blue-500/40 transition-colors">
-								<div className="flex items-center gap-3 truncate">
-									<div className="w-9 h-9 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] flex items-center justify-center shrink-0">
+							<div className="liquid-glass rounded-2xl p-3.5 sm:p-4 flex items-center justify-between gap-2.5 sm:gap-3 border border-foreground/10 hover:border-blue-500/40 transition-colors">
+								<div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1 truncate">
+									<div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] flex items-center justify-center shrink-0">
 										<MdPhone className="w-4 h-4" />
 									</div>
-									<div className="truncate">
+									<div className="min-w-0 flex-1 truncate">
 										<div className="text-[10px] font-bold text-muted uppercase tracking-wider">
 											{t.about.phoneLabel}
 										</div>
 										<a
 											href={`tel:${t.about.phone.replace(/\s+/g, "")}`}
-											className="text-sm font-semibold text-foreground hover:text-[#1a73e8] transition-colors truncate"
+											className="text-xs sm:text-sm font-semibold text-foreground hover:text-[#1a73e8] transition-colors truncate block"
 										>
 											{t.about.phone}
 										</a>
@@ -212,18 +212,18 @@ export function About() {
 							</div>
 
 							{/* Email Pill */}
-							<div className="liquid-glass rounded-2xl p-4 flex items-center justify-between gap-3 border border-foreground/10 hover:border-purple-500/40 transition-colors">
-								<div className="flex items-center gap-3 truncate">
-									<div className="w-9 h-9 rounded-full bg-purple-500/10 text-[#8b5cf6] dark:text-[#c58af9] flex items-center justify-center shrink-0">
+							<div className="liquid-glass rounded-2xl p-3.5 sm:p-4 flex items-center justify-between gap-2.5 sm:gap-3 border border-foreground/10 hover:border-purple-500/40 transition-colors">
+								<div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1 truncate">
+									<div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-purple-500/10 text-[#8b5cf6] dark:text-[#c58af9] flex items-center justify-center shrink-0">
 										<MdEmail className="w-4 h-4" />
 									</div>
-									<div className="truncate">
+									<div className="min-w-0 flex-1 truncate">
 										<div className="text-[10px] font-bold text-muted uppercase tracking-wider">
 											{t.about.emailLabel}
 										</div>
 										<a
 											href={`mailto:${t.about.email}`}
-											className="text-sm font-semibold text-foreground hover:text-[#8b5cf6] transition-colors truncate"
+											className="text-xs sm:text-sm font-semibold text-foreground hover:text-[#8b5cf6] transition-colors truncate block"
 										>
 											{t.about.email}
 										</a>
@@ -245,13 +245,13 @@ export function About() {
 					</div>
 
 					{/* Right Column: Lifestyle & Tech Stacks (5 Cols) */}
-					<div className="lg:col-span-5 flex flex-col gap-8 md:gap-10">
+					<div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8 md:gap-10">
 						{/* Lifestyle & Hobbies Card */}
 						<div
-							className="focus-card liquid-glass-card p-8 flex flex-col justify-between flex-1"
+							className="focus-card liquid-glass-card p-5 sm:p-8 flex flex-col justify-between flex-1"
 						>
 							<div>
-								<div className="flex items-center justify-between mb-6 pb-4 border-b border-foreground/10">
+								<div className="flex items-center justify-between mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-foreground/10">
 									<h4 className="text-xs font-bold uppercase tracking-wider text-muted flex items-center gap-2">
 										<MdFitnessCenter className="w-4 h-4 text-[#1a73e8]" />
 										{t.about.hobbiesTitle}
@@ -259,14 +259,14 @@ export function About() {
 									<span className="text-[11px] font-mono text-muted">{t.about.hobbiesSub}</span>
 								</div>
 
-								<div className="space-y-4">
+								<div className="space-y-3.5 sm:space-y-4">
 									{/* Swimming */}
-									<div className="liquid-glass rounded-2xl p-4.5 flex items-start gap-4 border border-foreground/10 hover:border-blue-500/30 transition-colors">
-										<div className="w-10 h-10 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] flex items-center justify-center shrink-0 mt-0.5">
-											<MdPool className="w-5 h-5" />
+									<div className="liquid-glass rounded-2xl p-3.5 sm:p-4.5 flex items-start gap-3 sm:gap-4 border border-foreground/10 hover:border-blue-500/30 transition-colors">
+										<div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] flex items-center justify-center shrink-0 mt-0.5">
+											<MdPool className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
 										</div>
 										<div>
-											<h5 className="text-base font-bold text-foreground">
+											<h5 className="text-sm sm:text-base font-bold text-foreground">
 												{t.about.hobbies[0].title}
 											</h5>
 											<p className="text-xs sm:text-sm text-foreground/70 dark:text-zinc-400 mt-1 leading-relaxed">
@@ -276,12 +276,12 @@ export function About() {
 									</div>
 
 									{/* Gym */}
-									<div className="liquid-glass rounded-2xl p-4.5 flex items-start gap-4 border border-foreground/10 hover:border-purple-500/30 transition-colors">
-										<div className="w-10 h-10 rounded-full bg-purple-500/10 text-[#8b5cf6] dark:text-[#c58af9] flex items-center justify-center shrink-0 mt-0.5">
-											<MdFitnessCenter className="w-5 h-5" />
+									<div className="liquid-glass rounded-2xl p-3.5 sm:p-4.5 flex items-start gap-3 sm:gap-4 border border-foreground/10 hover:border-purple-500/30 transition-colors">
+										<div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-purple-500/10 text-[#8b5cf6] dark:text-[#c58af9] flex items-center justify-center shrink-0 mt-0.5">
+											<MdFitnessCenter className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
 										</div>
 										<div>
-											<h5 className="text-base font-bold text-foreground">
+											<h5 className="text-sm sm:text-base font-bold text-foreground">
 												{t.about.hobbies[1].title}
 											</h5>
 											<p className="text-xs sm:text-sm text-foreground/70 dark:text-zinc-400 mt-1 leading-relaxed">
@@ -292,7 +292,7 @@ export function About() {
 								</div>
 							</div>
 
-							<div className="mt-6 pt-4 border-t border-foreground/10 flex items-center justify-between text-xs text-muted font-mono">
+							<div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-foreground/10 flex items-center justify-between text-xs text-muted font-mono">
 								<span>{t.about.hobbiesSub}</span>
 								<span className="w-2 h-2 rounded-full bg-[#1a73e8]" />
 							</div>
@@ -300,13 +300,13 @@ export function About() {
 
 						{/* Quick Connect CTA Card */}
 						<div
-							className="focus-card liquid-glass-card p-7 flex items-center justify-between gap-4"
+							className="focus-card liquid-glass-card p-5 sm:p-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4"
 						>
 							<div>
 								<div className="text-xs uppercase font-bold text-muted tracking-wider mb-1">
 									{t.about.collabTitle}
 								</div>
-								<div className="text-base font-bold text-foreground">
+								<div className="text-sm sm:text-base font-bold text-foreground">
 									{t.about.collabDesc}
 								</div>
 							</div>
@@ -318,7 +318,7 @@ export function About() {
 									const el = document.getElementById("skills");
 									if (el) el.scrollIntoView({ behavior: "smooth" });
 								}}
-								className="gap-1.5 text-xs font-semibold shrink-0"
+								className="gap-1.5 text-xs font-semibold shrink-0 w-full sm:w-auto justify-center"
 							>
 								{t.about.collabCta}
 								<MdArrowOutward className="w-3.5 h-3.5 ml-0.5" />

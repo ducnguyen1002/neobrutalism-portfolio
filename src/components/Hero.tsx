@@ -410,21 +410,21 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="pt-44 md:pt-48 pb-32 md:pb-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-28 md:pb-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         {/* Google Prompt Capsule with Liquid Glass */}
         <div
           ref={badgeRef}
-          className="google-prompt-capsule inline-flex items-center gap-3 px-6 py-3 mb-10 max-w-3xl text-left"
+          className="google-prompt-capsule inline-flex items-center gap-2.5 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 mb-8 sm:mb-10 max-w-3xl text-left w-full sm:w-auto"
         >
           {/* Google 2-Tone Terminal Capsule Orb */}
-          <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
             <div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
-              <MdTerminal className="w-3.5 h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
+              <MdTerminal className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
             </div>
           </div>
-          <span className="text-xs sm:text-sm font-medium text-foreground/90 truncate">
+          <span className="text-[11px] sm:text-sm font-medium text-foreground/90 truncate">
             <strong className="text-[#1a73e8] dark:text-[#8ab4f8]">
               {t.hero.promptLabel}{" "}
             </strong>
@@ -435,10 +435,10 @@ export function Hero() {
         {/* Google Sans Headline - Expansive and Cinematic with Text Split */}
         <h1
           ref={headlineRef}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.14] max-w-6xl mb-8"
+          className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] max-w-6xl mb-6 sm:mb-8"
         >
           <SplitText text={t.hero.title1} delay={0.15} />{" "}
-          <span className="block mt-3">
+          <span className="block mt-2 sm:mt-3">
             <SplitText text={t.hero.title2} gradient delay={0.38} />
           </span>
         </h1>
@@ -446,7 +446,7 @@ export function Hero() {
         {/* Subtitle with Airy Spacing */}
         <p
           ref={subtitleRef}
-          className="text-lg sm:text-2xl text-foreground/75 dark:text-zinc-300 max-w-3xl mb-12 leading-relaxed font-normal"
+          className="text-sm sm:text-xl md:text-2xl text-foreground/75 dark:text-zinc-300 max-w-3xl mb-8 sm:mb-12 leading-relaxed font-normal px-2 sm:px-0"
         >
           {t.hero.desc}
         </p>
@@ -454,7 +454,7 @@ export function Hero() {
         {/* Google Pill CTAs */}
         <div
           ref={buttonsRef}
-          className="flex flex-wrap items-center justify-center gap-5 mb-16 sm:mb-20"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-5 mb-12 sm:mb-20 w-full sm:w-auto px-4 sm:px-0"
         >
           <Button
             size="lg"
@@ -463,7 +463,7 @@ export function Hero() {
               const el = document.getElementById("projects");
               if (el) el.scrollIntoView({ behavior: "smooth" });
             }}
-            className="gap-2 px-9 py-4 text-base font-semibold"
+            className="gap-2 px-7 sm:px-9 py-3.5 sm:py-4 text-sm sm:text-base font-semibold w-full sm:w-auto justify-center"
           >
             {t.hero.work}
             <MdArrowOutward className="w-4 h-4 ml-1" />
@@ -476,7 +476,7 @@ export function Hero() {
               const el = document.getElementById("about");
               if (el) el.scrollIntoView({ behavior: "smooth" });
             }}
-            className="gap-2 px-9 py-4 text-base font-medium"
+            className="gap-2 px-7 sm:px-9 py-3.5 sm:py-4 text-sm sm:text-base font-medium w-full sm:w-auto justify-center"
           >
             {t.hero.contact}
             <MdEast className="w-4 h-4 ml-1" />
@@ -488,7 +488,7 @@ export function Hero() {
           ref={sandboxRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="relative w-full max-w-6xl mx-auto min-h-[460px] sm:min-h-[560px] lg:min-h-[620px] flex items-center justify-center py-6 sm:py-10 select-none overflow-visible"
+          className="relative w-full max-w-6xl mx-auto min-h-[380px] sm:min-h-[560px] lg:min-h-[620px] flex items-center justify-center py-4 sm:py-10 select-none overflow-visible"
           style={{ perspective: "1400px" }}
         >
           {/* Specular Ambient Glow Follower */}
@@ -505,10 +505,10 @@ export function Hero() {
           {/* LAYER 3: FLOATING TECH PILLS & METRICS (FOREGROUND - Z: 30) */}
           {/* ------------------------------------------------------------------ */}
 
-          {/* Top-Center: Core Web Vitals Status Pill */}
+          {/* Top-Center: Core Web Vitals Status Pill (Desktop/Tablet) */}
           <div
             ref={metricBadgeRef}
-            className="absolute -top-3 sm:-top-5 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 dark:bg-[#121520]/95 backdrop-blur-xl border border-foreground/15 dark:border-white/20 shadow-lg shadow-black/5 dark:shadow-black/40 text-xs font-semibold text-foreground"
+            className="absolute -top-3 sm:-top-5 left-1/2 -translate-x-1/2 z-30 hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 dark:bg-[#121520]/95 backdrop-blur-xl border border-foreground/15 dark:border-white/20 shadow-lg shadow-black/5 dark:shadow-black/40 text-xs font-semibold text-foreground"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span className="w-2 h-2 rounded-full bg-emerald-500 -ml-3.5" />
@@ -522,23 +522,23 @@ export function Hero() {
           {/* Top-Right: Next.js 16 Pill */}
           <div
             ref={techPill1Ref}
-            className="absolute -top-2 sm:top-2 right-2 sm:right-8 lg:right-16 z-30 inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/90 dark:bg-[#121520]/95 backdrop-blur-xl border border-foreground/15 dark:border-white/20 shadow-xl shadow-black/5 dark:shadow-black/50 text-xs sm:text-sm font-semibold text-foreground hover:scale-105 transition-transform"
+            className="absolute -top-2 sm:top-2 right-1 sm:right-8 lg:right-16 z-30 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1 sm:py-2 rounded-full bg-white/90 dark:bg-[#121520]/95 backdrop-blur-xl border border-foreground/15 dark:border-white/20 shadow-xl shadow-black/5 dark:shadow-black/50 text-[11px] sm:text-sm font-semibold text-foreground hover:scale-105 transition-transform"
           >
-            <SiNextdotjs className="w-4 h-4 text-foreground" />
-            <span>Next.js 16 App Router</span>
+            <SiNextdotjs className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
+            <span>Next.js 16</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#1a73e8] dark:bg-[#8ab4f8]" />
           </div>
 
           {/* Bottom-Left: React 19 & TypeScript Pill */}
           <div
             ref={techPill2Ref}
-            className="absolute -bottom-3 sm:bottom-4 left-2 sm:left-8 lg:left-16 z-30 inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/90 dark:bg-[#121520]/95 backdrop-blur-xl border border-foreground/15 dark:border-white/20 shadow-xl shadow-black/5 dark:shadow-black/50 text-xs sm:text-sm font-semibold text-foreground hover:scale-105 transition-transform"
+            className="absolute -bottom-2 sm:bottom-4 left-1 sm:left-8 lg:left-16 z-30 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1 sm:py-2 rounded-full bg-white/90 dark:bg-[#121520]/95 backdrop-blur-xl border border-foreground/15 dark:border-white/20 shadow-xl shadow-black/5 dark:shadow-black/50 text-[11px] sm:text-sm font-semibold text-foreground hover:scale-105 transition-transform"
           >
             <div className="flex items-center -space-x-1">
-              <SiReact className="w-4 h-4 text-[#00d8ff]" />
-              <SiTypescript className="w-3.5 h-3.5 text-[#3178c6]" />
+              <SiReact className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00d8ff]" />
+              <SiTypescript className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#3178c6]" />
             </div>
-            <span>React 19 • TypeScript</span>
+            <span>React 19 • TS</span>
           </div>
 
           {/* Mid-Left: GSAP 3D Motion */}
@@ -628,12 +628,12 @@ export function Hero() {
           {/* ------------------------------------------------------------------ */}
           <div
             ref={mainCardRef}
-            className="relative w-full max-w-2xl lg:max-w-3xl z-20 p-2 sm:p-3 md:p-4 rounded-3xl bg-white/85 dark:bg-[#10121a]/90 backdrop-blur-3xl border border-foreground/15 dark:border-white/20 shadow-2xl shadow-blue-500/10 dark:shadow-black/70"
+            className="relative w-full max-w-2xl lg:max-w-3xl z-20 p-2 sm:p-3 md:p-4 rounded-2xl sm:rounded-3xl bg-white/85 dark:bg-[#10121a]/90 backdrop-blur-3xl border border-foreground/15 dark:border-white/20 shadow-2xl shadow-blue-500/10 dark:shadow-black/70"
           >
             {/* Inner Cinematic Showcase Card */}
             <div
               onClick={() => handleOpenModal(activeProject)}
-              className="relative aspect-16/10 rounded-2xl overflow-hidden bg-black/40 border border-white/10 group cursor-pointer shadow-inner"
+              className="relative aspect-[16/11] sm:aspect-16/10 rounded-xl sm:rounded-2xl overflow-hidden bg-black/40 border border-white/10 group cursor-pointer shadow-inner"
             >
               <img
                 src={activeProject.image}
@@ -642,15 +642,15 @@ export function Hero() {
               />
 
               {/* Cinematic Frosted Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 flex flex-col justify-between p-5 sm:p-8 text-left text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/30 flex flex-col justify-between p-3.5 sm:p-8 text-left text-white">
                 {/* Top Header Bar */}
-                <div className="flex items-center justify-between gap-3">
-                  <span className="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] sm:text-xs font-bold tracking-wider uppercase border border-white/20">
+                <div className="flex items-center justify-between gap-2.5 sm:gap-3">
+                  <span className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] sm:text-xs font-bold tracking-wider uppercase border border-white/20">
                     {activeProject.classification || "FEATURED PROJECT"}
                   </span>
 
-                  <div className="flex items-center gap-2 font-mono text-xs bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10">
-                    <MdBolt className="w-3.5 h-3.5 text-yellow-400" />
+                  <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-xs bg-black/60 backdrop-blur-md px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-white/10">
+                    <MdBolt className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-yellow-400" />
                     <span className="text-zinc-200">
                       {activeProject.metrics || "60 FPS"}
                     </span>
@@ -658,19 +658,19 @@ export function Hero() {
                 </div>
 
                 {/* Bottom Info & Action Bar */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                  <div>
-                    <h3 className="text-xl sm:text-3xl font-black mb-2 text-white drop-shadow-md group-hover:text-blue-300 transition-colors">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2.5 sm:gap-4">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base sm:text-2xl md:text-3xl font-black mb-1 sm:mb-2 text-white drop-shadow-md group-hover:text-blue-300 transition-colors truncate">
                       {activeProject.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-zinc-300 line-clamp-1 max-w-lg mb-2">
+                    <p className="hidden sm:block text-xs sm:text-sm text-zinc-300 line-clamp-1 max-w-lg mb-2 font-normal">
                       {activeProject.description}
                     </p>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5">
                       {(activeProject.tags || []).slice(0, 3).map((tag: string) => (
                         <span
                           key={tag}
-                          className="text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full bg-white/15 backdrop-blur-md text-zinc-200 border border-white/10"
+                          className="text-[9px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 rounded-full bg-white/15 backdrop-blur-md text-zinc-200 border border-white/10"
                         >
                           {tag}
                         </span>
@@ -683,24 +683,24 @@ export function Hero() {
                       e.stopPropagation();
                       handleOpenModal(activeProject);
                     }}
-                    className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs sm:text-sm font-semibold hover:bg-zinc-100 transition-all shadow-lg hover:scale-105 cursor-pointer"
+                    className="shrink-0 inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white text-black text-xs sm:text-sm font-semibold hover:bg-zinc-100 transition-all shadow-lg hover:scale-105 cursor-pointer w-full sm:w-auto"
                   >
                     <span>{t.projects?.inspect || "Xem chi tiết"}</span>
-                    <MdArrowOutward className="w-4 h-4 text-black" />
+                    <MdArrowOutward className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" />
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Mobile Project Switcher Controls (< 640px) */}
-            <div className="flex sm:hidden items-center justify-between mt-3 pt-2.5 px-2 border-t border-foreground/10 text-xs text-muted">
-              <span className="font-medium text-foreground">Các dự án khác:</span>
-              <div className="flex items-center gap-2">
+            <div className="flex sm:hidden items-center justify-between mt-2.5 pt-2 px-1.5 border-t border-foreground/10 text-xs text-muted">
+              <span className="font-medium text-foreground text-[11px]">Dự án khác:</span>
+              <div className="flex items-center gap-1.5">
                 {projects.map((p: any, idx: number) => (
                   <button
                     key={p.id || idx}
                     onClick={() => handleSelectProject(idx)}
-                    className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                    className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold transition-all ${
                       activeProjectIndex === idx
                         ? "bg-[#1a73e8] text-white"
                         : "bg-foreground/10 text-foreground/80 hover:bg-foreground/15"

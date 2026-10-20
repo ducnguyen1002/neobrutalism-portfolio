@@ -111,7 +111,7 @@ export function Projects() {
 		<section
 			ref={sectionRef}
 			id="projects"
-			className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+			className="py-20 sm:py-28 md:py-44 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
 		>
 			{/* Parallax Background Typography */}
 			<div
@@ -124,7 +124,7 @@ export function Projects() {
 
 			<div className="max-w-7xl mx-auto relative z-10">
 				{/* Section Header */}
-				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 md:mb-20 pb-8 border-b border-foreground/10 gap-8">
+				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 sm:mb-20 pb-6 sm:pb-8 border-b border-foreground/10 gap-6 sm:gap-8">
 					<div>
 						<div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-4">
 							<MdWorkOutline className="w-4 h-4" />
@@ -143,7 +143,7 @@ export function Projects() {
 				{/* Google Veo-Style Minimal Showcase Grid: Clean, Visual-First Cards */}
 				<div
 					ref={gridRef}
-					className="focus-dim-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+					className="focus-dim-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10"
 				>
 					{visibleProjects.map((project: any, index: number) => (
 						<div
@@ -160,7 +160,7 @@ export function Projects() {
 								/>
 
 								{/* Subtle Top-Left Category Badge */}
-								<div className="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold tracking-wider uppercase border border-white/15">
+								<div className="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase border border-white/15">
 									{project.classification}
 								</div>
 
@@ -169,11 +169,11 @@ export function Projects() {
 							</div>
 
 							{/* Minimal Details Underneath: Title & Interactive Demo Link */}
-							<div className="mt-5 sm:mt-6 flex flex-col">
-								<h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors leading-snug">
+							<div className="mt-4 sm:mt-6 flex flex-col">
+								<h3 className="text-lg sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors leading-snug">
 									{project.title}
 								</h3>
-								<div className="mt-2.5 inline-flex items-center gap-1 text-sm font-medium text-foreground/75 dark:text-zinc-400 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
+								<div className="mt-1.5 sm:mt-2.5 inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-foreground/75 dark:text-zinc-400 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
 									<span>{t.projects.exploreDemo || t.projects.inspect}</span>
 									<MdChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 text-[#1a73e8] dark:text-[#8ab4f8]" />
 								</div>
@@ -184,16 +184,16 @@ export function Projects() {
 
 				{/* Load More Action Bar */}
 				{t.projects.items && t.projects.items.length > 6 && (
-					<div className="mt-16 md:mt-20 flex flex-col items-center justify-center gap-3.5">
+					<div className="mt-12 sm:mt-16 md:mt-20 flex flex-col items-center justify-center gap-3.5 px-4">
 						{visibleCount < t.projects.items.length ? (
 							<Button
 								variant="secondary"
 								size="lg"
 								onClick={handleLoadMore}
-								className="px-9 py-4 rounded-full font-semibold text-sm sm:text-base border border-foreground/15 hover:border-[#1a73e8]/50 gap-3 transition-all shadow-md hover:scale-105 cursor-pointer"
+								className="w-full sm:w-auto justify-center px-7 sm:px-9 py-3.5 sm:py-4 rounded-full font-semibold text-sm sm:text-base border border-foreground/15 hover:border-[#1a73e8]/50 gap-2.5 sm:gap-3 transition-all shadow-md hover:scale-105 cursor-pointer"
 							>
 								<span>{t.projects.loadMore || "Xem thêm dự án"}</span>
-								<span className="text-xs px-2.5 py-0.5 rounded-full bg-[#1a73e8]/10 text-[#1a73e8] dark:text-[#8ab4f8] font-bold font-mono">
+								<span className="text-xs px-2 sm:px-2.5 py-0.5 rounded-full bg-[#1a73e8]/10 text-[#1a73e8] dark:text-[#8ab4f8] font-bold font-mono">
 									+6
 								</span>
 								<MdExpandMore className="w-5 h-5 text-[#1a73e8] dark:text-[#8ab4f8]" />
@@ -203,7 +203,7 @@ export function Projects() {
 								variant="secondary"
 								size="lg"
 								onClick={handleShowLess}
-								className="px-8 py-3.5 rounded-full font-medium text-xs sm:text-sm border border-foreground/15 hover:border-[#1a73e8]/50 gap-2 transition-all cursor-pointer text-muted hover:text-foreground"
+								className="w-full sm:w-auto justify-center px-7 sm:px-8 py-3 sm:py-3.5 rounded-full font-medium text-xs sm:text-sm border border-foreground/15 hover:border-[#1a73e8]/50 gap-2 transition-all cursor-pointer text-muted hover:text-foreground"
 							>
 								<span>{t.projects.showLess || "Thu gọn danh sách"}</span>
 								<MdExpandLess className="w-4 h-4" />
@@ -211,7 +211,7 @@ export function Projects() {
 						)}
 
 						{/* Counter Status */}
-						<div className="text-xs text-muted font-medium font-mono flex items-center gap-1.5">
+						<div className="text-xs text-muted font-medium font-mono flex items-center gap-1.5 text-center">
 							<span>
 								{t.projects.showing || "Đang hiển thị"}{" "}
 								<strong className="text-foreground">
