@@ -2,8 +2,12 @@ export const translations = {
 	vi: {
 		nav: {
 			about: "Về tôi",
-			skills: "Năng lực kỹ thuật",
-			projects: "Dự án tiêu biểu",
+			experience: "Lộ trình",
+			skills: "Năng lực",
+			workflow: "Quy trình",
+			projects: "Dự án",
+			standards: "Tiêu chuẩn",
+			faq: "Hỏi đáp",
 			hire: "Kết nối ngay",
 			light: "Chế độ Sáng",
 			dark: "Chế độ Tối",
@@ -61,9 +65,56 @@ export const translations = {
 			sendEmail: "Gửi thư điện tử",
 			copySuccess: "Đã sao chép vào bộ nhớ tạm!",
 		},
+		experience: {
+			badge: "LỘ TRÌNH KINH NGHIỆM",
+			title: "Cột mốc & Kinh nghiệm <br /> [[Thực chiến]]",
+			subtitle: "Hành trình tôi luyện kỹ năng, kiến tạo giải pháp và khẳng định năng lực tại các môi trường chuyên nghiệp",
+			items: [
+				{
+					period: "2026 — Hiện tại",
+					company: "Minh Khang Agency",
+					role: "Front-End Developer / Web App Specialist",
+					location: "Thanh Hóa, Việt Nam",
+					desc: "Phụ trách kiến trúc kỹ thuật và dẫn dắt phát triển các hệ thống web app quy mô lớn, cổng thông tin số cho khối doanh nghiệp. Tối ưu hóa hiệu năng render, trải nghiệm người dùng với Next.js 16, React 19 và Directus Headless CMS.",
+					tags: ["Next.js 16", "React 19", "TypeScript", "TailwindCSS v4", "Directus CMS", "Performance"],
+					current: true,
+					color: "#4285F4",
+				},
+				{
+					period: "2025 — 2026",
+					company: "Bolt Technologies",
+					role: "Front-End Developer / Web App Specialist",
+					location: "Hà Nội, Việt Nam",
+					desc: "Xây dựng các bảng điều khiển tài chính thời gian thực, trực quan hóa luồng dữ liệu chứng khoán độ trễ thấp với Echarts, GraphQL. Tối ưu hóa hệ thống micro-interactions 60 FPS cùng GSAP Motion.",
+					tags: ["React 19", "Next.js", "Echarts", "GraphQL", "GSAP Motion", "Zustand"],
+					current: false,
+					color: "#9B72CF",
+				},
+				{
+					period: "2024",
+					company: "Capi Agency",
+					role: "Front-End Developer",
+					location: "Hà Nội, Việt Nam",
+					desc: "Phát triển các landing page cao cấp, giao diện thương hiệu và website doanh nghiệp với độ trung thực thiết kế pixel-perfect, chuẩn SEO on-page và responsive mượt mà trên mọi kích cỡ thiết bị.",
+					tags: ["React", "TailwindCSS", "JavaScript ES6+", "Figma-to-Code", "Responsive UI"],
+					current: false,
+					color: "#34A853",
+				},
+				{
+					period: "2023",
+					company: "Cao đẳng FPT Polytechnic Hà Nội",
+					role: "Tốt nghiệp xuất sắc - Chuyên ngành Lập trình Web & CNTT",
+					location: "Hà Nội, Việt Nam",
+					desc: "Tốt nghiệp với nền tảng vững chắc về cấu trúc dữ liệu, giải thuật, quy chuẩn thiết kế giao diện hiện đại và tư duy kiến trúc mã nguồn sạch (Clean Code).",
+					tags: ["Computer Science", "Web Development", "Data Structures", "Clean Code"],
+					current: false,
+					color: "#FBBC05",
+				},
+			],
+		},
 		skills: {
 			badge: "NĂNG LỰC CỐT LÕI",
-			title: "Năng lực Kỹ thuật Cốt lõi",
+			title: "Năng lực Kỹ thuật <br /> [[Cốt lõi]]",
 			subtitle: "Bộ công nghệ nền tảng cho các ứng dụng web hiện đại, mở rộng linh hoạt và tốc độ cao",
 			verified: "HỆ THỐNG XÁC THỰC",
 			capabilities: [
@@ -77,6 +128,37 @@ export const translations = {
 				{ name: "Directus CMS", role: "Quản trị Nội dung Headless", level: "Nâng cao", dot: "#9B72CF", description: "Mô hình quan hệ động, phân quyền bảo mật & webhook pipelines" },
 				{ name: "Git & CI/CD", role: "Tự động hóa Quy trình Triển khai", level: "Thành thạo", dot: "#EA4335", description: "GitHub Actions, kiểm soát chất lượng tự động & deploy không gián đoạn" },
 				{ name: "GSAP Motion", role: "Hoạt họa Tương tác Điện ảnh", level: "Nâng cao", dot: "#34A853", description: "ScrollTrigger, kịch bản chuyển động timeline & vật lý mượt mà" },
+			],
+		},
+		workflow: {
+			badge: "PHƯƠNG PHÁP TRIỂN KHAI",
+			title: "Quy trình Làm việc <br /> [[Chuẩn mực]]",
+			subtitle: "Quy trình bài bản từ ý tưởng thiết kế đến sản phẩm web app vận hành thực tế đạt hiệu năng đỉnh cao",
+			steps: [
+				{
+					step: "01",
+					title: "Khảo sát & Kiến trúc Hệ thống",
+					desc: "Phân tích nghiệp vụ sâu sát, bóc tách component từ Figma, xác lập Design Tokens, Data Schema và kiến trúc Type-Safe chặt chẽ với TypeScript.",
+					tags: ["Figma Tokens", "Component Architecture", "Schema Validation"],
+				},
+				{
+					step: "02",
+					title: "Phát triển UI/UX Tương tác",
+					desc: "Lập trình giao diện với React 19 & Next.js 16, điều phối micro-interactions mượt mà 60 FPS với GSAP và quản lý trạng thái tập trung với Zustand.",
+					tags: ["Next.js 16", "React 19", "GSAP Motion", "Liquid Glass"],
+				},
+				{
+					step: "03",
+					title: "Tối ưu Hiệu năng & Chuẩn SEO",
+					desc: "Tối ưu hóa Core Web Vitals (< 50ms latency), kỹ thuật Streaming SSR, nén asset thông minh, đưa điểm số Google Lighthouse chạm mốc 98-100.",
+					tags: ["Core Web Vitals", "< 50ms Speed", "Lighthouse 100", "SEO"],
+				},
+				{
+					step: "04",
+					title: "Kiểm thử & Tự động Triển khai",
+					desc: "Thiết lập pipeline CI/CD với GitHub Actions, kiểm thử cross-device tự động, triển khai zero-downtime trên Cloud và bàn giao tài liệu kỹ thuật.",
+					tags: ["CI/CD Pipeline", "Docker / Cloud", "Full Source Handoff"],
+				},
 			],
 		},
 		projects: {
@@ -241,6 +323,60 @@ export const translations = {
 				// },
 			],
 		},
+		standards: {
+			badge: "CAM KẾT CHẤT LƯỢNG",
+			title: "Tiêu chuẩn Kỹ thuật <br /> & [[Hiệu năng]]",
+			subtitle: "Những thước đo cốt lõi đảm bảo mỗi sản phẩm web app bàn giao luôn đạt đẳng cấp vận hành cao nhất",
+			metrics: [
+				{
+					value: "100/100",
+					label: "Google Core Web Vitals",
+					desc: "LCP < 1.2s, FID/INP < 50ms, CLS = 0. Tối ưu hóa thứ hạng tìm kiếm và giữ chân người dùng.",
+					color: "#34A853",
+				},
+				{
+					value: "< 50ms",
+					label: "Interaction Latency",
+					desc: "Phản hồi tương tác tức thì, không giật lag khung hình với chuẩn GSAP 60 FPS mượt mà.",
+					color: "#4285F4",
+				},
+				{
+					value: "100%",
+					label: "Responsive & Khả dụng",
+					desc: "Hiển thị hoàn mỹ trên mọi kích thước màn hình từ điện thoại 320px đến màn hình 4K Retina.",
+					color: "#9B72CF",
+				},
+				{
+					value: "Strict TS",
+					label: "Kiến trúc Type-Safe",
+					desc: "Mã nguồn sạch, kiểm soát lỗi chặt chẽ, dễ dàng mở rộng và bảo trì an toàn dài hạn.",
+					color: "#FBBC05",
+				},
+			],
+		},
+		faq: {
+			badge: "HỎI & ĐÁP HỢP TÁC",
+			title: "Câu hỏi <br /> [[Thường gặp]]",
+			subtitle: "Giải đáp nhanh các thắc mắc về năng lực, hình thức hợp tác và quy trình chuyển giao công nghệ",
+			items: [
+				{
+					q: "Bạn nhận những hình thức làm việc và hợp tác nào?",
+					a: "Tôi linh hoạt đáp ứng cả hình thức làm việc Full-time, Remote toàn quốc hoặc Onsite tại Thanh Hóa / Hà Nội. Đồng thời sẵn sàng nhận hợp tác theo dự án (Freelance / Contract) cho các doanh nghiệp, agency và startup cần xây dựng web app chất lượng cao.",
+				},
+				{
+					q: "Bộ công nghệ chủ đạo bạn dùng để phát triển web app là gì?",
+					a: "Hệ sinh thái chính gồm React 19, Next.js 16 (App Router & Turbopack), TypeScript, TailwindCSS v4, kết hợp Directus Headless CMS cho quản trị nội dung linh hoạt, Echarts cho dữ liệu thời gian thực và GSAP cho chuyển động mượt mà.",
+				},
+				{
+					q: "Thời gian hoàn thiện và quy trình bàn giao một dự án trung bình là bao lâu?",
+					a: "Thời gian bàn giao tùy theo độ phức tạp: Landing page / Portfolio từ 5-7 ngày; Hệ thống Web App / Cổng thông tin doanh nghiệp từ 2-4 tuần. Toàn bộ mã nguồn sạch, tài liệu hướng dẫn vận hành và cấu hình CI/CD đều được chuyển giao 100%.",
+				},
+				{
+					q: "Cách bạn đảm bảo website sau khi phát hành đạt tốc độ cao và ổn định?",
+					a: "Tôi áp dụng nghiêm ngặt các tiêu chuẩn Google Core Web Vitals: Server-Side Rendering (SSR) & Streaming, phân tách gói thư viện tối ưu, nén ảnh tự động và kiểm thử tải thực tế trước khi phát hành chính thức.",
+				},
+			],
+		},
 		footer: {
 			badge: "KẾT NỐI VỚI TÔI",
 			talk: "Sẵn sàng kiến tạo",
@@ -268,8 +404,12 @@ export const translations = {
 	en: {
 		nav: {
 			about: "About",
+			experience: "Experience",
 			skills: "Skills",
+			workflow: "Workflow",
 			projects: "Projects",
+			standards: "Standards",
+			faq: "FAQ",
 			hire: "Get in Touch",
 			light: "Light",
 			dark: "Dark",
@@ -327,9 +467,56 @@ export const translations = {
 			sendEmail: "Send Email",
 			copySuccess: "Copied to clipboard!",
 		},
+		experience: {
+			badge: "CAREER TIMELINE",
+			title: "Milestones & <br /> [[Production Experience]]",
+			subtitle: "A proven track record of engineering leadership, scalable web apps, and digital innovation",
+			items: [
+				{
+					period: "2026 — Present",
+					company: "Minh Khang Agency",
+					role: "Senior Front-End Developer / Lead Web Applications",
+					location: "Thanh Hoa, Vietnam",
+					desc: "Architecting high-scale web applications, enterprise digital platforms, and headless CMS integrations. Optimizing render pipelines and user experience using Next.js 16, React 19, and Directus CMS.",
+					tags: ["Next.js 16", "React 19", "TypeScript", "TailwindCSS v4", "Directus CMS", "Performance"],
+					current: true,
+					color: "#4285F4",
+				},
+				{
+					period: "2025 — 2026",
+					company: "Bolt Technologies",
+					role: "Front-End Developer / Web App Specialist",
+					location: "Hanoi, Vietnam",
+					desc: "Engineered real-time financial portals, low-latency market depth streaming with Echarts and GraphQL. Choreographed 60 FPS cinematic micro-interactions with GSAP Motion.",
+					tags: ["React 19", "Next.js", "Echarts", "GraphQL", "GSAP Motion", "Zustand"],
+					current: false,
+					color: "#9B72CF",
+				},
+				{
+					period: "2024",
+					company: "Capi Agency",
+					role: "Front-End Developer",
+					location: "Hanoi, Vietnam",
+					desc: "Developed pixel-perfect digital agency showcases, brand landing pages, and responsive portals with strict SEO standards across all device viewports.",
+					tags: ["React", "TailwindCSS", "JavaScript ES6+", "Figma-to-Code", "Responsive UI"],
+					current: false,
+					color: "#34A853",
+				},
+				{
+					period: "2023",
+					company: "FPT Polytechnic College Hanoi",
+					role: "Graduated with Honors in Web Development & IT",
+					location: "Hanoi, Vietnam",
+					desc: "Graduated with a solid foundation in algorithms, data structures, modern interface ergonomics, and Clean Code engineering principles.",
+					tags: ["Computer Science", "Web Development", "Data Structures", "Clean Code"],
+					current: false,
+					color: "#FBBC05",
+				},
+			],
+		},
 		skills: {
 			badge: "CORE INFRASTRUCTURE",
-			title: "Core Technical Capabilities",
+			title: "Core Technical <br /> [[Capabilities]]",
 			subtitle: "Foundational technologies engineered for high-scale, resilient modern web platforms",
 			verified: "SYSTEM VERIFIED",
 			capabilities: [
@@ -343,6 +530,37 @@ export const translations = {
 				{ name: "Directus CMS", role: "Headless Content Ops", level: "Advanced", dot: "#9B72CF", description: "Dynamic relational schemas, permissions & webhook pipelines" },
 				{ name: "Git & CI/CD", role: "Deployment Automation", level: "Proficient", dot: "#EA4335", description: "GitHub Actions, automated quality checks & zero-downtime deploys" },
 				{ name: "GSAP Motion", role: "Cinematic Micro-Interactions", level: "Advanced", dot: "#34A853", description: "ScrollTrigger, timeline choreographies & fluid physics" },
+			],
+		},
+		workflow: {
+			badge: "ENGINEERING PROCESS",
+			title: "End-to-End <br /> [[Engineering Workflow]]",
+			subtitle: "A structured, scalable software engineering lifecycle tailored for high-performance web applications",
+			steps: [
+				{
+					step: "01",
+					title: "Architecture & Schema Design",
+					desc: "Deep requirement analysis, Figma token extraction, component taxonomy, and strict type-safe data schema modeling with TypeScript.",
+					tags: ["Figma Tokens", "Component Taxonomy", "Schema Validation"],
+				},
+				{
+					step: "02",
+					title: "Interactive UI/UX Engineering",
+					desc: "Building with Next.js 16 App Router & React 19, choreographing 60 FPS micro-animations with GSAP and atomic state management via Zustand.",
+					tags: ["Next.js 16", "React 19", "GSAP Motion", "Liquid Glass"],
+				},
+				{
+					step: "03",
+					title: "Performance & SEO Optimization",
+					desc: "Tuning sub-50ms interaction latency, streaming SSR, bundle code-splitting, asset compression, targeting Google Lighthouse 98-100.",
+					tags: ["Core Web Vitals", "< 50ms Speed", "Lighthouse 100", "SEO"],
+				},
+				{
+					step: "04",
+					title: "CI/CD & Production Handoff",
+					desc: "Setting up automated GitHub Actions pipelines, cross-device testing, zero-downtime deployment, and providing comprehensive documentation.",
+					tags: ["CI/CD Pipeline", "Docker / Cloud", "Full Source Handoff"],
+				},
 			],
 		},
 		projects: {
@@ -505,6 +723,60 @@ export const translations = {
 				// 	tags: ["Next.js", "WebSockets", "TradingView API", "FinTech"],
 				// 	metrics: "< 15ms Execution",
 				// },
+			],
+		},
+		standards: {
+			badge: "QUALITY BENCHMARK",
+			title: "Engineering Standards <br /> & [[Metrics]]",
+			subtitle: "Quantitative metrics ensuring every delivered web application performs at the highest tier",
+			metrics: [
+				{
+					value: "100/100",
+					label: "Google Core Web Vitals",
+					desc: "LCP < 1.2s, FID/INP < 50ms, CLS = 0. Ensuring top search indexing and user retention.",
+					color: "#34A853",
+				},
+				{
+					value: "< 50ms",
+					label: "Interaction Latency",
+					desc: "Immediate interaction feedback, zero stutter, and buttery-smooth 60 FPS GSAP choreographies.",
+					color: "#4285F4",
+				},
+				{
+					value: "100%",
+					label: "Responsive & Ergonomic",
+					desc: "Pixel-perfect visual harmony from 320px mobile viewports up to expansive 4K Retina displays.",
+					color: "#9B72CF",
+				},
+				{
+					value: "Strict TS",
+					label: "Type-Safe Architecture",
+					desc: "Clean, robust code with strict type checking, built for long-term scalability and painless maintenance.",
+					color: "#FBBC05",
+				},
+			],
+		},
+		faq: {
+			badge: "COLLABORATION FAQ",
+			title: "Frequently <br /> [[Asked Questions]]",
+			subtitle: "Direct answers regarding working models, engineering stack, and technology handoff",
+			items: [
+				{
+					q: "What collaboration models do you support?",
+					a: "I adapt flexibly to Full-time roles, Remote nationwide, or Onsite in Thanh Hoa / Hanoi. I am also available for project-based contracts (Freelance / Advisory) for startups and agencies requiring high-grade front-end engineering.",
+				},
+				{
+					q: "What is your primary tech stack for web applications?",
+					a: "My core ecosystem includes React 19, Next.js 16 (App Router & Turbopack), TypeScript, and TailwindCSS v4, complemented by Directus Headless CMS for flexible content ops, Echarts for real-time telemetry, and GSAP for cinematic motion.",
+				},
+				{
+					q: "What is the typical project timeline and handoff procedure?",
+					a: "Timelines depend on scope: 5–7 business days for high-impact landing pages / portfolios; 2–4 weeks for complex enterprise portals / web apps. 100% clean source code, setup manuals, and CI/CD pipelines are fully handed over.",
+				},
+				{
+					q: "How do you guarantee optimal speed and uptime post-launch?",
+					a: "I enforce strict Google Core Web Vitals: Server-Side Rendering (SSR) & Streaming, smart image compression, bundle code-splitting, and rigorous load testing prior to production launch.",
+				},
 			],
 		},
 		footer: {

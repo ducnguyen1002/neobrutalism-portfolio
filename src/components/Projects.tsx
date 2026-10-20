@@ -124,18 +124,17 @@ export function Projects() {
 
 			<div className="max-w-7xl mx-auto relative z-10">
 				{/* Section Header */}
-				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 sm:mb-20 pb-6 sm:pb-8 border-b border-foreground/10 gap-6 sm:gap-8">
-					<div>
+				<div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-20 pb-6 sm:pb-8 border-b border-foreground/10 gap-6 sm:gap-8">
+					<div className="max-w-2xl lg:max-w-3xl flex-1">
 						<div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-4">
 							<MdWorkOutline className="w-4 h-4" />
 							{t.projects.badge}
 						</div>
-						<h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground">
-							<SplitText text={t.projects.title} />{" "}
-							<SplitText text={t.projects.highlight} gradient />
+						<h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-foreground text-balance">
+							<SplitText text={`${t.projects.title} <br /> [[${t.projects.highlight}]]`} />
 						</h2>
 					</div>
-					<p className="text-sm sm:text-base text-muted font-normal max-w-md text-left sm:text-right leading-relaxed">
+					<p className="text-sm sm:text-base text-muted font-normal max-w-sm md:max-w-md text-left md:text-right leading-relaxed shrink-0">
 						{t.projects.subtitle}
 					</p>
 				</div>
