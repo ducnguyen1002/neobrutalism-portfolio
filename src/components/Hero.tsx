@@ -59,7 +59,6 @@ export function Hero() {
 
 			// Staggered Entrance
 			const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-			const words = headlineRef.current ? headlineRef.current.querySelectorAll(".split-word") : [];
 
 			tl.from(badgeRef.current, {
 				opacity: 0,
@@ -67,25 +66,14 @@ export function Hero() {
 				duration: 0.6,
 			})
 				.from(
-					words.length > 0 ? words : headlineRef.current,
-					{
-						opacity: 0,
-						y: 35,
-						filter: "blur(8px)",
-						duration: 0.85,
-						stagger: 0.035,
-						clearProps: "all",
-					},
-					"-=0.3"
-				)
-				.from(
 					subtitleRef.current,
 					{
 						opacity: 0,
 						y: 25,
 						duration: 0.8,
+						delay: 0.2,
 					},
-					"-=0.5"
+					"-=0.2"
 				)
 				.from(
 					buttonsRef.current ? Array.from(buttonsRef.current.children) : [],
@@ -189,9 +177,9 @@ export function Hero() {
 					ref={headlineRef}
 					className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.14] max-w-6xl mb-8"
 				>
-					<SplitText text={t.hero.title1} />{" "}
+					<SplitText text={t.hero.title1} delay={0.15} />{" "}
 					<span className="block mt-3">
-						<SplitText text={t.hero.title2} gradient />
+						<SplitText text={t.hero.title2} gradient delay={0.38} />
 					</span>
 				</h1>
 

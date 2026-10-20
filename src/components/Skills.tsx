@@ -14,34 +14,11 @@ if (typeof window !== "undefined") {
 export function Skills() {
 	const { t } = useLanguage();
 	const sectionRef = useRef<HTMLElement>(null);
-	const titleRef = useRef<HTMLHeadingElement>(null);
 	const matrixRef = useRef<HTMLDivElement>(null);
 
 	// GSAP ScrollTrigger Stagger Entrance
 	useEffect(() => {
 		const ctx = gsap.context(() => {
-			if (titleRef.current) {
-				const words = titleRef.current.querySelectorAll(".split-word");
-				gsap.fromTo(
-					words,
-					{ opacity: 0, y: 30, filter: "blur(6px)" },
-					{
-						opacity: 1,
-						y: 0,
-						filter: "blur(0px)",
-						duration: 0.8,
-						stagger: 0.04,
-						ease: "power3.out",
-						scrollTrigger: {
-							trigger: titleRef.current,
-							start: "top 88%",
-							toggleActions: "play none none none",
-						},
-						clearProps: "all",
-					}
-				);
-			}
-
 			if (matrixRef.current) {
 				const cards = Array.from(matrixRef.current.children);
 				gsap.from(cards, {
@@ -77,10 +54,7 @@ export function Skills() {
 							<MdCode className="w-4 h-4" />
 							{t.skills.badge}
 						</div>
-						<h2
-							ref={titleRef}
-							className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground"
-						>
+						<h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground">
 							<SplitText text={t.skills.title} />
 						</h2>
 					</div>

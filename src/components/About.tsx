@@ -28,7 +28,6 @@ export function About() {
 	const [copiedField, setCopiedField] = useState<string | null>(null);
 
 	const sectionRef = useRef<HTMLElement>(null);
-	const titleRef = useRef<HTMLHeadingElement>(null);
 	const gridRef = useRef<HTMLDivElement>(null);
 
 	const handleCopy = (text: string, field: string) => {
@@ -40,28 +39,6 @@ export function About() {
 	// GSAP ScrollTrigger Stagger Reveal
 	useEffect(() => {
 		const ctx = gsap.context(() => {
-			if (titleRef.current) {
-				const words = titleRef.current.querySelectorAll(".split-word");
-				gsap.fromTo(
-					words,
-					{ opacity: 0, y: 30, filter: "blur(6px)" },
-					{
-						opacity: 1,
-						y: 0,
-						filter: "blur(0px)",
-						duration: 0.8,
-						stagger: 0.04,
-						ease: "power3.out",
-						scrollTrigger: {
-							trigger: titleRef.current,
-							start: "top 88%",
-							toggleActions: "play none none none",
-						},
-						clearProps: "all",
-					}
-				);
-			}
-
 			if (gridRef.current) {
 				const cards = Array.from(gridRef.current.children);
 				gsap.from(cards, {
@@ -97,10 +74,7 @@ export function About() {
 							<MdPersonOutline className="w-4 h-4" />
 							{t.about.badge}
 						</div>
-						<h2
-							ref={titleRef}
-							className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground"
-						>
+						<h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground">
 							<SplitText text={t.about.title} />{" "}
 							<span className="google-gradient-text">
 								// Front-End
