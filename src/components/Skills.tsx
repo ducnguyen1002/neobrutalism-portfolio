@@ -40,6 +40,76 @@ export function Skills() {
 		return () => ctx.revert();
 	}, []);
 
+	// Distance-based Proximity Dimming: dimming increases with geometric distance
+	const handleCardHover = (hoveredIdx: number) => {
+		if (!matrixRef.current) return;
+		const cards = Array.from(matrixRef.current.children) as HTMLElement[];
+		const hoveredCard = cards[hoveredIdx];
+		if (!hoveredCard) return;
+
+		const hoveredRect = hoveredCard.getBoundingClientRect();
+		const hx = hoveredRect.left + hoveredRect.width / 2;
+		const hy = hoveredRect.top + hoveredRect.height / 2;
+
+		// Calculate true geometric Euclidean distance from hovered card center
+		let maxDist = 1;
+		const dists = cards.map((card) => {
+			const r = card.getBoundingClientRect();
+			const cx = r.left + r.width / 2;
+			const cy = r.top + r.height / 2;
+			const d = Math.hypot(cx - hx, cy - hy);
+			if (d > maxDist) maxDist = d;
+			return d;
+		});
+
+		cards.forEach((card, idx) => {
+			if (idx === hoveredIdx) {
+				gsap.to(card, {
+					opacity: 1,
+					scale: 1.035,
+					y: -6,
+					filter: "blur(0px)",
+					duration: 0.28,
+					ease: "power2.out",
+					overwrite: "auto",
+				});
+			} else {
+				const norm = dists[idx] / maxDist; // 0 (closest) -> 1 (farthest)
+				// Near cards: opacity ~0.65, scale ~0.99, crisp
+				// Medium cards: opacity ~0.38, subtle blur
+				// Far cards: opacity ~0.14, deeper blur and slight shrink
+				const targetOpacity = gsap.utils.interpolate(0.68, 0.14, Math.pow(norm, 0.8));
+				const targetScale = gsap.utils.interpolate(0.99, 0.94, norm);
+				const targetBlur = gsap.utils.interpolate(0, 1.6, norm);
+				const targetY = gsap.utils.interpolate(0, 3, norm);
+
+				gsap.to(card, {
+					opacity: targetOpacity,
+					scale: targetScale,
+					y: targetY,
+					filter: `blur(${targetBlur.toFixed(1)}px)`,
+					duration: 0.32,
+					ease: "power2.out",
+					overwrite: "auto",
+				});
+			}
+		});
+	};
+
+	const handleCardLeave = () => {
+		if (!matrixRef.current) return;
+		const cards = Array.from(matrixRef.current.children) as HTMLElement[];
+		gsap.to(cards, {
+			opacity: 1,
+			scale: 1,
+			y: 0,
+			filter: "blur(0px)",
+			duration: 0.42,
+			ease: "power2.out",
+			overwrite: "auto",
+		});
+	};
+
 	return (
 		<section
 			ref={sectionRef}
@@ -63,15 +133,17 @@ export function Skills() {
 					</p>
 				</div>
 
-				{/* Google Bento Capability Matrix with Liquid Glass & Focus Dimming */}
+				{/* Google Bento Capability Matrix with Proximity Distance-Based Dimming */}
 				<div
 					ref={matrixRef}
-					className="focus-dim-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
+					onMouseLeave={handleCardLeave}
+					className="proximity-dim-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
 				>
-					{t.skills.capabilities.map((item) => (
+					{t.skills.capabilities.map((item, index) => (
 						<div
 							key={item.name}
-							className="focus-card liquid-glass-card p-7 flex flex-col justify-between group cursor-default"
+							onMouseEnter={() => handleCardHover(index)}
+							className="proximity-card liquid-glass-card p-7 flex flex-col justify-between group cursor-default"
 						>
 							{/* Top Specifier */}
 							<div className="flex items-center justify-between mb-6">
