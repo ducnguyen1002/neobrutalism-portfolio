@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { MdTerminal, MdArrowOutward, MdEast, MdLayers, MdBolt } from "react-icons/md";
 import { useLanguage } from "./Providers";
 import { Button } from "./ui/Button";
+import { SplitText } from "./ui/SplitText";
 
 export function Hero() {
 	const { t } = useLanguage();
@@ -58,20 +59,24 @@ export function Hero() {
 
 			// Staggered Entrance
 			const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+			const words = headlineRef.current ? headlineRef.current.querySelectorAll(".split-word") : [];
 
 			tl.from(badgeRef.current, {
 				opacity: 0,
 				y: 20,
-				duration: 0.7,
+				duration: 0.6,
 			})
 				.from(
-					headlineRef.current,
+					words.length > 0 ? words : headlineRef.current,
 					{
 						opacity: 0,
 						y: 35,
-						duration: 0.9,
+						filter: "blur(8px)",
+						duration: 0.85,
+						stagger: 0.035,
+						clearProps: "all",
 					},
-					"-=0.4"
+					"-=0.3"
 				)
 				.from(
 					subtitleRef.current,
@@ -179,14 +184,14 @@ export function Hero() {
 					</span>
 				</div>
 
-				{/* Google Sans Headline - Expansive and Cinematic */}
+				{/* Google Sans Headline - Expansive and Cinematic with Text Split */}
 				<h1
 					ref={headlineRef}
 					className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.14] max-w-6xl mb-8"
 				>
-					{t.hero.title1}{" "}
-					<span className="google-gradient-text block mt-3">
-						{t.hero.title2}
+					<SplitText text={t.hero.title1} />{" "}
+					<span className="block mt-3">
+						<SplitText text={t.hero.title2} gradient />
 					</span>
 				</h1>
 

@@ -6,6 +6,7 @@ import { useLanguage } from "./Providers";
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "./ui/SplitText";
 
 if (typeof window !== "undefined") {
 	gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +17,7 @@ export function Footer() {
 	const [copied, setCopied] = useState(false);
 	const email = "ducduc1022000@gmail.com";
 	const footerRef = useRef<HTMLElement>(null);
+	const titleRef = useRef<HTMLHeadingElement>(null);
 	const contentRef = useRef<HTMLDivElement>(null);
 
 	const handleCopyEmail = () => {
@@ -26,6 +28,28 @@ export function Footer() {
 
 	useEffect(() => {
 		const ctx = gsap.context(() => {
+			if (titleRef.current) {
+				const words = titleRef.current.querySelectorAll(".split-word");
+				gsap.fromTo(
+					words,
+					{ opacity: 0, y: 35, filter: "blur(6px)" },
+					{
+						opacity: 1,
+						y: 0,
+						filter: "blur(0px)",
+						duration: 0.85,
+						stagger: 0.04,
+						ease: "power3.out",
+						scrollTrigger: {
+							trigger: titleRef.current,
+							start: "top 88%",
+							toggleActions: "play none none none",
+						},
+						clearProps: "all",
+					}
+				);
+			}
+
 			if (contentRef.current) {
 				const children = Array.from(contentRef.current.children);
 				gsap.from(children, {
@@ -64,11 +88,12 @@ export function Footer() {
 						{t.footer.badge}
 					</div>
 
-					<h2 className="text-4xl sm:text-6xl font-black tracking-tight mb-6 text-foreground leading-[1.08]">
-						{t.footer.talk}{" "}
-						<span className="google-gradient-text">
-							{t.footer.talkHighlight}
-						</span>
+					<h2
+						ref={titleRef}
+						className="text-4xl sm:text-6xl font-black tracking-tight mb-6 text-foreground leading-[1.08]"
+					>
+						<SplitText text={t.footer.talk} />{" "}
+						<SplitText text={t.footer.talkHighlight} gradient />
 					</h2>
 
 					<p className="text-base sm:text-xl text-foreground/75 dark:text-zinc-300 mb-10 leading-relaxed font-normal max-w-xl">

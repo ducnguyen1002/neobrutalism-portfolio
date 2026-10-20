@@ -8,10 +8,12 @@ import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { BackToTop } from "@/components/BackToTop";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 export default function Home() {
 	return (
 		<main className="min-h-screen relative overflow-x-hidden selection:bg-[#4285f4] selection:text-white">
+			<SmoothScroll />
 			<LoadingScreen />
 			<div className="google-aurora-bg" />
 			<CustomCursor />

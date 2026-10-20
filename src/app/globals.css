@@ -375,3 +375,79 @@ h6 {
       inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.28) !important;
   }
 }
+
+/* ========================================================
+   LENIS SMOOTH SCROLL INTEGRATION
+   ======================================================== */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ========================================================
+   CUSTOM SLEEK GOOGLE LIQUID SCROLLBAR
+   ======================================================== */
+
+/* Firefox Standard */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(26, 115, 232, 0.45) transparent;
+}
+
+.dark html {
+  scrollbar-color: rgba(138, 180, 248, 0.4) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 9999px;
+  border: 2.5px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.25s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #1a73e8, #8b5cf6);
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  border: 2.5px solid transparent;
+  background-clip: padding-box;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #8ab4f8, #c58af9);
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}

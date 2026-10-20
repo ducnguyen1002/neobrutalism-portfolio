@@ -8,6 +8,7 @@ import { ProjectModal } from "./ui/ProjectModal";
 import { MdWorkOutline, MdOpenInNew, MdArrowOutward } from "react-icons/md";
 import { FaGithub } from "react-icons/fa6";
 import { useLanguage } from "./Providers";
+import { SplitText } from "./ui/SplitText";
 
 if (typeof window !== "undefined") {
 	gsap.registerPlugin(ScrollTrigger);
@@ -19,6 +20,7 @@ export function Projects() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const sectionRef = useRef<HTMLElement>(null);
+	const titleRef = useRef<HTMLHeadingElement>(null);
 	const gridRef = useRef<HTMLDivElement>(null);
 
 	const handleOpenModal = (project: any) => {
@@ -29,6 +31,28 @@ export function Projects() {
 	// GSAP ScrollTrigger Entrance Animation
 	useEffect(() => {
 		const ctx = gsap.context(() => {
+			if (titleRef.current) {
+				const words = titleRef.current.querySelectorAll(".split-word");
+				gsap.fromTo(
+					words,
+					{ opacity: 0, y: 30, filter: "blur(6px)" },
+					{
+						opacity: 1,
+						y: 0,
+						filter: "blur(0px)",
+						duration: 0.8,
+						stagger: 0.04,
+						ease: "power3.out",
+						scrollTrigger: {
+							trigger: titleRef.current,
+							start: "top 88%",
+							toggleActions: "play none none none",
+						},
+						clearProps: "all",
+					}
+				);
+			}
+
 			if (gridRef.current) {
 				const cards = Array.from(gridRef.current.children);
 				gsap.from(cards, {
@@ -64,11 +88,12 @@ export function Projects() {
 							<MdWorkOutline className="w-4 h-4" />
 							{t.projects.badge}
 						</div>
-						<h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground">
-							{t.projects.title}{" "}
-							<span className="google-gradient-text">
-								{t.projects.highlight}
-							</span>
+						<h2
+							ref={titleRef}
+							className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground"
+						>
+							<SplitText text={t.projects.title} />{" "}
+							<SplitText text={t.projects.highlight} gradient />
 						</h2>
 					</div>
 					<p className="text-sm sm:text-base text-muted font-normal max-w-md text-left sm:text-right leading-relaxed">
