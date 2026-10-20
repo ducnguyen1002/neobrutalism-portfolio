@@ -1,56 +1,102 @@
 "use client";
 
-import { Github, Twitter, Linkedin, Heart } from "lucide-react";
+import { Github, Twitter, Linkedin, Copy, Check, Mail, Sparkles, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "./Providers";
+import { useState } from "react";
+import { Button } from "./ui/Button";
 
 export function Footer() {
 	const { t } = useLanguage();
+	const [copied, setCopied] = useState(false);
+	const email = "ducduc1022000@gmail.com";
+
+	const handleCopyEmail = () => {
+		navigator.clipboard.writeText(email);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	};
 
 	return (
-		<footer className="py-20 px-4 bg-(--section-alt-bg) border-t-4 border-(--border-color)">
-			<div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-				<div>
-					<h2 className="text-4xl font-black mb-4 text-black dark:text-white">
+		<footer id="about" className="py-28 px-4 border-t border-foreground/10 relative overflow-hidden">
+			<div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 relative z-10">
+				{/* Left Column */}
+				<div className="max-w-xl">
+					<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-4">
+						<Sparkles className="w-3.5 h-3.5" />
+						CONNECT WITH ME
+					</div>
+
+					<h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4 text-foreground leading-[1.1]">
 						{t.footer.talk}{" "}
-						<span className="text-neo-yellow underline">
+						<span className="veo-gradient-text">
 							{t.footer.talkHighlight}
 						</span>
 					</h2>
-					<p className="text-xl font-bold max-w-md mb-8 text-black/70 dark:text-zinc-400">
+
+					<p className="text-base sm:text-lg text-foreground/75 dark:text-zinc-300 mb-8 leading-relaxed font-normal">
 						{t.footer.desc}
 					</p>
-					<div className="flex gap-6">
+
+					{/* Social Links */}
+					<div className="flex gap-3">
 						<a
-							href="#"
-							className="p-3 bg-neo-purple neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+							href="https://github.com/ducnguyen1002"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="w-12 h-12 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-foreground transition-all hover:scale-105 shadow-sm"
+							aria-label="GitHub"
 						>
-							<Github className="w-6 h-6 text-white" />
+							<Github className="w-5 h-5" />
 						</a>
 						<a
-							href="#"
-							className="p-3 bg-neo-yellow neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all text-black"
+							href="https://linkedin.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="w-12 h-12 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-[#1a73e8] dark:text-[#8ab4f8] transition-all hover:scale-105 shadow-sm"
+							aria-label="LinkedIn"
 						>
-							<Linkedin className="w-6 h-6" />
+							<Linkedin className="w-5 h-5" />
 						</a>
 						<a
-							href="#"
-							className="p-3 bg-neo-green neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all text-black"
+							href="https://twitter.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="w-12 h-12 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-[#06b6d4] transition-all hover:scale-105 shadow-sm"
+							aria-label="Twitter"
 						>
-							<Twitter className="w-6 h-6" />
+							<Twitter className="w-5 h-5" />
 						</a>
 					</div>
 				</div>
 
-				<div className="text-center md:text-right">
-					<p className="text-2xl font-black mb-2 italic text-black dark:text-white">
-						ducduc1022000@gmail.com
-					</p>
-					<p className="font-bold flex items-center justify-center md:justify-end gap-2 text-black/70 dark:text-zinc-300">
+				{/* Right Column */}
+				<div className="flex flex-col items-start md:items-end">
+					{/* Copyable Email Pill */}
+					<div className="px-5 py-3 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 backdrop-blur-xl mb-6 flex items-center gap-3 shadow-lg">
+						<Mail className="w-4 h-4 text-[#1a73e8] dark:text-[#8ab4f8]" />
+						<span className="text-sm sm:text-base font-semibold text-foreground">
+							{email}
+						</span>
+						<button
+							onClick={handleCopyEmail}
+							className="ml-2 p-1.5 rounded-full bg-foreground/10 hover:bg-foreground/15 text-foreground transition-colors"
+							title="Copy email"
+						>
+							{copied ? (
+								<Check className="w-4 h-4 text-emerald-500" />
+							) : (
+								<Copy className="w-4 h-4" />
+							)}
+						</button>
+					</div>
+
+					<p className="text-xs text-muted mb-2 text-center md:text-right">
 						{t.footer.madeWith}{" "}
-						<Heart className="w-4 h-4 fill-neo-red text-neo-red" /> Google Antigravity
+						<span className="font-semibold text-foreground">Google Antigravity & Next.js 16</span>
 					</p>
-					<p className="text-xs font-bold mt-4 opacity-50 text-black dark:text-white">
-						{t.footer.rights} © 2026 PORTFOLIO.
+
+					<p className="text-xs text-muted/80 text-center md:text-right">
+						{t.footer.rights} © 2026.
 					</p>
 				</div>
 			</div>

@@ -4,172 +4,193 @@ import Link from "next/link";
 import { Button } from "./ui/Button";
 import { useTheme } from "next-themes";
 import { useLanguage } from "./Providers";
-import { Sun, Moon, Languages, Menu, X } from "lucide-react";
+import { Sun, Moon, Languages, Menu, X, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
 	const { theme, setTheme } = useTheme();
 	const { language, setLanguage, t } = useLanguage();
 	const [mounted, setMounted] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [scrolled, setScrolled] = useState(false);
 
 	useEffect(() => {
 		setMounted(true);
+		const handleScroll = () => {
+			setScrolled(window.scrollY > 20);
+		};
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	return (
-		<nav className="fixed top-0 left-0 right-0 z-50 p-2 md:p-4 lg:p-6">
-			<div className="max-w-7xl mx-auto bg-white dark:bg-[#2a2a2a] neo-brutalism-border neo-brutalism-shadow">
-				<div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+		<header className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:py-6 transition-all duration-300">
+			<div
+				className={`max-w-5xl mx-auto rounded-full transition-all duration-300 ${
+					scrolled
+						? "bg-white/85 dark:bg-[#0c0e17]/85 backdrop-blur-2xl border border-black/10 dark:border-white/15 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.8)]"
+						: "bg-white/60 dark:bg-[#0c0e17]/50 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]"
+				}`}
+			>
+				<div className="flex items-center justify-between px-6 py-3 md:px-8 md:py-3.5">
+					{/* Google DeepMind / Veo Sparkle Brand */}
 					<Link
 						href="/"
-						className="text-xl md:text-2xl font-black tracking-tighter text-black dark:text-white shrink-0"
+						className="flex items-center gap-2.5 group select-none"
 					>
-						DUC<span className="text-neo-purple">NV</span>
+						{/* Google Multi-Color Sparkle */}
+						<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#8B5CF6] to-[#EC4899] p-0.5 flex items-center justify-center shadow-[0_0_12px_rgba(66,133,244,0.4)] group-hover:scale-105 transition-transform">
+							<div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
+								<Sparkles className="w-4 h-4 text-[#4285F4] dark:text-[#8ab4f8]" />
+							</div>
+						</div>
+
+						<div className="flex items-center gap-1.5 font-bold tracking-tight text-base text-foreground">
+							<span>DucNV</span>
+							<span className="text-xs font-medium text-muted px-2 py-0.5 rounded-full bg-foreground/5 hidden sm:inline-block">
+								Veo Front-End
+							</span>
+						</div>
 					</Link>
 
-					<div className="hidden md:flex items-center gap-8 font-bold text-black dark:text-white">
+					{/* Desktop Navigation */}
+					<nav className="hidden md:flex items-center gap-1 text-sm font-medium text-foreground/85">
 						<Link
 							href="#projects"
-							className="hover:underline decoration-4 underline-offset-4"
+							className="px-4 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
 							{t.nav.projects}
 						</Link>
 						<Link
 							href="#skills"
-							className="hover:underline decoration-4 underline-offset-4"
+							className="px-4 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
 							{t.nav.skills}
 						</Link>
 						<Link
-							href="#game"
-							className="hover:underline decoration-4 underline-offset-4"
-						>
-							{t.nav.game}
-						</Link>
-						<Link
 							href="#about"
-							className="hover:underline decoration-4 underline-offset-4"
+							className="px-4 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
 							{t.nav.about}
 						</Link>
-					</div>
+					</nav>
 
-					<div className="flex items-center gap-2 md:gap-4">
+					{/* Action Buttons */}
+					<div className="flex items-center gap-2">
+						{/* Theme Toggle */}
 						<button
 							onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-							className="hidden md:flex p-2 neo-brutalism-border bg-background hover:translate-x-px hover:translate-y-px transition-all items-center justify-center w-11 h-11"
+							className="w-10 h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
 							aria-label="Toggle Theme"
 						>
 							{!mounted ? (
-								<div className="w-5 h-5" />
+								<div className="w-4 h-4" />
 							) : theme === "dark" ? (
-								<Sun className="w-5 h-5 text-foreground fill-neo-yellow" />
+								<Sun className="w-4 h-4 text-[#fbbc04] transition-transform hover:rotate-45" />
 							) : (
-								<Moon className="w-5 h-5 text-foreground fill-foreground" />
+								<Moon className="w-4 h-4 text-[#1a73e8] transition-transform hover:-rotate-12" />
 							)}
 						</button>
 
+						{/* Language Toggle */}
 						<button
 							onClick={() => setLanguage(language === "vi" ? "en" : "vi")}
-							className="hidden md:flex w-11 h-11 neo-brutalism-border bg-neo-blue text-white hover:translate-x-px hover:translate-y-px transition-all font-black items-center justify-center text-sm"
+							className="h-10 px-3 rounded-full flex items-center gap-1 text-xs font-semibold tracking-wider text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
+							title="Switch Language"
 						>
-							{language === "vi" ? "EN" : "VI"}
+							<Languages className="w-3.5 h-3.5 opacity-70" />
+							<span>{language.toUpperCase()}</span>
 						</button>
 
-						<div className="hidden md:block">
+						{/* Google Aurora CTA Button */}
+						<div className="hidden sm:block">
 							<Button
 								size="sm"
-								variant="primary"
+								variant="aurora"
+								onClick={() => {
+									const contactSection = document.getElementById("about");
+									if (contactSection) {
+										contactSection.scrollIntoView({ behavior: "smooth" });
+									}
+								}}
+								className="gap-1.5"
 							>
+								<Sparkles className="w-3.5 h-3.5" />
 								{t.nav.hire}
 							</Button>
 						</div>
 
+						{/* Mobile Hamburger */}
 						<button
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
-							className="p-2 neo-brutalism-border bg-neo-yellow text-black md:hidden"
+							className="p-2 rounded-full text-foreground hover:bg-foreground/5 md:hidden transition-colors"
+							aria-label="Toggle Menu"
 						>
 							{isMenuOpen ? (
-								<X className="w-6 h-6" />
+								<X className="w-5 h-5" />
 							) : (
-								<Menu className="w-6 h-6" />
+								<Menu className="w-5 h-5" />
 							)}
 						</button>
 					</div>
 				</div>
 
-				{/* Mobile Menu */}
-				{isMenuOpen && (
-					<div className="md:hidden border-t-4 border-(--border-color) bg-white dark:bg-[#2a2a2a] p-4 flex flex-col gap-4 font-black">
-						<Link
-							href="#about"
-							onClick={() => setIsMenuOpen(false)}
-							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
+				{/* Mobile Menu Dropdown */}
+				<AnimatePresence>
+					{isMenuOpen && (
+						<motion.div
+							initial={{ opacity: 0, height: 0 }}
+							animate={{ opacity: 1, height: "auto" }}
+							exit={{ opacity: 0, height: 0 }}
+							className="md:hidden border-t border-foreground/10 px-6 py-5 flex flex-col gap-2 font-medium overflow-hidden"
 						>
-							{t.nav.about}
-						</Link>
-						<Link
-							href="#skills"
-							onClick={() => setIsMenuOpen(false)}
-							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
-						>
-							{t.nav.skills}
-						</Link>
-						<Link
-							href="#projects"
-							onClick={() => setIsMenuOpen(false)}
-							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
-						>
-							{t.nav.projects}
-						</Link>
-						<Link
-							href="#game"
-							onClick={() => setIsMenuOpen(false)}
-							className="text-lg p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
-						>
-							{t.nav.game}
-						</Link>
-
-
-						<div className="grid grid-cols-2 gap-4">
-							<button
-								onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-								className="flex p-3 neo-brutalism-border bg-background items-center justify-center gap-2"
+							<Link
+								href="#projects"
+								onClick={() => setIsMenuOpen(false)}
+								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
 							>
-								{theme === "dark" ? (
-									<>
-										<Sun className="w-5 h-5 text-foreground fill-neo-yellow" />
-										<span className="text-sm text-foreground">{t.nav.light}</span>
-									</>
-								) : (
-									<>
-										<Moon className="w-5 h-5 text-foreground fill-foreground" />
-										<span className="text-sm text-foreground">{t.nav.dark}</span>
-									</>
-								)}
-							</button>
-
-							<button
-								onClick={() => setLanguage(language === "vi" ? "en" : "vi")}
-								className="flex p-3 neo-brutalism-border bg-neo-blue text-white items-center justify-center gap-2"
+								<span>{t.nav.projects}</span>
+								<span className="text-xs text-muted">01</span>
+							</Link>
+							<Link
+								href="#skills"
+								onClick={() => setIsMenuOpen(false)}
+								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
 							>
-								<Languages className="w-5 h-5" />
-								<span className="text-sm">
-									{language === "vi" ? "EN" : "VI"}
-								</span>
-							</button>
-						</div>
+								<span>{t.nav.skills}</span>
+								<span className="text-xs text-muted">02</span>
+							</Link>
+							<Link
+								href="#about"
+								onClick={() => setIsMenuOpen(false)}
+								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
+							>
+								<span>{t.nav.about}</span>
+								<span className="text-xs text-muted">03</span>
+							</Link>
 
-						<Button
-							className="w-full justify-center text-lg"
-							onClick={() => setIsMenuOpen(false)}
-						>
-							{t.nav.hire}
-						</Button>
-					</div>
-				)}
+							<div className="pt-3 border-t border-foreground/10">
+								<Button
+									size="md"
+									variant="aurora"
+									className="w-full justify-center gap-2"
+									onClick={() => {
+										setIsMenuOpen(false);
+										const contactSection = document.getElementById("about");
+										if (contactSection) {
+											contactSection.scrollIntoView({ behavior: "smooth" });
+										}
+									}}
+								>
+									<Sparkles className="w-4 h-4" />
+									{t.nav.hire}
+								</Button>
+							</div>
+						</motion.div>
+					)}
+				</AnimatePresence>
 			</div>
-		</nav>
+		</header>
 	);
 }

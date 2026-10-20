@@ -1,42 +1,74 @@
+@import url('https://fonts.cdnfonts.com/css/google-sans');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f6f6f6;
-  --foreground: #000000;
-  --section-alt-bg: #ffffff;
+  /* Google Light Theme */
+  --background: #ffffff;
+  --foreground: #1f1f1f;
+  --muted: #5f6368;
+  --muted-light: #80868b;
+  --section-alt-bg: #f8fafd;
 
-  --neo-yellow: #ebc313;
-  --neo-purple: #A388EE;
-  --neo-green: #84cc16;
-  --neo-red: #ff6b6b;
-  --neo-blue: #3b82f6;
+  --google-blue: #1a73e8;
+  --google-red: #ea4335;
+  --google-yellow: #fbbc04;
+  --google-green: #34a853;
+  --google-purple: #8ab4f8;
 
-  --border-width: 4px;
-  --border-color: #000000;
-  --shadow-color: 0, 0, 0;
-  --card-background: #ffffff;
+  --veo-cyan: #00d2ff;
+  --veo-violet: #7928ca;
+  --veo-pink: #ff0080;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
+
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.06);
+
+  --font-family-google: 'Google Sans', 'Product Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .dark {
-  --background: #1a1a1a;
-  --foreground: #ffffff;
-  --section-alt-bg: #000000;
-  --border-color: #ffffff;
-  --shadow-color: 255, 255, 255;
-  --card-background: #2a2a2a;
+  /* Google Veo 3 Cinematic Dark Theme */
+  --background: #08090d;
+  --foreground: #f1f3f4;
+  --muted: #9aa0a6;
+  --muted-light: #5f6368;
+  --section-alt-bg: #0d0f17;
+
+  --google-blue: #8ab4f8;
+  --google-red: #f28b82;
+  --google-yellow: #fdd663;
+  --google-green: #81c995;
+  --google-purple: #c58af9;
+
+  --veo-cyan: #38bdf8;
+  --veo-violet: #a855f7;
+  --veo-pink: #f43f5e;
+
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  --card-bg: rgba(18, 21, 31, 0.7);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.8), 0 0 32px rgba(138, 180, 248, 0.08);
+
+  --font-family-google: 'Google Sans', 'Product Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  --color-neo-yellow: var(--neo-yellow);
-  --color-neo-purple: var(--neo-purple);
-  --color-neo-green: var(--neo-green);
-  --color-neo-red: var(--neo-red);
-  --color-neo-blue: var(--neo-blue);
+  --color-muted: var(--muted);
+  --color-muted-light: var(--muted-light);
+  --color-google-blue: var(--google-blue);
+  --color-google-red: var(--google-red);
+  --color-google-yellow: var(--google-yellow);
+  --color-google-green: var(--google-green);
+  --color-google-purple: var(--google-purple);
 }
 
 * {
@@ -45,13 +77,15 @@
 
 html {
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-be-vietnam), sans-serif;
+  font-family: 'Google Sans', 'Product Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  letter-spacing: -0.015em;
 }
 
 h1,
@@ -60,80 +94,84 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-space-grotesk), sans-serif;
+  font-family: 'Google Sans', 'Product Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
-.neo-brutalism-border {
-  border: var(--border-width) solid var(--border-color);
-}
+/* ========================================================
+   GOOGLE VEO AURORA & CINEMATIC GRADIENTS
+   ======================================================== */
 
-.neo-brutalism-shadow {
-  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.neo-brutalism-card {
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
-  background: var(--card-background);
-  transition: all 0.2s ease-in-out;
-}
-
-.neo-brutalism-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 12px 12px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.neo-brutalism-button {
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
-  background: var(--neo-yellow);
-  font-weight: 800;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.1s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-.neo-brutalism-button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 10px 10px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.neo-brutalism-button:active {
-  transform: translate(8px, 8px);
-  box-shadow: 0px 0px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.grid-bg {
-  background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
-  background-size: 30px 30px;
-  background-color: var(--background);
-  opacity: 0.1;
+.veo-aurora-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  background-image: 
+    radial-gradient(circle 600px at 20% 15%, rgba(66, 133, 244, 0.15), transparent 70%),
+    radial-gradient(circle 500px at 80% 25%, rgba(168, 85, 247, 0.15), transparent 70%),
+    radial-gradient(circle 700px at 50% 60%, rgba(6, 182, 212, 0.12), transparent 70%);
 }
 
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+.dark .veo-aurora-bg {
+  background-image: 
+    radial-gradient(circle 700px at 15% 10%, rgba(66, 133, 244, 0.18), transparent 75%),
+    radial-gradient(circle 600px at 85% 20%, rgba(168, 85, 247, 0.18), transparent 75%),
+    radial-gradient(circle 800px at 50% 70%, rgba(6, 182, 212, 0.12), transparent 75%),
+    radial-gradient(circle 400px at 70% 90%, rgba(244, 63, 94, 0.1), transparent 75%);
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 1024px) {
-  body {
-    cursor: none;
-  }
+.veo-gradient-text {
+  background: linear-gradient(135deg, #4285f4 0%, #a855f7 40%, #ec4899 75%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  a,
-  button {
-    cursor: none !important;
-  }
+.dark .veo-gradient-text {
+  background: linear-gradient(135deg, #8ab4f8 0%, #c58af9 35%, #f43f5e 70%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.veo-pill {
+  border-radius: 9999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.veo-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.veo-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(138, 180, 248, 0.35);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5), 0 0 24px rgba(66, 133, 244, 0.12);
+}
+
+/* Prompt Box Styling */
+.veo-prompt-box {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+
+.dark .veo-prompt-box {
+  background: rgba(18, 22, 33, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }

@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const beVietnamPro = Be_Vietnam_Pro({
-	variable: "--font-be-vietnam",
+const plusJakartaSans = Plus_Jakarta_Sans({
+	variable: "--font-google-sans",
 	subsets: ["vietnamese", "latin"],
-	weight: ["400", "500", "700", "900"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-	variable: "--font-space-grotesk",
-	subsets: ["vietnamese", "latin"],
+	weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-	title: "DucNV | Front-End Dev",
-	description: "Say hi to my visitors! This is my Neobrutalism Portfolio built with strong support from Antigravity.",
+	title: "DucNV // Front-End Engineering & Generative UI Architect",
+	description: "Portfolio of DucNV, Senior Front-End Developer inspired by Google Veo & Google DeepMind. Pushing the frontier of high-fidelity web experiences, React 19, and Next.js.",
 	icons: {
 		icon: "/neobrutalism-portfolio/favicon.png",
 		apple: "/neobrutalism-portfolio/favicon.png",
@@ -35,7 +30,7 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<body
-				className={`${beVietnamPro.variable} ${spaceGrotesk.variable} antialiased`}
+				className={`${plusJakartaSans.variable} antialiased`}
 			>
 				<Providers>{children}</Providers>
 			</body>

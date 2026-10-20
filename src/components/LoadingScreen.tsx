@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "./Providers";
+import { Sparkles } from "lucide-react";
 
 export function LoadingScreen() {
 	const { t } = useLanguage();
@@ -14,19 +15,19 @@ export function LoadingScreen() {
 		// Message rotation
 		const messageInterval = setInterval(() => {
 			setCurrentMessage((prev) => (prev + 1) % t.loading.messages.length);
-		}, 800);
+		}, 600);
 
 		// Progress bar simulation
 		const progressInterval = setInterval(() => {
 			setProgress((prev) => {
 				if (prev >= 100) {
 					clearInterval(progressInterval);
-					setTimeout(() => setLoading(false), 500);
+					setTimeout(() => setLoading(false), 350);
 					return 100;
 				}
-				return prev + Math.random() * 15;
+				return prev + Math.random() * 25;
 			});
-		}, 200);
+		}, 120);
 
 		return () => {
 			clearInterval(messageInterval);
@@ -38,54 +39,58 @@ export function LoadingScreen() {
 		<AnimatePresence>
 			{loading && (
 				<motion.div
-					initial={{ y: 0 }}
-					exit={{ y: "-100%" }}
-					transition={{ duration: 0.8, ease: [0.87, 0, 0.13, 1] }}
-					className="fixed inset-0 z-9999 bg-neo-yellow flex flex-col items-center justify-center p-6 border-b-8 border-black text-black text-center"
+					initial={{ opacity: 1 }}
+					exit={{ opacity: 0, scale: 1.02 }}
+					transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+					className="fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center p-6 text-foreground"
 				>
-					<div className="max-w-md w-full">
-						<motion.div
-							animate={{
-								rotate: [0, 10, -10, 10, 0],
-								scale: [1, 1.1, 1, 1.1, 1],
-							}}
-							transition={{ duration: 1, repeat: Infinity }}
-							className="text-8xl mb-8 select-none"
-						>
-							🐢
-						</motion.div>
+					<div className="max-w-md w-full text-center">
+						{/* Google Sparkle Animated Orb */}
+						<div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#8B5CF6] to-[#EC4899] p-0.5 mx-auto mb-8 shadow-[0_0_30px_rgba(66,133,244,0.4)]">
+							<div className="w-full h-full rounded-full bg-background flex items-center justify-center">
+								<motion.div
+									animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+									transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+								>
+									<Sparkles className="w-7 h-7 text-[#4285F4] dark:text-[#8ab4f8]" />
+								</motion.div>
+							</div>
+						</div>
 
-						<h2 className="text-4xl font-black mb-4 uppercase italic leading-none">
+						{/* Title */}
+						<h2 className="text-2xl sm:text-3xl font-black tracking-tight mb-2">
 							{t.loading.cooking}{" "}
-							<span className="text-neo-purple">
+							<span className="veo-gradient-text">
 								{t.loading.cookingHighlight}
 							</span>
 						</h2>
 
-						<div className="neo-brutalism-border bg-(--card-background) h-12 w-full mb-6 relative overflow-hidden">
+						{/* Google 4-Color Gradient Progress Bar */}
+						<div className="h-2 w-full rounded-full bg-foreground/10 my-6 relative overflow-hidden">
 							<motion.div
-								className="absolute inset-0 bg-neo-green border-r-4 border-black"
+								className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#4285F4] via-[#8B5CF6] via-[#EC4899] to-[#06B6D4] rounded-full"
 								style={{ width: `${progress}%` }}
 							/>
-							<div className="absolute inset-0 flex items-center justify-center font-black text-xl mix-blend-difference">
-								{Math.round(progress)}%
-							</div>
 						</div>
 
-						<AnimatePresence mode="wait">
-							<motion.p
-								key={currentMessage}
-								initial={{ opacity: 0, y: 10 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -10 }}
-								className="text-xl font-bold italic"
-							>
-								{t.loading.messages[currentMessage]}
-							</motion.p>
-						</AnimatePresence>
+						{/* Decryption Message */}
+						<div className="h-6 flex items-center justify-center">
+							<AnimatePresence mode="wait">
+								<motion.p
+									key={currentMessage}
+									initial={{ opacity: 0, y: 4 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -4 }}
+									transition={{ duration: 0.2 }}
+									className="text-xs text-muted font-medium"
+								>
+									{t.loading.messages[currentMessage]}
+								</motion.p>
+							</AnimatePresence>
+						</div>
 					</div>
 
-					<div className="absolute bottom-10 left-0 right-0 text-center font-black text-sm opacity-30 px-6">
+					<div className="absolute bottom-8 left-0 right-0 text-center font-mono text-[10px] text-muted tracking-widest uppercase">
 						{t.loading.warning}
 					</div>
 				</motion.div>

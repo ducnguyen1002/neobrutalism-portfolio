@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, Globe } from "lucide-react";
+import { X, ExternalLink, Github, Globe, Sparkles, Zap, Layers } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./Button";
 import { useLanguage } from "../Providers";
@@ -10,12 +10,15 @@ interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
   project: {
+    id?: string;
+    classification?: string;
     title: string;
     description: string;
     image: string;
     live: string;
     github?: string;
     tags: string[];
+    metrics?: string;
   } | null;
 }
 
@@ -39,85 +42,104 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop with Frosted Blur */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 z-[100] cursor-pointer"
+            className="fixed inset-0 bg-black/70 backdrop-blur-2xl z-[100] cursor-pointer"
           />
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-10 lg:inset-20 z-[101] pointer-events-none flex items-center justify-center p-4"
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-4 sm:inset-8 md:inset-16 z-[101] pointer-events-none flex items-center justify-center p-2 sm:p-4"
           >
-            <div className="w-full max-w-5xl bg-background neo-brutalism-border neo-brutalism-shadow flex flex-col pointer-events-auto max-h-full overflow-hidden">
-              {/* Browser-like Header */}
-              <div className="bg-neo-blue border-b-4 border-black p-3 flex items-center gap-4">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neo-red" />
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neo-yellow" />
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neo-green" />
+            <div className="w-full max-w-4xl bg-white dark:bg-[#0c0e17] rounded-3xl border border-black/10 dark:border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto max-h-[90vh] overflow-hidden">
+              {/* Header Bar */}
+              <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#4285F4]" />
+                  <span className="font-semibold text-xs tracking-wider uppercase text-muted">
+                    {project.classification}
+                  </span>
                 </div>
-                <div className="flex-1 bg-white/20 border-2 border-black px-3 py-1 text-xs font-bold text-white flex items-center gap-2 overflow-hidden whitespace-nowrap">
-                  <Globe className="w-3 h-3 shrink-0" />
-                  {project.live}
+
+                <div className="flex items-center gap-2">
+                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted bg-foreground/5 px-3 py-1 rounded-full border border-foreground/10">
+                    <Globe className="w-3.5 h-3.5" />
+                    <span className="truncate max-w-[200px]">{project.live}</span>
+                  </div>
+
+                  <button
+                    onClick={onClose}
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-foreground hover:bg-foreground/5 transition-colors"
+                    aria-label="Close"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
-                <button
-                  onClick={onClose}
-                  className="bg-neo-red w-8 h-8 border-2 border-black flex items-center justify-center hover:translate-x-0.5 hover:translate-y-0.5 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:shadow-none translate-x-0"
-                >
-                  <X className="w-5 h-5 text-white" />
-                </button>
               </div>
 
-              {/* Content */}
+              {/* Body */}
               <div className="flex-1 overflow-y-auto p-6 md:p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                  {/* Image Preview */}
-                  <div className="neo-brutalism-border bg-black/10 aspect-video overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                  {/* Left: Cinematic Preview */}
+                  <div className="md:col-span-6 rounded-2xl overflow-hidden border border-foreground/10 bg-black/10 aspect-16/10 relative shadow-inner">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
+                      <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+                      {project.metrics || "Active"}
+                    </div>
                   </div>
 
-                  {/* Details */}
-                  <div className="flex flex-col h-full">
-                    <h2 className="text-4xl font-black mb-4 dark:text-white uppercase">
+                  {/* Right: Technical Specs */}
+                  <div className="md:col-span-6 flex flex-col">
+                    <h2 className="text-3xl font-black tracking-tight mb-4 text-foreground">
                       {project.title}
                     </h2>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="bg-neo-yellow border-2 border-black px-2 py-1 text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <p className="text-xl font-bold mb-8 dark:text-zinc-300 leading-relaxed">
+                    <p className="text-foreground/80 dark:text-zinc-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
                       {project.description}
                     </p>
 
-                    <div className="mt-auto flex flex-wrap gap-4 pt-6 border-t-4 border-black/10 border-dashed">
+                    {/* Chips */}
+                    <div className="mb-8">
+                      <div className="text-xs uppercase font-bold text-muted tracking-wider mb-2.5">
+                        ARCHITECTURE STACK:
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs px-3 py-1.5 rounded-full bg-foreground/5 dark:bg-white/10 text-foreground font-semibold border border-foreground/10"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="pt-6 border-t border-foreground/10 flex flex-wrap gap-3 mt-auto">
                       <Button
-                        className="flex-1"
+                        variant="aurora"
+                        className="flex-1 gap-2"
                         onClick={() => window.open(project.live, "_blank")}
                       >
                         <ExternalLink className="w-4 h-4" /> {t.projects.live}
                       </Button>
                       <Button
                         variant="outline"
-                        className="flex-1 px-8 dark:bg-black dark:text-white"
+                        className="flex-1 gap-2"
                         onClick={() => window.open(project.github || "#", "_blank")}
                       >
                         <Github className="w-4 h-4" /> {t.projects.code}

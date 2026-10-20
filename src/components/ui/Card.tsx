@@ -2,24 +2,24 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-	color?: "white" | "yellow" | "purple" | "green" | "red" | "blue";
+	variant?: "default" | "elevated" | "flat";
+	color?: string; // backwards compatibility
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-	({ className, color = "white", ...props }, ref) => {
-		const colors = {
-			white: "bg-(--card-background) text-foreground",
-			yellow: "bg-neo-yellow",
-			purple: "bg-neo-purple",
-			green: "bg-neo-green",
-			red: "bg-neo-red",
-			blue: "bg-neo-blue",
+	({ className, variant = "default", color, ...props }, ref) => {
+		const variants = {
+			default: "veo-card p-6 md:p-8",
+			elevated:
+				"veo-card p-6 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/15",
+			flat:
+				"bg-foreground/5 rounded-3xl p-6 border border-foreground/10 hover:border-foreground/20 transition-all",
 		};
 
 		return (
 			<div
 				ref={ref}
-				className={cn("neo-brutalism-card p-6", colors[color], className)}
+				className={cn(variants[variant], className)}
 				{...props}
 			/>
 		);
