@@ -174,7 +174,7 @@ export function Hero() {
 						</div>
 					</div>
 					<span className="text-xs sm:text-sm font-medium text-foreground/90 truncate">
-						<strong className="text-[#1a73e8] dark:text-[#8ab4f8]">Next.js & React 19 // </strong>
+						<strong className="text-[#1a73e8] dark:text-[#8ab4f8]">Front-End // </strong>
 						{t.hero.promptText}
 					</span>
 				</div>
@@ -182,10 +182,10 @@ export function Hero() {
 				{/* Google Sans Headline - Expansive and Cinematic */}
 				<h1
 					ref={headlineRef}
-					className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.08] max-w-6xl mb-8"
+					className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.14] max-w-6xl mb-8"
 				>
 					{t.hero.title1}{" "}
-					<span className="google-gradient-text block mt-2">
+					<span className="google-gradient-text block mt-3">
 						{t.hero.title2}
 					</span>
 				</h1>

@@ -113,8 +113,8 @@
   --border-color: rgba(0, 0, 0, 0.08);
   --border-subtle: rgba(0, 0, 0, 0.04);
 
-  --card-bg: rgba(255, 255, 255, 0.72);
-  --card-border: rgba(255, 255, 255, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --card-border: rgba(255, 255, 255, 0.85);
   --glass-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.08);
 }
 
@@ -136,7 +136,7 @@
   --border-color: rgba(255, 255, 255, 0.1);
   --border-subtle: rgba(255, 255, 255, 0.05);
 
-  --card-bg: rgba(18, 22, 34, 0.65);
+  --card-bg: rgba(18, 22, 34, 0.88);
   --card-border: rgba(255, 255, 255, 0.14);
   --glass-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 32px rgba(138, 180, 248, 0.06);
 }
@@ -321,4 +321,57 @@ h6 {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========================================================
+   CSS-NATIVE FOCUS DIMMING SYSTEM
+   Guarantees 100% opacity when idle; dims siblings ONLY on actual hover
+   ======================================================== */
+
+.focus-dim-group {
+  position: relative;
+}
+
+/* Default card state: Always 100% solid opacity and clear */
+.focus-card {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1);
+  filter: none;
+  transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease,
+              box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity;
+}
+
+/* Dimming is strictly scoped to active pointer hover */
+@media (hover: hover) and (pointer: fine) {
+  /* Dim non-hovered siblings when any card in the group is hovered */
+  .focus-dim-group:has(.focus-card:hover) .focus-card:not(:hover) {
+    opacity: 0.35 !important;
+    transform: scale(0.98) !important;
+    filter: blur(0.4px) !important;
+  }
+
+  /* Highlight and elevate the actively hovered card */
+  .focus-dim-group .focus-card:hover {
+    opacity: 1 !important;
+    transform: translateY(-6px) scale(1.015) !important;
+    filter: none !important;
+    border-color: rgba(66, 133, 244, 0.5) !important;
+    box-shadow: 
+      0 24px 60px -10px rgba(0, 0, 0, 0.12),
+      0 0 28px rgba(66, 133, 244, 0.18),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.8) !important;
+    z-index: 10;
+  }
+
+  .dark .focus-dim-group .focus-card:hover {
+    border-color: rgba(138, 180, 248, 0.5) !important;
+    box-shadow: 
+      0 28px 70px -12px rgba(0, 0, 0, 0.8),
+      0 0 32px rgba(138, 180, 248, 0.2),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.28) !important;
+  }
 }

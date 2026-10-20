@@ -46,13 +46,13 @@ export function LoadingScreen() {
         >
           <div className="max-w-md w-full text-center">
             {/* Google Sparkle Animated Orb */}
-            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] p-[2px] mx-auto mb-8 shadow-[0_0_35px_rgba(66,133,244,0.35)]">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[2px] mx-auto mb-8 shadow-[0_0_35px_rgba(26,115,232,0.35)]">
               <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
                 <motion.div
                   animate={{ rotate: 360, scale: [1, 1.1, 1] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 >
-                  <Sparkles className="w-7 h-7 text-[#4285F4] dark:text-[#8ab4f8]" />
+                  <Sparkles className="w-7 h-7 text-[#1a73e8] dark:text-[#8ab4f8]" />
                 </motion.div>
               </div>
             </div>
@@ -65,10 +65,10 @@ export function LoadingScreen() {
               </span>
             </h2>
 
-            {/* Google 4-Color Gradient Progress Bar */}
+            {/* Current Theme Tone Gradient Progress Bar */}
             <div className="h-2 w-full rounded-full bg-foreground/10 my-6 relative overflow-hidden">
               <motion.div
-                className="absolute inset-y-0 left-0 bg-linear-to-br from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] rounded-full"
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#1a73e8] to-[#8b5cf6] rounded-full shadow-[0_0_16px_rgba(26,115,232,0.5)]"
                 style={{ width: `${progress}%` }}
               />
             </div>

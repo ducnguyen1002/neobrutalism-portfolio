@@ -49,7 +49,7 @@ export function Navbar() {
 						<div className="flex items-center gap-2 font-bold tracking-tight text-base text-foreground">
 							<span>DucNV</span>
 							<span className="text-xs font-semibold text-muted px-2.5 py-0.5 rounded-full bg-foreground/5 hidden sm:inline-block">
-								Senior Front-End
+								Front-End Developer
 							</span>
 						</div>
 					</Link>

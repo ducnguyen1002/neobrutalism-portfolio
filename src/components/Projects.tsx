@@ -16,7 +16,6 @@ export function Projects() {
 	const { t } = useLanguage();
 	const [selectedProject, setSelectedProject] = useState<any>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
 	const sectionRef = useRef<HTMLElement>(null);
 	const gridRef = useRef<HTMLDivElement>(null);
@@ -42,43 +41,13 @@ export function Projects() {
 					duration: 0.9,
 					stagger: 0.18,
 					ease: "power3.out",
+					clearProps: "all",
 				});
 			}
 		}, sectionRef);
 
 		return () => ctx.revert();
 	}, []);
-
-	// GSAP 3D Hover Tilt Handler for each Card
-	const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-		const card = e.currentTarget;
-		const rect = card.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		const centerX = rect.width / 2;
-		const centerY = rect.height / 2;
-
-		const rotateX = ((y - centerY) / centerY) * -4;
-		const rotateY = ((x - centerX) / centerX) * 4;
-
-		gsap.to(card, {
-			rotateX,
-			rotateY,
-			transformPerspective: 1000,
-			duration: 0.4,
-			ease: "power2.out",
-		});
-	};
-
-	const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-		const card = e.currentTarget;
-		gsap.to(card, {
-			rotateX: 0,
-			rotateY: 0,
-			duration: 0.7,
-			ease: "power2.out",
-		});
-	};
 
 	return (
 		<section
@@ -109,30 +78,13 @@ export function Projects() {
 				{/* Bento Showcase Grid with Liquid Glass & Focus Dimming */}
 				<div
 					ref={gridRef}
-					onMouseLeave={() => setHoveredProject(null)}
-					className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10"
+					className="focus-dim-group grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10"
 				>
-					{t.projects.items.map((project: any, index: number) => {
-						const isDimmed = hoveredProject !== null && hoveredProject !== index;
-						const isHovered = hoveredProject === index;
-
-						return (
-							<div
-								key={project.id || index}
-								onMouseEnter={() => setHoveredProject(index)}
-								onMouseMove={handleCardMouseMove}
-								onMouseLeave={(e) => {
-									handleCardMouseLeave(e);
-									setHoveredProject(null);
-								}}
-								className={`liquid-glass-card flex flex-col h-full group transition-all duration-300 ${
-									isDimmed
-										? "opacity-30 scale-[0.97] blur-[0.4px]"
-										: isHovered
-										? "opacity-100 scale-[1.02] shadow-2xl border-blue-500/40"
-										: "opacity-100 scale-100"
-								}`}
-							>
+					{t.projects.items.map((project: any, index: number) => (
+						<div
+							key={project.id || index}
+							className="focus-card liquid-glass-card flex flex-col h-full group"
+						>
 								{/* Card Header Bar */}
 								<div className="px-7 py-4.5 flex items-center justify-between border-b border-foreground/10 text-xs font-medium text-muted bg-foreground/[0.02]">
 									<span className="font-semibold text-foreground tracking-wide flex items-center gap-2">
@@ -227,8 +179,7 @@ export function Projects() {
 									</div>
 								</div>
 							</div>
-						);
-					})}
+						))}
 				</div>
 			</div>
 

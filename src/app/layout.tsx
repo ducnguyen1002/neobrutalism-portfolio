@@ -3,9 +3,9 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-	title: "DucNV // Senior Front-End Developer",
+	title: "DucNV // Front-End Developer",
 	description:
-		"Portfolio of DucNV, Senior Front-End Developer specializing in high-fidelity web applications, React 19, Next.js, and Google Design Systems.",
+		"Portfolio of DucNV, Front-End Developer specializing in high-fidelity web applications, React 19, Next.js, and Google Design Systems.",
 	icons: {
 		icon: "/neobrutalism-portfolio/favicon.png",
 		apple: "/neobrutalism-portfolio/favicon.png",

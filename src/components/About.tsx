@@ -26,7 +26,6 @@ if (typeof window !== "undefined") {
 
 export function About() {
 	const { t } = useLanguage();
-	const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 	const [copiedField, setCopiedField] = useState<string | null>(null);
 
 	const sectionRef = useRef<HTMLElement>(null);
@@ -54,6 +53,7 @@ export function About() {
 					duration: 0.85,
 					stagger: 0.15,
 					ease: "power3.out",
+					clearProps: "all",
 				});
 			}
 		}, sectionRef);
@@ -92,19 +92,11 @@ export function About() {
 				{/* Bento Grid Layout with Liquid Glass & Focus Dimming */}
 				<div
 					ref={gridRef}
-					onMouseLeave={() => setHoveredCard(null)}
-					className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-stretch"
+					className="focus-dim-group grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-stretch"
 				>
 					{/* Left Large Card: Bio & Direct Contacts (7 Cols) */}
 					<div
-						onMouseEnter={() => setHoveredCard(0)}
-						className={`lg:col-span-7 liquid-glass-card p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 ${
-							hoveredCard !== null && hoveredCard !== 0
-								? "opacity-30 scale-[0.98] blur-[0.4px]"
-								: hoveredCard === 0
-								? "opacity-100 scale-[1.01] shadow-2xl border-blue-500/40"
-								: "opacity-100 scale-100"
-						}`}
+						className="lg:col-span-7 focus-card liquid-glass-card p-8 sm:p-10 flex flex-col justify-between"
 					>
 						<div>
 							{/* Profile Subheader */}
@@ -200,14 +192,7 @@ export function About() {
 					<div className="lg:col-span-5 flex flex-col gap-8 md:gap-10">
 						{/* Lifestyle & Hobbies Card */}
 						<div
-							onMouseEnter={() => setHoveredCard(1)}
-							className={`liquid-glass-card p-8 flex flex-col justify-between flex-1 transition-all duration-300 ${
-								hoveredCard !== null && hoveredCard !== 1
-									? "opacity-30 scale-[0.98] blur-[0.4px]"
-									: hoveredCard === 1
-									? "opacity-100 scale-[1.01] shadow-2xl border-blue-500/40"
-									: "opacity-100 scale-100"
-							}`}
+							className="focus-card liquid-glass-card p-8 flex flex-col justify-between flex-1"
 						>
 							<div>
 								<div className="flex items-center justify-between mb-6 pb-4 border-b border-foreground/10">
@@ -259,14 +244,7 @@ export function About() {
 
 						{/* Quick Connect CTA Card */}
 						<div
-							onMouseEnter={() => setHoveredCard(2)}
-							className={`liquid-glass-card p-7 flex items-center justify-between gap-4 transition-all duration-300 ${
-								hoveredCard !== null && hoveredCard !== 2
-									? "opacity-30 scale-[0.98] blur-[0.4px]"
-									: hoveredCard === 2
-									? "opacity-100 scale-[1.01] shadow-2xl border-blue-500/40"
-									: "opacity-100 scale-100"
-							}`}
+							className="focus-card liquid-glass-card p-7 flex items-center justify-between gap-4"
 						>
 							<div>
 								<div className="text-xs uppercase font-bold text-muted tracking-wider mb-1">

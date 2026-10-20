@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "./Providers";
@@ -25,7 +25,6 @@ const capabilities = [
 
 export function Skills() {
 	const { t } = useLanguage();
-	const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 	const sectionRef = useRef<HTMLElement>(null);
 	const matrixRef = useRef<HTMLDivElement>(null);
 
@@ -45,6 +44,7 @@ export function Skills() {
 					duration: 0.7,
 					stagger: 0.08,
 					ease: "power3.out",
+					clearProps: "all",
 				});
 			}
 		}, sectionRef);
@@ -78,25 +78,13 @@ export function Skills() {
 				{/* Google Bento Capability Matrix with Liquid Glass & Focus Dimming */}
 				<div
 					ref={matrixRef}
-					onMouseLeave={() => setHoveredSkill(null)}
-					className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
+					className="focus-dim-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
 				>
-					{capabilities.map((item) => {
-						const isDimmed = hoveredSkill !== null && hoveredSkill !== item.name;
-						const isHovered = hoveredSkill === item.name;
-
-						return (
-							<div
-								key={item.name}
-								onMouseEnter={() => setHoveredSkill(item.name)}
-								className={`liquid-glass-card p-7 flex flex-col justify-between group cursor-default transition-all duration-300 ${
-									isDimmed
-										? "opacity-30 scale-[0.97] blur-[0.4px]"
-										: isHovered
-										? "opacity-100 scale-[1.02] -translate-y-2.5 shadow-2xl border-blue-500/40"
-										: "opacity-100 scale-100"
-								}`}
-							>
+					{capabilities.map((item) => (
+						<div
+							key={item.name}
+							className="focus-card liquid-glass-card p-7 flex flex-col justify-between group cursor-default"
+						>
 								{/* Top Specifier */}
 								<div className="flex items-center justify-between mb-6">
 									<span
@@ -129,8 +117,7 @@ export function Skills() {
 									<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
 								</div>
 							</div>
-						);
-					})}
+						))}
 				</div>
 			</div>
 		</section>
