@@ -2,12 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
-import {
-  MdTerminal,
-  MdArrowOutward,
-  MdEast,
-  MdBolt,
-} from "react-icons/md";
+import { MdTerminal, MdArrowOutward, MdEast, MdBolt } from "react-icons/md";
 import {
   SiNextdotjs,
   SiReact,
@@ -52,8 +47,7 @@ export function Hero() {
       title: "Bệnh viện Quân y 175",
       description:
         "Cổng thông tin y tế chính thức cho Bệnh viện Quân y 175 với kiến trúc chuẩn SEO và Headless CMS Directus.",
-      image:
-        "/neobrutalism-portfolio/projects/benhvien175_homepage_screenshot.png",
+      image: "/projects/benhvien175_homepage_screenshot.png",
       live: "https://benhvien175.vn",
       github: "#",
       tags: ["Next.js", "TailwindCSS", "Directus CMS"],
@@ -65,8 +59,7 @@ export function Hero() {
       title: "Cổng thông tin chứng khoán UPSC",
       description:
         "Nền tảng giao dịch và biểu đồ tài chính thời gian thực cho Chứng khoán UP với Echarts và GraphQL.",
-      image:
-        "/neobrutalism-portfolio/projects/upstock_homepage_screenshot.png",
+      image: "/projects/upstock_homepage_screenshot.png",
       live: "https://upstock.com.vn/",
       github: "#",
       tags: ["Next.js", "TailwindCSS", "Echarts", "GraphQL"],
@@ -78,8 +71,7 @@ export function Hero() {
       title: "Tập đoàn Tân Hoàng Minh",
       description:
         "Website thương hiệu tập đoàn cao cấp với các hoạt ảnh cuộn trang phức tạp điều phối bằng GSAP.",
-      image:
-        "/neobrutalism-portfolio/projects/tanhoangminh_homepage_screenshot.png",
+      image: "/projects/tanhoangminh_homepage_screenshot.png",
       live: "https://tanhoangminh.com.vn/",
       github: "#",
       tags: ["Next.js", "TailwindCSS", "GSAP Motion"],
@@ -101,7 +93,7 @@ export function Hero() {
       gsap.fromTo(
         mainCardRef.current,
         { scale: 0.96, opacity: 0.8 },
-        { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }
+        { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" },
       );
     }
     setActiveProjectIndex(index);
@@ -516,7 +508,9 @@ export function Hero() {
               CORE WEB VITALS: 100/100
             </span>
             <span className="opacity-30">|</span>
-            <span className="text-muted font-normal text-[11px]">&lt; 50ms SPEED</span>
+            <span className="text-muted font-normal text-[11px]">
+              &lt; 50ms SPEED
+            </span>
           </div>
 
           {/* Top-Right: Next.js 16 Pill */}
@@ -667,14 +661,16 @@ export function Hero() {
                       {activeProject.description}
                     </p>
                     <div className="flex flex-wrap gap-1 sm:gap-1.5">
-                      {(activeProject.tags || []).slice(0, 3).map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="text-[9px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 rounded-full bg-white/15 backdrop-blur-md text-zinc-200 border border-white/10"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                      {(activeProject.tags || [])
+                        .slice(0, 3)
+                        .map((tag: string) => (
+                          <span
+                            key={tag}
+                            className="text-[9px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 rounded-full bg-white/15 backdrop-blur-md text-zinc-200 border border-white/10"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                     </div>
                   </div>
 
@@ -694,7 +690,9 @@ export function Hero() {
 
             {/* Mobile Project Switcher Controls (< 640px) */}
             <div className="flex sm:hidden items-center justify-between mt-2.5 pt-2 px-1.5 border-t border-foreground/10 text-xs text-muted">
-              <span className="font-medium text-foreground text-[11px]">Dự án khác:</span>
+              <span className="font-medium text-foreground text-[11px]">
+                Dự án khác:
+              </span>
               <div className="flex items-center gap-1.5">
                 {projects.map((p: any, idx: number) => (
                   <button
@@ -724,4 +722,3 @@ export function Hero() {
     </section>
   );
 }
-
