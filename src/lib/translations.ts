@@ -24,6 +24,30 @@ export const translations = {
 				{ label: "Tỉ lệ sẵn sàng", value: "99.9%" },
 			],
 		},
+		about: {
+			badge: "GIỚI THIỆU BẢN THÂN",
+			title: "Nguyễn Văn Đức",
+			role: "Senior Front-End Developer",
+			location: "Thanh Hóa, Việt Nam",
+			bio: "Tôi là kỹ sư Front-End với hơn 4 năm kinh nghiệm chuyên sâu trong việc kiến tạo và vận hành các hệ thống website quy mô lớn, bảng điều khiển tài chính thời gian thực và cổng thông tin doanh nghiệp. Thành thạo hệ sinh thái Next.js 16, React 19, TypeScript, TailwindCSS v4, Directus Headless CMS, Echarts và hoạt họa GSAP. Luôn kiên định với triết lý tối ưu hiệu năng cao, trải nghiệm trực quan và thiết kế tinh chuẩn.",
+			phone: "0363 026 362",
+			email: "ducduc1022000@gmail.com",
+			experience: "4+ Năm Kinh nghiệm",
+			hobbiesTitle: "LỐI SỐNG & SỞ THÍCH",
+			hobbies: [
+				{
+					title: "Bơi lội",
+					desc: "Duy trì sự tập trung, rèn luyện sức bền và tái tạo tư duy sáng tạo",
+				},
+				{
+					title: "Gym & Thể hình",
+					desc: "Xây dựng kỷ luật bản thân, sự kiên trì và năng lượng tích cực mỗi ngày",
+				},
+			],
+			contactDirect: "Gọi điện trực tiếp",
+			sendEmail: "Gửi thư điện tử",
+			copySuccess: "Đã sao chép vào bộ nhớ tạm!",
+		},
 		skills: {
 			title: "Năng lực Kỹ thuật Cốt lõi",
 			badge: "CORE INFRASTRUCTURE",
@@ -118,6 +142,30 @@ export const translations = {
 				{ label: "Interaction Latency", value: "< 50ms" },
 				{ label: "System Uptime", value: "99.9%" },
 			],
+		},
+		about: {
+			badge: "ABOUT ME // PROFILE",
+			title: "Nguyen Van Duc",
+			role: "Senior Front-End Developer",
+			location: "Thanh Hoa, Vietnam",
+			bio: "I am a Front-End Engineer with over 4 years of hands-on experience architecting and shipping mission-critical web platforms, real-time financial dashboards, and high-traffic enterprise portals. Proficient in Next.js 16, React 19, TypeScript, TailwindCSS v4, Directus Headless CMS, Echarts, and GSAP choreographies. Dedicated to sub-50ms latency, fluid ergonomics, and meticulous visual precision.",
+			phone: "0363 026 362",
+			email: "ducduc1022000@gmail.com",
+			experience: "4+ Years Experience",
+			hobbiesTitle: "LIFESTYLE & INTERESTS",
+			hobbies: [
+				{
+					title: "Swimming",
+					desc: "Cultivating mental clarity, physical endurance, and creative rejuvenation",
+				},
+				{
+					title: "Gym & Fitness",
+					desc: "Fostering daily discipline, resilience, and high energy for software craftsmanship",
+				},
+			],
+			contactDirect: "Call Directly",
+			sendEmail: "Send Email",
+			copySuccess: "Copied to clipboard!",
 		},
 		skills: {
 			title: "Core Architectural Capabilities",

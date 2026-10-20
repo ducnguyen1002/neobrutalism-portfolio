@@ -109,7 +109,7 @@ export function Navbar() {
 								size="sm"
 								variant="aurora"
 								onClick={() => {
-									const contactSection = document.getElementById("about");
+									const contactSection = document.getElementById("contact");
 									if (contactSection) {
 										contactSection.scrollIntoView({ behavior: "smooth" });
 									}
@@ -146,12 +146,20 @@ export function Navbar() {
 							className="md:hidden border-t border-foreground/10 px-6 py-5 flex flex-col gap-2 font-medium overflow-hidden"
 						>
 							<Link
+								href="#about"
+								onClick={() => setIsMenuOpen(false)}
+								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
+							>
+								<span>{t.nav.about}</span>
+								<span className="text-xs text-muted">01</span>
+							</Link>
+							<Link
 								href="#projects"
 								onClick={() => setIsMenuOpen(false)}
 								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
 							>
 								<span>{t.nav.projects}</span>
-								<span className="text-xs text-muted">01</span>
+								<span className="text-xs text-muted">02</span>
 							</Link>
 							<Link
 								href="#skills"
@@ -159,14 +167,6 @@ export function Navbar() {
 								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
 							>
 								<span>{t.nav.skills}</span>
-								<span className="text-xs text-muted">02</span>
-							</Link>
-							<Link
-								href="#about"
-								onClick={() => setIsMenuOpen(false)}
-								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
-							>
-								<span>{t.nav.about}</span>
 								<span className="text-xs text-muted">03</span>
 							</Link>
 
@@ -177,7 +177,7 @@ export function Navbar() {
 									className="w-full justify-center gap-2"
 									onClick={() => {
 										setIsMenuOpen(false);
-										const contactSection = document.getElementById("about");
+										const contactSection = document.getElementById("contact");
 										if (contactSection) {
 											contactSection.scrollIntoView({ behavior: "smooth" });
 										}

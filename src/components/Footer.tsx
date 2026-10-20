@@ -48,7 +48,7 @@ export function Footer() {
 	return (
 		<footer
 			ref={footerRef}
-			id="about"
+			id="contact"
 			className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 border-t border-foreground/10 relative overflow-hidden"
 		>
 			<div
