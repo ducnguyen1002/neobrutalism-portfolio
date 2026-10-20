@@ -39,15 +39,15 @@ export function Navbar() {
 						href="/"
 						className="flex items-center gap-2 group select-none"
 					>
-						<span className="font-mono text-xs font-semibold tracking-widest text-muted group-hover:text-foreground transition-colors">
+						<span className="font-mono text-xs font-bold tracking-widest text-[#0052ff] dark:text-[#38bdf8]">
 							DOC//
 						</span>
 						<span className="font-bold text-lg tracking-tight text-foreground flex items-center gap-1.5">
 							DUC.NV
-							<span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+							<span className="inline-block w-2 h-2 rounded-full bg-[#0052ff] dark:bg-[#38bdf8] animate-pulse" />
 						</span>
-						<span className="hidden sm:inline-block font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded border border-foreground/15 bg-foreground/5 text-muted">
-							NAVY ARCHIVE
+						<span className="hidden sm:inline-block font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-[#0052ff] dark:text-[#38bdf8] font-bold">
+							ARCHIVE
 						</span>
 					</Link>
 

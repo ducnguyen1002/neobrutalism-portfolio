@@ -61,7 +61,7 @@ export function CustomCursor() {
 					translateY: "-50%",
 				}}
 			>
-				<div className="w-1.5 h-1.5 rounded-full bg-foreground" />
+				<div className="w-2 h-2 rounded-full bg-[#0052ff] dark:bg-[#38bdf8] shadow-[0_0_8px_rgba(0,82,255,0.8)]" />
 			</motion.div>
 
 			{/* Outer Liquid Glass Trailing Ring */}
@@ -79,17 +79,17 @@ export function CustomCursor() {
 						width: isHovering ? 50 : 28,
 						height: isHovering ? 50 : 28,
 						backgroundColor: isHovering
-							? "rgba(10, 25, 47, 0.12)"
-							: "rgba(10, 25, 47, 0.04)",
+							? "rgba(0, 82, 255, 0.15)"
+							: "rgba(0, 82, 255, 0.05)",
 					}}
 					transition={{ type: "spring", stiffness: 450, damping: 25 }}
-					className="rounded-full border border-blue-900/30 dark:border-blue-300/35 backdrop-blur-[2px] flex items-center justify-center shadow-sm"
+					className="rounded-full border-2 border-[#0052ff]/40 dark:border-[#38bdf8]/50 backdrop-blur-[2px] flex items-center justify-center shadow-md"
 				>
 					{isHovering && cursorText && (
 						<motion.span
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
-							className="font-mono text-[8px] font-bold tracking-widest text-foreground uppercase"
+							className="font-mono text-[9px] font-black tracking-widest text-[#0052ff] dark:text-[#38bdf8] uppercase"
 						>
 							{cursorText}
 						</motion.span>

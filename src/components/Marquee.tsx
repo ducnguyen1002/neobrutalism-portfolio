@@ -31,10 +31,10 @@ export function Marquee() {
 						{specs.map((item) => (
 							<span
 								key={item}
-								className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-foreground/70 uppercase flex items-center gap-4"
+								className="font-mono text-xs sm:text-sm font-bold tracking-widest text-foreground/85 dark:text-zinc-200 uppercase flex items-center gap-4"
 							>
 								{item}
-								<span className="w-1.5 h-1.5 rounded-full bg-blue-600/40 dark:bg-blue-400/40 inline-block" />
+								<span className="w-1.5 h-1.5 rounded-full bg-[#0052ff] dark:bg-[#38bdf8] inline-block shadow-[0_0_6px_rgba(0,82,255,0.5)]" />
 							</span>
 						))}
 					</div>

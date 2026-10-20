@@ -12,6 +12,7 @@ export default function Home() {
 		<main className="min-h-screen relative overflow-x-hidden selection:bg-foreground selection:text-background">
 			<LoadingScreen />
 			<div className="archival-grid" />
+			<div className="ambient-glow" />
 			<div className="analog-grain" />
 			<CustomCursor />
 			<Navbar />

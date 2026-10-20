@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "./ui/Button";
 import { ProjectModal } from "./ui/ProjectModal";
-import { ExternalLink, Github, FolderOpen, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github, FolderOpen, ArrowUpRight, Sparkles } from "lucide-react";
 import { useLanguage } from "./Providers";
 
 export function Projects() {
@@ -16,27 +16,36 @@ export function Projects() {
 		setIsModalOpen(true);
 	};
 
+	const getTagBadgeStyle = (tag: string) => {
+		if (tag.includes("Next.js")) return "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30";
+		if (tag.includes("Tailwind")) return "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30";
+		if (tag.includes("Directus") || tag.includes("Health")) return "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30";
+		if (tag.includes("Echarts") || tag.includes("Graph")) return "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30";
+		if (tag.includes("GSAP") || tag.includes("Editorial")) return "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30";
+		return "bg-blue-500/10 text-blue-600 dark:text-blue-300 border-blue-500/20";
+	};
+
 	return (
 		<section
 			id="projects"
-			className="py-24 px-4 bg-foreground/[0.02] dark:bg-white/[0.01] border-y border-foreground/10 relative"
+			className="py-24 px-4 bg-section-alt-bg/60 border-y border-foreground/15 relative"
 		>
 			<div className="max-w-6xl mx-auto">
-				{/* Section Header */}
-				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 pb-6 border-b border-foreground/10 gap-4">
+				{/* Section Header with High Contrast */}
+				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 pb-6 border-b border-foreground/15 gap-4">
 					<div>
-						<div className="font-mono text-xs uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
-							<span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+						<div className="font-mono text-xs uppercase tracking-widest text-[#0052ff] dark:text-[#38bdf8] font-bold mb-2 flex items-center gap-2">
+							<span className="w-2 h-2 rounded-full bg-[#0052ff] dark:bg-[#38bdf8]" />
 							SECTION 03 // ARCHIVED CASE FILES
 						</div>
-						<h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+						<h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
 							{t.projects.title}{" "}
-							<span className="font-serif italic font-normal text-muted">
+							<span className="bg-gradient-to-r from-[#0052ff] to-[#0284c7] dark:from-[#38bdf8] dark:to-[#60a5fa] bg-clip-text text-transparent font-black">
 								{t.projects.highlight}
 							</span>
 						</h2>
 					</div>
-					<p className="font-mono text-xs text-muted max-w-xs text-left sm:text-right">
+					<p className="font-mono text-xs text-foreground/70 dark:text-zinc-300 font-semibold max-w-xs text-left sm:text-right">
 						OFFICIAL AUDIT OF PRODUCTION DEPLOYMENTS & CLIENT CASE HISTORIES
 					</p>
 				</div>
@@ -47,20 +56,20 @@ export function Projects() {
 						return (
 							<div
 								key={project.id || index}
-								className="liquid-glass-card rounded-2xl flex flex-col h-full group hover:shadow-2xl transition-all duration-300 border border-foreground/15"
+								className="liquid-glass-card rounded-2xl flex flex-col h-full group hover:shadow-2xl transition-all duration-300 border-2 border-foreground/10 hover:border-blue-500/40 bg-white dark:bg-zinc-900/90"
 							>
 								{/* Dossier Header */}
-								<div className="px-6 py-3.5 border-b border-foreground/10 flex items-center justify-between font-mono text-xs text-muted bg-foreground/[0.02]">
-									<span className="font-bold text-foreground tracking-wider flex items-center gap-1.5">
-										<FolderOpen className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+								<div className="px-6 py-3.5 border-b border-foreground/10 flex items-center justify-between font-mono text-xs text-muted bg-blue-500/5 dark:bg-blue-950/20">
+									<span className="font-extrabold text-[#0052ff] dark:text-[#38bdf8] tracking-wider flex items-center gap-1.5">
+										<FolderOpen className="w-4 h-4" />
 										{project.id || `CASE-0${index + 1}`}
 									</span>
-									<span className="office-stamp rounded py-0.5 px-2 bg-foreground/5 border-foreground/15 text-[10px] text-foreground">
+									<span className="office-stamp rounded-md py-0.5 px-2 bg-emerald-500/10 border-emerald-500/30 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
 										{project.status || "VERIFIED"}
 									</span>
 								</div>
 
-								{/* Image Preview */}
+								{/* Image Preview - FULL COLOR, High Resolution, No Grayscale! */}
 								<div
 									onClick={() => handleOpenModal(project)}
 									className="relative aspect-16/10 overflow-hidden bg-foreground/5 cursor-pointer border-b border-foreground/10"
@@ -68,10 +77,10 @@ export function Projects() {
 									<img
 										src={project.image}
 										alt={project.title}
-										className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+										className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 									/>
-									<div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-										<span className="font-mono text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1 rounded-md flex items-center gap-1">
+									<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+										<span className="font-mono text-xs font-bold text-white bg-[#0052ff] px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-lg">
 											INSPECT DOSSIER <ArrowUpRight className="w-3.5 h-3.5" />
 										</span>
 									</div>
@@ -79,27 +88,27 @@ export function Projects() {
 
 								{/* Content */}
 								<div className="p-6 flex flex-col flex-grow">
-									<div className="font-mono text-[10px] uppercase tracking-wider text-muted mb-1">
+									<div className="font-mono text-xs uppercase tracking-wider text-[#0052ff] dark:text-[#38bdf8] font-bold mb-1.5">
 										{project.classification || "PRODUCTION WEB SYSTEM"}
 									</div>
 
 									<h3
 										onClick={() => handleOpenModal(project)}
-										className="text-2xl font-bold tracking-tight mb-3 text-foreground group-hover:text-foreground/80 cursor-pointer transition-colors"
+										className="text-2xl font-black tracking-tight mb-3 text-foreground group-hover:text-[#0052ff] dark:group-hover:text-[#38bdf8] cursor-pointer transition-colors"
 									>
 										{project.title}
 									</h3>
 
-									<p className="text-sm text-muted font-normal leading-relaxed mb-6 flex-grow">
+									<p className="text-sm text-foreground/80 dark:text-zinc-300 font-normal leading-relaxed mb-6 flex-grow">
 										{project.description}
 									</p>
 
-									{/* Monospace Tech Tags */}
+									{/* Vivid Monospace Tech Tags */}
 									<div className="flex flex-wrap gap-1.5 mb-6">
 										{project.tags.map((tag: string) => (
 											<span
 												key={tag}
-												className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-foreground/5 border border-foreground/10 text-muted"
+												className={`font-mono text-xs font-bold px-2.5 py-1 rounded-md border ${getTagBadgeStyle(tag)}`}
 											>
 												#{tag}
 											</span>
@@ -111,7 +120,7 @@ export function Projects() {
 										<Button
 											size="sm"
 											variant="outline"
-											className="w-full rounded-xl gap-1.5 text-xs font-mono"
+											className="w-full rounded-xl gap-1.5 text-xs font-mono font-bold"
 											onClick={(e) => {
 												e.stopPropagation();
 												handleOpenModal(project);
@@ -124,7 +133,7 @@ export function Projects() {
 										<Button
 											size="sm"
 											variant="primary"
-											className="w-full rounded-xl gap-1.5 text-xs font-mono"
+											className="w-full rounded-xl gap-1.5 text-xs font-mono font-bold text-white"
 											onClick={(e) => {
 												e.stopPropagation();
 												window.open(project.live, "_blank");

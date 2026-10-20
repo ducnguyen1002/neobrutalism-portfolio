@@ -113,24 +113,24 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                       </span>
                     </div>
 
-                    <h2 className="text-3xl font-extrabold tracking-tight mb-4 text-foreground">
+                    <h2 className="text-3xl font-black tracking-tight mb-4 text-foreground">
                       {project.title}
                     </h2>
 
-                    <p className="text-muted text-sm sm:text-base leading-relaxed mb-6">
+                    <p className="text-foreground/85 dark:text-zinc-200 text-sm sm:text-base leading-relaxed mb-6 font-normal">
                       {project.description}
                     </p>
 
                     {/* Metadata tags */}
                     <div className="mb-6">
-                      <div className="font-mono text-[10px] uppercase text-muted tracking-wider mb-2">
+                      <div className="font-mono text-xs uppercase text-[#0052ff] dark:text-[#38bdf8] font-bold tracking-wider mb-2">
                         STACK SPECIFICATION:
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="font-mono text-xs px-2.5 py-1 rounded-md bg-foreground/5 border border-foreground/10 text-foreground/80"
+                            className="font-mono text-xs font-bold px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/30 text-[#0052ff] dark:text-[#38bdf8]"
                           >
                             #{tag}
                           </span>
@@ -139,17 +139,17 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                     </div>
 
                     {/* Actions */}
-                    <div className="pt-6 border-t border-foreground/10 flex flex-wrap gap-3 mt-auto">
+                    <div className="pt-6 border-t border-foreground/15 flex flex-wrap gap-3 mt-auto">
                       <Button
                         variant="primary"
-                        className="flex-1 rounded-xl gap-2 font-mono text-xs"
+                        className="flex-1 rounded-xl gap-2 font-mono text-xs text-white"
                         onClick={() => window.open(project.live, "_blank")}
                       >
                         <ExternalLink className="w-3.5 h-3.5" /> {t.projects.live}
                       </Button>
                       <Button
                         variant="outline"
-                        className="flex-1 rounded-xl gap-2 font-mono text-xs"
+                        className="flex-1 rounded-xl gap-2 font-mono text-xs font-bold"
                         onClick={() => window.open(project.github || "#", "_blank")}
                       >
                         <Github className="w-3.5 h-3.5" /> {t.projects.code}
