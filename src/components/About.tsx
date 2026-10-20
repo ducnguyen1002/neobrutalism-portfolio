@@ -23,6 +23,33 @@ if (typeof window !== "undefined") {
 	gsap.registerPlugin(ScrollTrigger);
 }
 
+function renderHighlightedText(text: string) {
+	const parts = text.split(/(\*\*.*?\*\*|\[\[.*?\]\])/g);
+	return parts.map((part, index) => {
+		if (part.startsWith("**") && part.endsWith("**")) {
+			return (
+				<strong
+					key={index}
+					className="font-semibold text-foreground dark:text-white"
+				>
+					{part.slice(2, -2)}
+				</strong>
+			);
+		}
+		if (part.startsWith("[[") && part.endsWith("]]")) {
+			return (
+				<span
+					key={index}
+					className="font-semibold text-[#1a73e8] dark:text-[#8ab4f8]"
+				>
+					{part.slice(2, -2)}
+				</span>
+			);
+		}
+		return part;
+	});
+}
+
 export function About() {
 	const { t } = useLanguage();
 	const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -139,10 +166,16 @@ export function About() {
 								</span>
 							</div>
 
-							{/* Bio Text with Generous Leading */}
-							<p className="text-base sm:text-lg text-foreground/80 dark:text-zinc-300 leading-relaxed font-normal mb-8">
-								{t.about.bio}
-							</p>
+							{/* Bio Text with Line Breaks & Highlights */}
+							<div className="space-y-4 mb-8 text-base sm:text-lg text-foreground/80 dark:text-zinc-300 leading-relaxed font-normal">
+								{(t.about.bioParagraphs || [t.about.bio]).map(
+									(paragraph: string, idx: number) => (
+										<p key={idx} className="leading-relaxed">
+											{renderHighlightedText(paragraph)}
+										</p>
+									)
+								)}
+							</div>
 						</div>
 
 						{/* Direct Contact Pills */}

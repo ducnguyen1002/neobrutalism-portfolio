@@ -30,6 +30,11 @@ export const translations = {
 			role: "Front-End Developer",
 			location: "Thanh Hóa, Việt Nam",
 			bio: "Tôi là kỹ sư Front-End với hơn 4 năm kinh nghiệm chuyên sâu trong việc kiến tạo và vận hành các hệ thống website quy mô lớn, bảng điều khiển tài chính thời gian thực và cổng thông tin doanh nghiệp. Thành thạo hệ sinh thái Next.js 16, React 19, TypeScript, TailwindCSS v4, Directus Headless CMS, Echarts và hoạt họa GSAP. Luôn kiên định với triết lý tối ưu hiệu năng cao, trải nghiệm trực quan và thiết kế tinh chuẩn.",
+			bioParagraphs: [
+				"Tôi là kỹ sư [[Front-End]] với **hơn 4 năm kinh nghiệm thực chiến**, chuyên sâu trong việc kiến tạo và vận hành các **hệ thống website quy mô lớn**, **bảng điều khiển tài chính thời gian thực** và **cổng thông tin doanh nghiệp**.",
+				"Làm chủ hệ sinh thái công nghệ hiện đại gồm [[Next.js 16]], [[React 19]], [[TypeScript]], **TailwindCSS v4**, kết hợp giải pháp **Directus Headless CMS**, trực quan hóa dữ liệu chuyên sâu với **Echarts** và hoạt họa mượt mà cùng **GSAP Motion**.",
+				"Luôn kiên định với triết lý **tối ưu hóa hiệu năng cao (< 50ms)**, kiến trúc mã nguồn mở rộng bền vững và trải nghiệm thị giác tinh chuẩn đến từng chi tiết.",
+			],
 			phone: "0363 026 362",
 			email: "ducduc1022000@gmail.com",
 			experience: "4+ Năm Kinh nghiệm",
@@ -178,6 +183,11 @@ export const translations = {
 			role: "Front-End Developer",
 			location: "Thanh Hoa, Vietnam",
 			bio: "I am a Front-End Developer with over 4 years of hands-on experience architecting and shipping mission-critical web platforms, real-time financial dashboards, and high-traffic enterprise portals. Proficient in Next.js 16, React 19, TypeScript, TailwindCSS v4, Directus Headless CMS, Echarts, and GSAP choreographies. Dedicated to sub-50ms latency, fluid ergonomics, and meticulous visual precision.",
+			bioParagraphs: [
+				"I am a [[Front-End Developer]] with **over 4 years of hands-on engineering experience**, specializing in architecting and shipping **large-scale enterprise portals**, **real-time financial dashboards**, and mission-critical web platforms.",
+				"Proficient across the modern ecosystem including [[Next.js 16]], [[React 19]], [[TypeScript]], **TailwindCSS v4**, coupled with **Directus Headless CMS**, high-frequency data visualization via **Echarts**, and fluid choreography with **GSAP Motion**.",
+				"Committed to **ultra-low latency (< 50ms)**, scalable front-end architecture, and meticulous ergonomic precision.",
+			],
 			phone: "0363 026 362",
 			email: "ducduc1022000@gmail.com",
 			experience: "4+ Years Experience",
