@@ -213,13 +213,13 @@ h6 {
 
 /* Google Refined 2-Tone Gradient Text (Google Blue -> Soft Violet) */
 .google-gradient-text {
-  background: linear-gradient(135deg, #1a73e8 0%, #8b5cf6 100%);
+  background: linear-gradient(180deg, #1a73e8 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .dark .google-gradient-text {
-  background: linear-gradient(135deg, #8ab4f8 0%, #c58af9 100%);
+  background: linear-gradient(180deg, #8ab4f8 0%, #c58af9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

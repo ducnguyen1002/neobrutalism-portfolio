@@ -82,6 +82,7 @@ export const translations = {
 			code: "Mã nguồn",
 			live: "Trải nghiệm trực tiếp",
 			inspect: "Xem chi tiết",
+			exploreDemo: "Khám phá dự án",
 			stackLabel: "CÔNG NGHỆ ÁP DỤNG:",
 			items: [
 				{
@@ -229,6 +230,7 @@ export const translations = {
 			code: "Source Code",
 			live: "Live Experience",
 			inspect: "Inspect Case",
+			exploreDemo: "Explore project",
 			stackLabel: "ARCHITECTURE STACK:",
 			items: [
 				{
