@@ -153,24 +153,29 @@
   --color-google-purple: var(--google-purple);
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 html {
   overflow-x: clip;
   scroll-behavior: smooth;
-  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   overflow-x: hidden;
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea, optgroup {
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 h1,
@@ -179,7 +184,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   letter-spacing: -0.03em;
   font-weight: 700;
 }
@@ -194,29 +199,27 @@ h6 {
   z-index: -1;
   pointer-events: none;
   background-image: 
-    radial-gradient(circle 650px at 15% 15%, rgba(66, 133, 244, 0.16), transparent 70%),
-    radial-gradient(circle 550px at 85% 20%, rgba(234, 67, 53, 0.12), transparent 70%),
-    radial-gradient(circle 600px at 50% 65%, rgba(251, 188, 4, 0.10), transparent 70%),
-    radial-gradient(circle 500px at 75% 85%, rgba(52, 168, 83, 0.12), transparent 70%);
+    radial-gradient(circle 700px at 15% 15%, rgba(66, 133, 244, 0.12), transparent 70%),
+    radial-gradient(circle 600px at 85% 20%, rgba(139, 92, 246, 0.10), transparent 70%),
+    radial-gradient(circle 700px at 50% 70%, rgba(66, 133, 244, 0.08), transparent 70%);
 }
 
 .dark .google-aurora-bg {
   background-image: 
-    radial-gradient(circle 750px at 15% 10%, rgba(66, 133, 244, 0.22), transparent 75%),
-    radial-gradient(circle 650px at 85% 20%, rgba(155, 114, 207, 0.20), transparent 75%),
-    radial-gradient(circle 600px at 50% 65%, rgba(234, 67, 53, 0.14), transparent 75%),
-    radial-gradient(circle 700px at 80% 85%, rgba(52, 168, 83, 0.15), transparent 75%);
+    radial-gradient(circle 750px at 15% 10%, rgba(66, 133, 244, 0.16), transparent 75%),
+    radial-gradient(circle 650px at 85% 20%, rgba(139, 92, 246, 0.14), transparent 75%),
+    radial-gradient(circle 750px at 50% 70%, rgba(66, 133, 244, 0.10), transparent 75%);
 }
 
-/* Google Spectrum Gradient Text (Official Google Brand Colors) */
+/* Google Refined 2-Tone Gradient Text (Google Blue -> Soft Violet) */
 .google-gradient-text {
-  background: linear-gradient(135deg, #4285F4 0%, #9B72CF 28%, #EA4335 55%, #FBBC05 78%, #34A853 100%);
+  background: linear-gradient(135deg, #1a73e8 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .dark .google-gradient-text {
-  background: linear-gradient(135deg, #8AB4F8 0%, #C58AF9 28%, #F28B82 55%, #FDD663 80%, #81C995 100%);
+  background: linear-gradient(135deg, #8ab4f8 0%, #c58af9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -248,6 +251,7 @@ h6 {
 }
 
 /* Liquid Glass Cards */
+.veo-card,
 .liquid-glass-card {
   background: var(--card-bg);
   backdrop-filter: blur(24px) saturate(190%);
@@ -264,12 +268,14 @@ h6 {
   position: relative;
 }
 
+.dark .veo-card,
 .dark .liquid-glass-card {
   box-shadow: 
     var(--glass-shadow),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.16);
 }
 
+.veo-card:hover,
 .liquid-glass-card:hover {
   transform: translateY(-5px);
   border-color: rgba(66, 133, 244, 0.45);
@@ -279,6 +285,7 @@ h6 {
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
 }
 
+.dark .veo-card:hover,
 .dark .liquid-glass-card:hover {
   box-shadow: 
     0 28px 70px -12px rgba(0, 0, 0, 0.8),
@@ -287,6 +294,7 @@ h6 {
 }
 
 /* Google Prompt Capsule */
+.veo-prompt-box,
 .google-prompt-capsule {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(28px) saturate(190%);
@@ -298,6 +306,7 @@ h6 {
   border-radius: 9999px;
 }
 
+.dark .veo-prompt-box,
 .dark .google-prompt-capsule {
   background: rgba(18, 22, 34, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -306,6 +315,7 @@ h6 {
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25);
 }
 
+.veo-pill,
 .google-pill {
   border-radius: 9999px;
   backdrop-filter: blur(20px) saturate(180%);

@@ -44,10 +44,10 @@ export function Hero() {
 					transition={{ duration: 0.5 }}
 					className="google-prompt-capsule inline-flex items-center gap-3 px-5 py-2.5 mb-8 max-w-2xl text-left"
 				>
-					{/* Google 4-Color Sparkle Orb */}
-					<div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
+					{/* Google 2-Tone Sparkle Orb */}
+					<div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
 						<div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
-							<Sparkles className="w-3.5 h-3.5 text-[#4285F4] dark:text-[#8ab4f8]" />
+							<Sparkles className="w-3.5 h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
 						</div>
 					</div>
 					<span className="text-xs sm:text-sm font-medium text-foreground/90 truncate">

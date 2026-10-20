@@ -39,10 +39,10 @@ export function Navbar() {
 						href="/"
 						className="flex items-center gap-2.5 group select-none"
 					>
-						{/* Google 4-Color Sparkle */}
-						<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] p-[1.5px] flex items-center justify-center shadow-[0_0_14px_rgba(66,133,244,0.35)] group-hover:scale-105 transition-transform">
+						{/* Google 2-Tone Sparkle */}
+						<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shadow-[0_0_14px_rgba(26,115,232,0.35)] group-hover:scale-105 transition-transform">
 							<div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
-								<Sparkles className="w-4 h-4 text-[#4285F4] dark:text-[#8ab4f8]" />
+								<Sparkles className="w-4 h-4 text-[#1a73e8] dark:text-[#8ab4f8]" />
 							</div>
 						</div>
 
