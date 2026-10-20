@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "./Providers";
-import { Sparkles } from "lucide-react";
+import { MdCode } from "react-icons/md";
 
 export function LoadingScreen() {
   const { t } = useLanguage();
@@ -45,14 +45,14 @@ export function LoadingScreen() {
           className="fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center p-6 text-foreground"
         >
           <div className="max-w-md w-full text-center">
-            {/* Google Sparkle Animated Orb */}
+            {/* Google Gradient Animated Code Orb */}
             <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[2px] mx-auto mb-8 shadow-[0_0_35px_rgba(26,115,232,0.35)]">
               <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
                 <motion.div
-                  animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <Sparkles className="w-7 h-7 text-[#1a73e8] dark:text-[#8ab4f8]" />
+                  <MdCode className="w-7 h-7 text-[#1a73e8] dark:text-[#8ab4f8]" />
                 </motion.div>
               </div>
             </div>

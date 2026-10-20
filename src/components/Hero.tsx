@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
-import { Sparkles, ArrowRight, Layers, Zap } from "lucide-react";
+import { MdTerminal, MdArrowOutward, MdEast, MdLayers, MdBolt } from "react-icons/md";
 import { useLanguage } from "./Providers";
 import { Button } from "./ui/Button";
 
@@ -167,14 +167,14 @@ export function Hero() {
 					ref={badgeRef}
 					className="google-prompt-capsule inline-flex items-center gap-3 px-6 py-3 mb-10 max-w-3xl text-left"
 				>
-					{/* Google 2-Tone Sparkle Orb */}
+					{/* Google 2-Tone Terminal Capsule Orb */}
 					<div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
 						<div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
-							<Sparkles className="w-3.5 h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
+							<MdTerminal className="w-3.5 h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
 						</div>
 					</div>
 					<span className="text-xs sm:text-sm font-medium text-foreground/90 truncate">
-						<strong className="text-[#1a73e8] dark:text-[#8ab4f8]">Front-End // </strong>
+						<strong className="text-[#1a73e8] dark:text-[#8ab4f8]">{t.hero.promptLabel} </strong>
 						{t.hero.promptText}
 					</span>
 				</div>
@@ -212,8 +212,8 @@ export function Hero() {
 						}}
 						className="gap-2 px-9 py-4 text-base font-semibold"
 					>
-						<Sparkles className="w-4 h-4" />
 						{t.hero.work}
+						<MdArrowOutward className="w-4 h-4 ml-1" />
 					</Button>
 
 					<Button
@@ -226,7 +226,7 @@ export function Hero() {
 						className="gap-2 px-9 py-4 text-base font-medium"
 					>
 						{t.hero.contact}
-						<ArrowRight className="w-4 h-4 ml-1" />
+						<MdEast className="w-4 h-4 ml-1" />
 					</Button>
 				</div>
 
@@ -283,7 +283,7 @@ export function Hero() {
 									{presets[activePreset].tag}
 								</span>
 								<div className="flex items-center gap-3 text-xs font-mono bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-									<Zap className="w-3.5 h-3.5 text-yellow-400" />
+									<MdBolt className="w-3.5 h-3.5 text-yellow-400" />
 									<span>Latency: {presets[activePreset].metrics.latency}</span>
 									<span className="opacity-40">|</span>
 									<span>{presets[activePreset].metrics.fps}</span>
@@ -295,7 +295,7 @@ export function Hero() {
 									{presets[activePreset].title}
 								</h3>
 								<div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300 font-mono">
-									<Layers className="w-4 h-4 text-blue-400" />
+									<MdLayers className="w-4 h-4 text-blue-400" />
 									<span>{presets[activePreset].metrics.stack}</span>
 								</div>
 							</div>

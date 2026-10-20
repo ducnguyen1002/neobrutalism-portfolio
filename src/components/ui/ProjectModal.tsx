@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, Globe, Sparkles, Zap, Layers } from "lucide-react";
+import { MdClose, MdOpenInNew, MdLanguage, MdCheckCircle } from "react-icons/md";
+import { FaGithub } from "react-icons/fa6";
 import { useEffect } from "react";
 import { Button } from "./Button";
 import { useLanguage } from "../Providers";
@@ -71,16 +72,16 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
                 <div className="flex items-center gap-2">
                   <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted bg-foreground/5 px-3 py-1 rounded-full border border-foreground/10">
-                    <Globe className="w-3.5 h-3.5" />
+                    <MdLanguage className="w-3.5 h-3.5" />
                     <span className="truncate max-w-[200px]">{project.live}</span>
                   </div>
 
                   <button
                     onClick={onClose}
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-foreground hover:bg-foreground/5 transition-colors"
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-muted hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
                     aria-label="Close"
                   >
-                    <X className="w-5 h-5" />
+                    <MdClose className="w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -96,7 +97,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
-                      <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+                      <MdCheckCircle className="w-3.5 h-3.5 text-emerald-400" />
                       {project.metrics || "Active"}
                     </div>
                   </div>
@@ -114,7 +115,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                     {/* Chips */}
                     <div className="mb-8">
                       <div className="text-xs uppercase font-bold text-muted tracking-wider mb-2.5">
-                        ARCHITECTURE STACK:
+                        {t.projects.stackLabel}
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {project.tags.map((tag) => (
@@ -135,14 +136,14 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                         className="flex-1 gap-2"
                         onClick={() => window.open(project.live, "_blank")}
                       >
-                        <ExternalLink className="w-4 h-4" /> {t.projects.live}
+                        <MdOpenInNew className="w-4 h-4" /> {t.projects.live}
                       </Button>
                       <Button
                         variant="outline"
                         className="flex-1 gap-2"
                         onClick={() => window.open(project.github || "#", "_blank")}
                       >
-                        <Github className="w-4 h-4" /> {t.projects.code}
+                        <FaGithub className="w-4 h-4" /> {t.projects.code}
                       </Button>
                     </div>
                   </div>

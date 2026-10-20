@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "./ui/Button";
 import { useTheme } from "next-themes";
 import { useLanguage } from "./Providers";
-import { Sun, Moon, Languages, Menu, X, Sparkles } from "lucide-react";
+import { MdWbSunny, MdDarkMode, MdTranslate, MdMenu, MdClose, MdCode, MdArrowOutward } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -34,15 +34,14 @@ export function Navbar() {
 				}`}
 			>
 				<div className="flex items-center justify-between px-6 py-3 md:px-8 md:py-3.5">
-					{/* Google Multi-Color Sparkle Brand */}
+					{/* Brand with Clean Google Code Icon */}
 					<Link
 						href="/"
 						className="flex items-center gap-2.5 group select-none"
 					>
-						{/* Google 2-Tone Sparkle */}
 						<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shadow-[0_0_14px_rgba(26,115,232,0.35)] group-hover:scale-105 transition-transform">
 							<div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
-								<Sparkles className="w-4 h-4 text-[#1a73e8] dark:text-[#8ab4f8]" />
+								<MdCode className="w-4 h-4 text-[#1a73e8] dark:text-[#8ab4f8]" />
 							</div>
 						</div>
 
@@ -54,13 +53,13 @@ export function Navbar() {
 						</div>
 					</Link>
 
-					{/* Desktop Navigation */}
+					{/* Desktop Navigation - Strictly Ordered by Section Sequence */}
 					<nav className="hidden md:flex items-center gap-1 text-sm font-medium text-foreground/85">
 						<Link
-							href="#projects"
+							href="#about"
 							className="px-4 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
-							{t.nav.projects}
+							{t.nav.about}
 						</Link>
 						<Link
 							href="#skills"
@@ -69,10 +68,10 @@ export function Navbar() {
 							{t.nav.skills}
 						</Link>
 						<Link
-							href="#about"
+							href="#projects"
 							className="px-4 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
 						>
-							{t.nav.about}
+							{t.nav.projects}
 						</Link>
 					</nav>
 
@@ -81,25 +80,26 @@ export function Navbar() {
 						{/* Theme Toggle */}
 						<button
 							onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-							className="w-10 h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
-							aria-label="Toggle Theme"
+							className="w-10 h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+							aria-label={theme === "dark" ? t.nav.light : t.nav.dark}
+							title={theme === "dark" ? t.nav.light : t.nav.dark}
 						>
 							{!mounted ? (
 								<div className="w-4 h-4" />
 							) : theme === "dark" ? (
-								<Sun className="w-4 h-4 text-[#fbbc04] transition-transform hover:rotate-45" />
+								<MdWbSunny className="w-4 h-4 text-[#fbbc04] transition-transform hover:rotate-45" />
 							) : (
-								<Moon className="w-4 h-4 text-[#1a73e8] transition-transform hover:-rotate-12" />
+								<MdDarkMode className="w-4 h-4 text-[#1a73e8] transition-transform hover:-rotate-12" />
 							)}
 						</button>
 
 						{/* Language Toggle */}
 						<button
 							onClick={() => setLanguage(language === "vi" ? "en" : "vi")}
-							className="h-10 px-3 rounded-full flex items-center gap-1 text-xs font-semibold tracking-wider text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
-							title="Switch Language"
+							className="h-10 px-3 rounded-full flex items-center gap-1.5 text-xs font-semibold tracking-wider text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+							title={language === "vi" ? "Switch to English" : "Chuyển sang Tiếng Việt"}
 						>
-							<Languages className="w-3.5 h-3.5 opacity-70" />
+							<MdTranslate className="w-4 h-4 text-[#1a73e8] dark:text-[#8ab4f8]" />
 							<span>{language.toUpperCase()}</span>
 						</button>
 
@@ -116,27 +116,27 @@ export function Navbar() {
 								}}
 								className="gap-1.5"
 							>
-								<Sparkles className="w-3.5 h-3.5" />
 								{t.nav.hire}
+								<MdArrowOutward className="w-3.5 h-3.5" />
 							</Button>
 						</div>
 
 						{/* Mobile Hamburger */}
 						<button
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
-							className="p-2 rounded-full text-foreground hover:bg-foreground/5 md:hidden transition-colors"
+							className="p-2 rounded-full text-foreground hover:bg-foreground/5 md:hidden transition-colors cursor-pointer"
 							aria-label="Toggle Menu"
 						>
 							{isMenuOpen ? (
-								<X className="w-5 h-5" />
+								<MdClose className="w-5 h-5" />
 							) : (
-								<Menu className="w-5 h-5" />
+								<MdMenu className="w-5 h-5" />
 							)}
 						</button>
 					</div>
 				</div>
 
-				{/* Mobile Menu Dropdown */}
+				{/* Mobile Menu Dropdown - Strictly Ordered by Section Sequence */}
 				<AnimatePresence>
 					{isMenuOpen && (
 						<motion.div
@@ -151,15 +151,7 @@ export function Navbar() {
 								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
 							>
 								<span>{t.nav.about}</span>
-								<span className="text-xs text-muted">01</span>
-							</Link>
-							<Link
-								href="#projects"
-								onClick={() => setIsMenuOpen(false)}
-								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
-							>
-								<span>{t.nav.projects}</span>
-								<span className="text-xs text-muted">02</span>
+								<span className="text-xs text-muted font-mono">01</span>
 							</Link>
 							<Link
 								href="#skills"
@@ -167,7 +159,15 @@ export function Navbar() {
 								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
 							>
 								<span>{t.nav.skills}</span>
-								<span className="text-xs text-muted">03</span>
+								<span className="text-xs text-muted font-mono">02</span>
+							</Link>
+							<Link
+								href="#projects"
+								onClick={() => setIsMenuOpen(false)}
+								className="p-3 rounded-2xl text-foreground hover:bg-foreground/5 flex items-center justify-between"
+							>
+								<span>{t.nav.projects}</span>
+								<span className="text-xs text-muted font-mono">03</span>
 							</Link>
 
 							<div className="pt-3 border-t border-foreground/10">
@@ -183,8 +183,8 @@ export function Navbar() {
 										}
 									}}
 								>
-									<Sparkles className="w-4 h-4" />
 									{t.nav.hire}
+									<MdArrowOutward className="w-4 h-4" />
 								</Button>
 							</div>
 						</motion.div>
