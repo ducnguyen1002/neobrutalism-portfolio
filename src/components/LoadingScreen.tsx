@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "./Providers";
+import { Cpu } from "lucide-react";
 
 export function LoadingScreen() {
 	const { t } = useLanguage();
@@ -14,19 +15,19 @@ export function LoadingScreen() {
 		// Message rotation
 		const messageInterval = setInterval(() => {
 			setCurrentMessage((prev) => (prev + 1) % t.loading.messages.length);
-		}, 800);
+		}, 700);
 
 		// Progress bar simulation
 		const progressInterval = setInterval(() => {
 			setProgress((prev) => {
 				if (prev >= 100) {
 					clearInterval(progressInterval);
-					setTimeout(() => setLoading(false), 500);
+					setTimeout(() => setLoading(false), 400);
 					return 100;
 				}
-				return prev + Math.random() * 15;
+				return prev + Math.random() * 20;
 			});
-		}, 200);
+		}, 150);
 
 		return () => {
 			clearInterval(messageInterval);
@@ -38,54 +39,71 @@ export function LoadingScreen() {
 		<AnimatePresence>
 			{loading && (
 				<motion.div
-					initial={{ y: 0 }}
-					exit={{ y: "-100%" }}
-					transition={{ duration: 0.8, ease: [0.87, 0, 0.13, 1] }}
-					className="fixed inset-0 z-9999 bg-neo-yellow flex flex-col items-center justify-center p-6 border-b-8 border-black text-black text-center"
+					initial={{ opacity: 1 }}
+					exit={{ opacity: 0, y: -20 }}
+					transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+					className="fixed inset-0 z-[9999] bg-background/90 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-foreground"
 				>
-					<div className="max-w-md w-full">
-						<motion.div
-							animate={{
-								rotate: [0, 10, -10, 10, 0],
-								scale: [1, 1.1, 1, 1.1, 1],
-							}}
-							transition={{ duration: 1, repeat: Infinity }}
-							className="text-8xl mb-8 select-none"
-						>
-							🐢
-						</motion.div>
+					<div className="liquid-glass rounded-3xl p-8 max-w-md w-full border border-foreground/15 text-center shadow-2xl relative overflow-hidden">
+						{/* Ambient glass light beam */}
+						<div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
 
-						<h2 className="text-4xl font-black mb-4 uppercase italic leading-none">
+						{/* Top Archival Tag */}
+						<div className="font-mono text-[10px] tracking-widest text-muted uppercase mb-6 flex items-center justify-center gap-2">
+							<span className="w-1.5 h-1.5 rounded-full bg-foreground animate-ping" />
+							SYSTEM REQUISITION // 2026
+						</div>
+
+						{/* Animated Emblem */}
+						<div className="w-16 h-16 rounded-2xl border border-foreground/20 mx-auto mb-6 flex items-center justify-center relative shadow-inner">
+							<motion.div
+								animate={{ rotate: 360 }}
+								transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+								className="w-10 h-10 rounded-xl border border-dashed border-foreground/40 flex items-center justify-center"
+							>
+								<Cpu className="w-5 h-5 text-foreground opacity-80" />
+							</motion.div>
+						</div>
+
+						{/* Title */}
+						<h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 uppercase">
 							{t.loading.cooking}{" "}
-							<span className="text-neo-purple">
+							<span className="font-serif italic font-normal text-muted">
 								{t.loading.cookingHighlight}
 							</span>
 						</h2>
 
-						<div className="neo-brutalism-border bg-(--card-background) h-12 w-full mb-6 relative overflow-hidden">
+						{/* Refined Progress Bar */}
+						<div className="h-2 w-full rounded-full bg-foreground/10 mb-4 relative overflow-hidden">
 							<motion.div
-								className="absolute inset-0 bg-neo-green border-r-4 border-black"
+								className="absolute inset-y-0 left-0 bg-foreground rounded-full"
 								style={{ width: `${progress}%` }}
 							/>
-							<div className="absolute inset-0 flex items-center justify-center font-black text-xl mix-blend-difference">
-								{Math.round(progress)}%
-							</div>
 						</div>
 
-						<AnimatePresence mode="wait">
-							<motion.p
-								key={currentMessage}
-								initial={{ opacity: 0, y: 10 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -10 }}
-								className="text-xl font-bold italic"
-							>
-								{t.loading.messages[currentMessage]}
-							</motion.p>
-						</AnimatePresence>
+						<div className="flex items-center justify-between font-mono text-xs text-muted mb-6">
+							<span>INDEXING</span>
+							<span className="font-bold text-foreground">{Math.round(progress)}%</span>
+						</div>
+
+						{/* Decryption Message */}
+						<div className="h-8 flex items-center justify-center">
+							<AnimatePresence mode="wait">
+								<motion.p
+									key={currentMessage}
+									initial={{ opacity: 0, y: 6 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -6 }}
+									transition={{ duration: 0.2 }}
+									className="font-mono text-xs text-muted"
+								>
+									{t.loading.messages[currentMessage]}
+								</motion.p>
+							</AnimatePresence>
+						</div>
 					</div>
 
-					<div className="absolute bottom-10 left-0 right-0 text-center font-black text-sm opacity-30 px-6">
+					<div className="absolute bottom-8 left-0 right-0 text-center font-mono text-[10px] text-muted tracking-widest uppercase">
 						{t.loading.warning}
 					</div>
 				</motion.div>

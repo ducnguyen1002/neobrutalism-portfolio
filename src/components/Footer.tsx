@@ -1,56 +1,100 @@
 "use client";
 
-import { Github, Twitter, Linkedin, Heart } from "lucide-react";
+import { Github, Twitter, Linkedin, Copy, Check, Mail, ExternalLink } from "lucide-react";
 import { useLanguage } from "./Providers";
+import { useState } from "react";
 
 export function Footer() {
 	const { t } = useLanguage();
+	const [copied, setCopied] = useState(false);
+	const email = "ducduc1022000@gmail.com";
+
+	const handleCopyEmail = () => {
+		navigator.clipboard.writeText(email);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	};
 
 	return (
-		<footer className="py-20 px-4 bg-(--section-alt-bg) border-t-4 border-(--border-color)">
-			<div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-				<div>
-					<h2 className="text-4xl font-black mb-4 text-black dark:text-white">
+		<footer id="contact" className="py-24 px-4 bg-foreground/[0.02] dark:bg-white/[0.01] border-t border-foreground/10 relative">
+			<div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
+				{/* Left Dispatch Column */}
+				<div className="max-w-xl">
+					<div className="font-mono text-xs uppercase tracking-widest text-muted mb-3 flex items-center gap-2">
+						<span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+						SECTION 05 // FORMAL DISPATCH
+					</div>
+
+					<h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 text-foreground">
 						{t.footer.talk}{" "}
-						<span className="text-neo-yellow underline">
+						<span className="font-serif italic font-normal text-muted">
 							{t.footer.talkHighlight}
 						</span>
 					</h2>
-					<p className="text-xl font-bold max-w-md mb-8 text-black/70 dark:text-zinc-400">
+
+					<p className="text-base sm:text-lg text-muted mb-8 leading-relaxed">
 						{t.footer.desc}
 					</p>
-					<div className="flex gap-6">
+
+					{/* Monochromatic Liquid Glass Social Badges */}
+					<div className="flex gap-3">
 						<a
-							href="#"
-							className="p-3 bg-neo-purple neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+							href="https://github.com/ducnguyen1002"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-foreground/30 transition-all hover:-translate-y-0.5"
+							aria-label="GitHub Profile"
 						>
-							<Github className="w-6 h-6 text-white" />
+							<Github className="w-5 h-5" />
 						</a>
 						<a
-							href="#"
-							className="p-3 bg-neo-yellow neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all text-black"
+							href="https://linkedin.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-foreground/30 transition-all hover:-translate-y-0.5"
+							aria-label="LinkedIn Profile"
 						>
-							<Linkedin className="w-6 h-6" />
+							<Linkedin className="w-5 h-5" />
 						</a>
 						<a
-							href="#"
-							className="p-3 bg-neo-green neo-brutalism-border neo-brutalism-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all text-black"
+							href="https://twitter.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="liquid-glass rounded-xl p-3 text-foreground/80 hover:text-foreground hover:border-foreground/30 transition-all hover:-translate-y-0.5"
+							aria-label="Twitter Profile"
 						>
-							<Twitter className="w-6 h-6" />
+							<Twitter className="w-5 h-5" />
 						</a>
 					</div>
 				</div>
 
-				<div className="text-center md:text-right">
-					<p className="text-2xl font-black mb-2 italic text-black dark:text-white">
-						ducduc1022000@gmail.com
+				{/* Right Column: Contact Details & Signature */}
+				<div className="flex flex-col items-start md:items-end">
+					{/* Copyable Email Pill */}
+					<div className="liquid-glass rounded-2xl p-4 border border-foreground/15 mb-6 flex items-center gap-3">
+						<Mail className="w-4 h-4 text-muted" />
+						<span className="font-mono text-sm sm:text-base font-semibold text-foreground">
+							{email}
+						</span>
+						<button
+							onClick={handleCopyEmail}
+							className="ml-2 p-1.5 rounded-lg bg-foreground/5 hover:bg-foreground/10 text-muted hover:text-foreground transition-colors"
+							title="Copy email"
+						>
+							{copied ? (
+								<Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+							) : (
+								<Copy className="w-4 h-4" />
+							)}
+						</button>
+					</div>
+
+					<p className="font-mono text-xs text-muted mb-2">
+						{t.footer.madeWith} <span className="text-foreground font-semibold">Google Antigravity</span>
 					</p>
-					<p className="font-bold flex items-center justify-center md:justify-end gap-2 text-black/70 dark:text-zinc-300">
-						{t.footer.madeWith}{" "}
-						<Heart className="w-4 h-4 fill-neo-red text-neo-red" /> Google Antigravity
-					</p>
-					<p className="text-xs font-bold mt-4 opacity-50 text-black dark:text-white">
-						{t.footer.rights} © 2026 PORTFOLIO.
+
+					<p className="font-mono text-[11px] text-muted opacity-70">
+						{t.footer.rights} © 2026 ARCHIVAL RECORD.
 					</p>
 				</div>
 			</div>

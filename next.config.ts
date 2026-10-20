@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: "/neobrutalism-portfolio",
+//  basePath: "/",
 };
 
 export default nextConfig;

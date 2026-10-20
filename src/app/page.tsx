@@ -10,10 +10,10 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 
 export default function Home() {
 	return (
-		<main className="min-h-screen relative overflow-x-hidden">
+		<main className="min-h-screen relative overflow-x-hidden selection:bg-foreground selection:text-background">
 			<LoadingScreen />
-			<div className="grid-bg" />
-			<div className="noise-overlay" />
+			<div className="archival-grid" />
+			<div className="analog-grain" />
 			<CustomCursor />
 			<Navbar />
 			<Hero />
@@ -25,3 +25,4 @@ export default function Home() {
 		</main>
 	);
 }
+

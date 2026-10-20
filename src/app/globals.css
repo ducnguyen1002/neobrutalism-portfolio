@@ -3,40 +3,66 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f6f6f6;
-  --foreground: #000000;
-  --section-alt-bg: #ffffff;
+  --background: #f8f9fa;
+  --foreground: #09090b;
+  --muted: #71717a;
+  --muted-light: #a1a1aa;
+  --section-alt-bg: #f1f2f4;
+  
+  --border-color: rgba(9, 9, 11, 0.12);
+  --border-subtle: rgba(9, 9, 11, 0.06);
 
-  --neo-yellow: #ebc313;
-  --neo-purple: #A388EE;
-  --neo-green: #84cc16;
-  --neo-red: #ff6b6b;
-  --neo-blue: #3b82f6;
+  /* Liquid Glass light tokens */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-hover: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-border-outer: rgba(9, 9, 11, 0.08);
+  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 100%);
+  --glass-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.07), 0 4px 16px -4px rgba(0, 0, 0, 0.04);
+  --glass-inset-glow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04);
 
-  --border-width: 4px;
-  --border-color: #000000;
-  --shadow-color: 0, 0, 0;
-  --card-background: #ffffff;
+  /* Archival office tokens */
+  --office-card-bg: rgba(255, 255, 255, 0.82);
+  --office-tag-bg: rgba(9, 9, 11, 0.05);
+  --office-tag-border: rgba(9, 9, 11, 0.15);
+  --office-accent: #09090b;
+  --office-accent-fg: #ffffff;
 }
 
 .dark {
-  --background: #1a1a1a;
-  --foreground: #ffffff;
-  --section-alt-bg: #000000;
-  --border-color: #ffffff;
-  --shadow-color: 255, 255, 255;
-  --card-background: #2a2a2a;
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --muted: #a1a1aa;
+  --muted-light: #71717a;
+  --section-alt-bg: #0d0e11;
+
+  --border-color: rgba(244, 244, 245, 0.14);
+  --border-subtle: rgba(244, 244, 245, 0.06);
+
+  /* Liquid Glass dark tokens */
+  --glass-bg: rgba(18, 18, 22, 0.7);
+  --glass-bg-hover: rgba(26, 26, 32, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-outer: rgba(255, 255, 255, 0.07);
+  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 6px 20px -6px rgba(0, 0, 0, 0.4);
+  --glass-inset-glow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(0, 0, 0, 0.6);
+
+  /* Archival office tokens */
+  --office-card-bg: rgba(14, 14, 17, 0.78);
+  --office-tag-bg: rgba(255, 255, 255, 0.06);
+  --office-tag-border: rgba(255, 255, 255, 0.18);
+  --office-accent: #ffffff;
+  --office-accent-fg: #09090b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  --color-neo-yellow: var(--neo-yellow);
-  --color-neo-purple: var(--neo-purple);
-  --color-neo-green: var(--neo-green);
-  --color-neo-red: var(--neo-red);
-  --color-neo-blue: var(--neo-blue);
+  --color-muted: var(--muted);
+  --color-muted-light: var(--muted-light);
+  --color-office-accent: var(--office-accent);
+  --color-office-accent-fg: var(--office-accent-fg);
 }
 
 * {
@@ -45,13 +71,15 @@
 
 html {
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-be-vietnam), sans-serif;
+  font-family: var(--font-be-vietnam), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
 h1,
@@ -61,79 +89,164 @@ h4,
 h5,
 h6 {
   font-family: var(--font-space-grotesk), sans-serif;
+  letter-spacing: -0.03em;
 }
 
-.neo-brutalism-border {
-  border: var(--border-width) solid var(--border-color);
-}
-
-.neo-brutalism-shadow {
-  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.neo-brutalism-card {
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
-  background: var(--card-background);
-  transition: all 0.2s ease-in-out;
-}
-
-.neo-brutalism-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 12px 12px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.neo-brutalism-button {
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: 8px 8px 0px 0px rgba(var(--shadow-color), 1);
-  background: var(--neo-yellow);
-  font-weight: 800;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.1s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-.neo-brutalism-button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 10px 10px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.neo-brutalism-button:active {
-  transform: translate(8px, 8px);
-  box-shadow: 0px 0px 0px 0px rgba(var(--shadow-color), 1);
-}
-
-.grid-bg {
-  background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
-  background-size: 30px 30px;
-  background-color: var(--background);
-  opacity: 0.1;
+/* Archival Ledger / Blueprint Grid */
+.archival-grid {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
 }
 
-.noise-overlay {
+.archival-lines-accent {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    var(--border-subtle) 10px,
+    var(--border-subtle) 11px
+  );
+}
+
+/* Analog subtle grain overlay */
+.analog-grain {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 9998;
   pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Hide default cursor on desktop */
+/* ========================================================
+   LIQUID GLASS DESIGN SYSTEM
+   ======================================================== */
+
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset-glow);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-subtle {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.dark .liquid-glass-subtle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.liquid-glass-pill {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06), var(--glass-inset-glow);
+  border-radius: 9999px;
+}
+
+.liquid-glass-card {
+  background: var(--office-card-bg);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--glass-shadow), var(--glass-inset-glow);
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.liquid-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.dark .liquid-glass-card::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  opacity: 0.8;
+}
+
+.liquid-glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(9, 9, 11, 0.25);
+  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.12), var(--glass-inset-glow);
+}
+
+.dark .liquid-glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.75), var(--glass-inset-glow);
+}
+
+/* ========================================================
+   OFFICE ARCHIVE / DOSSIER UTILITIES
+   ======================================================== */
+
+.office-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--border-color);
+  background: var(--office-tag-bg);
+  color: var(--foreground);
+}
+
+.office-stamp-filled {
+  background: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.office-mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.office-dossier-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--foreground);
+}
+
+/* Interactive Cursor */
 @media (min-width: 1024px) {
   body {
-    cursor: none;
-  }
-
-  a,
-  button {
-    cursor: none !important;
+    cursor: default;
   }
 }

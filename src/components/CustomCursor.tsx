@@ -1,25 +1,43 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
 	const [isHovering, setIsHovering] = useState(false);
-	const cursorX = useMotionValue(-100);
-	const cursorY = useMotionValue(-100);
+	const [cursorText, setCursorText] = useState("");
+	const mouseX = useMotionValue(-100);
+	const mouseY = useMotionValue(-100);
+
+	const springConfig = { damping: 28, stiffness: 400, mass: 0.5 };
+	const cursorX = useSpring(mouseX, springConfig);
+	const cursorY = useSpring(mouseY, springConfig);
 
 	useEffect(() => {
 		const moveCursor = (e: MouseEvent) => {
-			cursorX.set(e.clientX);
-			cursorY.set(e.clientY);
+			mouseX.set(e.clientX);
+			mouseY.set(e.clientY);
 		};
 
 		const checkHover = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
-			const isInteractive = target.closest(
-				"button, a, input, select, textarea, [role='button']",
+			const interactive = target.closest(
+				"button, a, input, select, textarea, [role='button'], .cursor-pointer"
 			);
-			setIsHovering(!!isInteractive);
+
+			if (interactive) {
+				setIsHovering(true);
+				if (interactive.getAttribute("aria-label")) {
+					setCursorText("");
+				} else if (interactive.tagName === "A" || interactive.closest("a")) {
+					setCursorText("OPEN");
+				} else {
+					setCursorText("SELECT");
+				}
+			} else {
+				setIsHovering(false);
+				setCursorText("");
+			}
 		};
 
 		window.addEventListener("mousemove", moveCursor);
@@ -29,62 +47,55 @@ export function CustomCursor() {
 			window.removeEventListener("mousemove", moveCursor);
 			window.removeEventListener("mouseover", checkHover);
 		};
-	}, [cursorX, cursorY]);
+	}, [mouseX, mouseY]);
 
 	return (
-		<motion.div
-			className="fixed top-0 left-0 pointer-events-none z-[99999] hidden lg:block"
-			style={{
-				x: cursorX,
-				y: cursorY,
-				translateX: "-2px",
-				translateY: "-2px",
-				willChange: "transform",
-			}}
-		>
+		<>
+			{/* Center precision pinpoint */}
 			<motion.div
-				animate={{
-					scale: isHovering ? 1.4 : 1,
-					rotate: isHovering ? -15 : 0,
-					color: isHovering
-						? "var(--neo-purple)"
-						: "var(--foreground)",
+				className="fixed top-0 left-0 pointer-events-none z-[99999] hidden lg:block"
+				style={{
+					x: mouseX,
+					y: mouseY,
+					translateX: "-50%",
+					translateY: "-50%",
 				}}
-				transition={{ type: "spring", stiffness: 500, damping: 30 }}
-				className="relative"
 			>
-				<svg
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					{/* Shadow - Manual instead of drop-shadow filter for performance */}
-					<path
-						d="M7.5 5.21V22.8L12.11 18.19L15.51 24.06L18.51 22.33L15.11 16.46L21.43 16.46L7.5 5.21Z"
-						fill={isHovering ? "black" : "rgba(0,0,0,0.3)"}
-						className="dark:fill-white/30"
-					/>
-					{/* Main Pointer */}
-					<path
-						d="M5.5 3.21V20.8L10.11 16.19L13.51 22.06L16.51 20.33L13.11 14.46L19.43 14.46L5.5 3.21Z"
-						fill="currentColor"
-						stroke="currentColor"
-						strokeWidth="1.5"
-						strokeLinejoin="round"
-					/>
-				</svg>
+				<div className="w-1.5 h-1.5 rounded-full bg-foreground" />
 			</motion.div>
-			{isHovering && (
+
+			{/* Outer Liquid Glass Trailing Ring */}
+			<motion.div
+				className="fixed top-0 left-0 pointer-events-none z-[99998] hidden lg:block"
+				style={{
+					x: cursorX,
+					y: cursorY,
+					translateX: "-50%",
+					translateY: "-50%",
+				}}
+			>
 				<motion.div
-					initial={{ opacity: 0, x: 10 }}
-					animate={{ opacity: 1, x: 20 }}
-					className="absolute top-4 left-0 font-black text-[10px] bg-neo-yellow px-2 py-0.5 border-2 border-black text-black whitespace-nowrap shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+					animate={{
+						width: isHovering ? 48 : 28,
+						height: isHovering ? 48 : 28,
+						backgroundColor: isHovering
+							? "rgba(128, 128, 128, 0.12)"
+							: "rgba(128, 128, 128, 0.04)",
+					}}
+					transition={{ type: "spring", stiffness: 450, damping: 25 }}
+					className="rounded-full border border-foreground/30 backdrop-blur-[2px] flex items-center justify-center shadow-sm"
 				>
-					click me
+					{isHovering && cursorText && (
+						<motion.span
+							initial={{ opacity: 0, scale: 0.8 }}
+							animate={{ opacity: 1, scale: 1 }}
+							className="font-mono text-[8px] font-bold tracking-widest text-foreground uppercase"
+						>
+							{cursorText}
+						</motion.span>
+					)}
 				</motion.div>
-			)}
-		</motion.div>
+			</motion.div>
+		</>
 	);
 }
