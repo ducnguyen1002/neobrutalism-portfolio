@@ -22,26 +22,75 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isDesktopCollapsed = isCollapsed && !isHovered;
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
+    if (window.scrollY > 60) {
+      setIsCollapsed(true);
+      setScrolled(true);
+    } else {
       setScrolled(window.scrollY > 20);
+    }
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 20);
+
+      // Expand when near top of the page
+      if (currentScrollY <= 60) {
+        setIsCollapsed(false);
+      } else {
+        const diff = currentScrollY - lastScrollY;
+        // Scrolling down past threshold -> collapse menu
+        if (diff > 8) {
+          setIsCollapsed(true);
+        }
+        // Scrolling up past threshold -> expand menu back to original
+        else if (diff < -8) {
+          setIsCollapsed(false);
+        }
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:px-4 sm:py-4 md:py-6 transition-all duration-300">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:px-4 sm:py-4 transition-all duration-300 pointer-events-none`}
+    >
       <div
-        className={`max-w-6xl mx-auto rounded-full transition-all duration-300 liquid-glass ${
-          scrolled
-            ? "shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.8)]"
-            : "shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`mx-auto rounded-full transition-all duration-300 ease-in-out liquid-glass pointer-events-auto ${
+          isDesktopCollapsed
+            ? "max-w-6xl md:max-w-xl shadow-[0_20px_50px_-10px_rgba(0,0,0,0.18)] dark:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.85)]"
+            : "max-w-6xl shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]"
         }`}
       >
-        <div className="flex items-center justify-between px-3.5 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3.5">
+        <div
+          className={`flex items-center justify-between px-3.5 py-2 sm:px-6 sm:py-3 transition-all duration-300 ${
+            isDesktopCollapsed ? "md:px-5" : "md:px-8"
+          }`}
+        >
           {/* Brand with Clean Google Code Icon */}
           <Link
             href="/"
@@ -55,41 +104,64 @@ export function Navbar() {
 
             <div className="flex items-center gap-1.5 sm:gap-2 font-bold tracking-tight text-sm sm:text-base text-foreground">
               <span>DucNV</span>
-              <span className="text-[11px] font-semibold text-muted px-2 py-0.5 rounded-full bg-foreground/5 hidden sm:inline-block">
+              <span
+                className={`text-[11px] font-semibold text-muted px-2 py-0.5 rounded-full bg-foreground/5 hidden sm:inline-block transition-all duration-300 ${
+                  isDesktopCollapsed ? "md:hidden" : ""
+                }`}
+              >
                 Front-End Developer
               </span>
             </div>
           </Link>
 
+          {/* Collapsed Menu Indicator (Visible on desktop when collapsed) */}
+          <div
+            className={`hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-foreground/5 text-xs font-semibold text-foreground/80 tracking-wide select-none transition-all duration-300 cursor-pointer hover:bg-foreground/10 ${
+              isDesktopCollapsed
+                ? "opacity-100 scale-100 max-w-[120px]"
+                : "opacity-0 scale-95 max-w-0 overflow-hidden pointer-events-none px-0"
+            }`}
+            onClick={() => setIsHovered(true)}
+          >
+            <MdMenu className="w-3.5 h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
+            <span>Menu</span>
+          </div>
+
           {/* Desktop Navigation - Strictly Ordered by Section Sequence */}
-          <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-foreground/85">
+          <nav
+            className={`hidden md:flex items-center gap-1 text-sm font-medium text-foreground/85 transition-all duration-300 ${
+              isDesktopCollapsed
+                ? "opacity-0 scale-95 max-w-0 -mx-2 overflow-hidden pointer-events-none"
+                : "opacity-100 scale-100 max-w-2xl pointer-events-auto"
+            }`}
+          >
             <Link
               href="#about"
-              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
+              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors whitespace-nowrap"
             >
               {t.nav.about}
             </Link>
             <Link
               href="#experience"
-              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
+              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors whitespace-nowrap"
             >
               {t.nav.experience}
             </Link>
             <Link
               href="#skills"
-              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
+              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors whitespace-nowrap"
             >
               {t.nav.skills}
             </Link>
             <Link
               href="#projects"
-              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
+              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors whitespace-nowrap"
             >
               {t.nav.projects}
             </Link>
             <Link
               href="#faq"
-              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors"
+              className="px-3.5 py-2 rounded-full hover:text-foreground hover:bg-foreground/5 transition-colors whitespace-nowrap"
             >
               {t.nav.faq}
             </Link>

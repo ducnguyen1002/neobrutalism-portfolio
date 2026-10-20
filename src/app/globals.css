@@ -230,8 +230,8 @@ h6 {
 
 .liquid-glass {
   background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(24px) saturate(190%) contrast(102%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(102%);
+  backdrop-filter: blur(40px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%) contrast(102%);
   border: 1px solid rgba(255, 255, 255, 0.7);
   box-shadow: 
     0 16px 40px -8px rgba(0, 0, 0, 0.06),
@@ -241,8 +241,8 @@ h6 {
 
 .dark .liquid-glass {
   background: rgba(18, 22, 34, 0.65);
-  backdrop-filter: blur(24px) saturate(190%) contrast(105%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(105%);
+  backdrop-filter: blur(40px) saturate(190%) contrast(105%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%) contrast(105%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 
     0 20px 50px -10px rgba(0, 0, 0, 0.7),
@@ -322,6 +322,21 @@ h6 {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Terminal Cursor Blink */
+@keyframes terminal-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.terminal-cursor {
+  animation: terminal-blink 0.85s steps(2, start) infinite;
+}
+
 
 /* ========================================================
    CSS-NATIVE FOCUS DIMMING SYSTEM

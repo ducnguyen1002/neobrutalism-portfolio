@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import gsap from "gsap";
 import { MdTerminal, MdArrowOutward, MdEast, MdBolt } from "react-icons/md";
 import {
@@ -20,6 +20,61 @@ export function Hero() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalProject, setModalProject] = useState<any>(null);
+
+  // Synchronized typing text for Google prompt capsule
+  const promptList: string[] = useMemo(() => {
+    return (
+      (t.hero as any).promptTexts || [
+        "ứng dụng web hiệu năng cao",
+        "trải nghiệm người dùng xuyên suốt",
+        "giao diện trực quan & tinh chuẩn",
+        "kiến trúc mở rộng & tối ưu tốc độ",
+        "tương tác thời gian thực mượt mà",
+      ]
+    );
+  }, [t.hero]);
+
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Reset displayed text on language change
+  useEffect(() => {
+    setDisplayedText("");
+    setIsDeleting(false);
+  }, [promptList]);
+
+  // Typing effect loop
+  useEffect(() => {
+    const currentPrompt = promptList[currentTextIndex % promptList.length] || "";
+
+    if (!isDeleting) {
+      if (displayedText.length < currentPrompt.length) {
+        const timeout = setTimeout(() => {
+          setDisplayedText(currentPrompt.slice(0, displayedText.length + 1));
+        }, 55);
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2200);
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      if (displayedText.length > 0) {
+        const timeout = setTimeout(() => {
+          setDisplayedText(currentPrompt.slice(0, displayedText.length - 1));
+        }, 28);
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentTextIndex((prev) => (prev + 1) % promptList.length);
+        }, 350);
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [displayedText, isDeleting, currentTextIndex, promptList]);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
@@ -102,17 +157,6 @@ export function Hero() {
   // GSAP Animations: Entrance Timeline & Floating Micro-Motion
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Floating Prompt Capsule
-      if (badgeRef.current) {
-        gsap.to(badgeRef.current, {
-          y: -5,
-          duration: 2.8,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
-
       // Continuous Floating Animations with Varied Speeds and Distances (Depth Perception)
       if (mainCardRef.current) {
         gsap.to(mainCardRef.current, {
@@ -408,7 +452,7 @@ export function Hero() {
         {/* Google Prompt Capsule with Liquid Glass */}
         <div
           ref={badgeRef}
-          className="google-prompt-capsule inline-flex items-center gap-2.5 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 mb-8 sm:mb-10 max-w-3xl text-left w-full sm:w-auto"
+          className="google-prompt-capsule inline-flex items-center gap-2.5 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 mb-8 sm:mb-10 max-w-3xl text-left w-full sm:w-auto sm:min-w-[420px] md:min-w-[460px] min-h-[44px] sm:min-h-[48px]"
         >
           {/* Google 2-Tone Terminal Capsule Orb */}
           <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
@@ -416,11 +460,15 @@ export function Hero() {
               <MdTerminal className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#1a73e8] dark:text-[#8ab4f8]" />
             </div>
           </div>
-          <span className="text-[11px] sm:text-sm font-medium text-foreground/90 truncate">
-            <strong className="text-[#1a73e8] dark:text-[#8ab4f8]">
-              {t.hero.promptLabel}{" "}
+          <span className="text-[11px] sm:text-sm font-medium text-foreground/90 truncate inline-flex items-center min-w-0">
+            <strong className="text-[#1a73e8] dark:text-[#8ab4f8] shrink-0 mr-1.5">
+              {t.hero.promptLabel}
             </strong>
-            {t.hero.promptText}
+            <span className="truncate">{displayedText}</span>
+            <span
+              className="inline-block w-[2px] h-[13px] sm:h-[15px] bg-[#1a73e8] dark:bg-[#8ab4f8] ml-1 shrink-0 terminal-cursor"
+              aria-hidden="true"
+            />
           </span>
         </div>
 

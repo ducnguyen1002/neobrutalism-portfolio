@@ -15,7 +15,14 @@ export const translations = {
 		hero: {
 			badge: "HỆ THỐNG THIẾT KẾ GOOGLE & FRONT-END CHUYÊN SÂU",
 			promptLabel: "Mục tiêu:",
-			promptText: "Ứng dụng web hiệu năng cao",
+			promptText: "ứng dụng web hiệu năng cao",
+			promptTexts: [
+				"ứng dụng web hiệu năng cao",
+				"trải nghiệm người dùng xuyên suốt",
+				"giao diện trực quan & tinh chuẩn",
+				"kiến trúc mở rộng & tối ưu tốc độ",
+				"tương tác thời gian thực mượt mà",
+			],
 			title1: "Kiến tạo trải nghiệm số,",
 			title2: "đồng hành cùng doanh nghiệp xây dựng hệ thống web app",
 			desc: "Front-End Developer chuyên sâu React 19 & Next.js. Biến ý tưởng phức tạp thành sản phẩm web mượt mà, thẩm mỹ tinh chuẩn và tối ưu tốc độ.",
@@ -387,7 +394,7 @@ export const translations = {
 			availabilityValue: "Sẵn sàng đón nhận cơ hội mới",
 			copySuccess: "Đã sao chép email!",
 			madeWith: "Thiết kế theo chuẩn Google Design System & Liquid Glass. Xây dựng bởi",
-			rights: "Bản quyền thuộc về Nguyễn Văn Đức.",
+			rights: "Bản quyền thuộc về Nguyễn Văn Đức. Xây dựng với Google Antigravity © 2026.",
 		},
 		loading: {
 			cooking: "ĐANG KHỞI CHẠY",
@@ -417,7 +424,14 @@ export const translations = {
 		hero: {
 			badge: "GOOGLE DESIGN SYSTEM & ADVANCED FRONT-END",
 			promptLabel: "Goal:",
-			promptText: "High-performance web applications",
+			promptText: "high-performance web applications",
+			promptTexts: [
+				"high-performance web applications",
+				"seamless user experiences",
+				"intuitive & pixel-perfect interfaces",
+				"scalable architecture & sub-50ms latency",
+				"fluid real-time interactions",
+			],
 			title1: "Crafting digital experiences,",
 			title2: "partnering with businesses to shape their digital presence",
 			desc: "Front-End Developer specializing in React 19 & Next.js. Turning complex ideas into fluid, visually refined, and high-speed web products.",
@@ -789,7 +803,7 @@ export const translations = {
 			availabilityValue: "Open for Opportunities",
 			copySuccess: "Copied email!",
 			madeWith: "Crafted with Google Design System & Liquid Glass Aesthetics. Powered by",
-			rights: "All rights reserved by Nguyen Van Duc.",
+			rights: "All rights reserved by Nguyen Van Duc. Built with Google Antigravity © 2026.",
 		},
 		loading: {
 			cooking: "INITIALIZING",
