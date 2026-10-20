@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "./Providers";
@@ -25,6 +25,7 @@ const capabilities = [
 
 export function Skills() {
 	const { t } = useLanguage();
+	const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 	const sectionRef = useRef<HTMLElement>(null);
 	const matrixRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +44,7 @@ export function Skills() {
 					opacity: 0,
 					duration: 0.7,
 					stagger: 0.08,
-					ease: "power2.out",
+					ease: "power3.out",
 				});
 			}
 		}, sectionRef);
@@ -74,49 +75,62 @@ export function Skills() {
 					</p>
 				</div>
 
-				{/* Google Bento Capability Matrix with Liquid Glass & Airy Gaps */}
+				{/* Google Bento Capability Matrix with Liquid Glass & Focus Dimming */}
 				<div
 					ref={matrixRef}
+					onMouseLeave={() => setHoveredSkill(null)}
 					className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
 				>
-					{capabilities.map((item) => (
-						<div
-							key={item.name}
-							className="liquid-glass-card p-7 flex flex-col justify-between group transition-transform duration-300 hover:-translate-y-2"
-						>
-							{/* Top Specifier */}
-							<div className="flex items-center justify-between mb-6">
-								<span
-									className="w-3 h-3 rounded-full shadow-sm"
-									style={{ backgroundColor: item.dot }}
-								/>
-								<span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-foreground/5 text-muted">
-									{item.level}
-								</span>
-							</div>
+					{capabilities.map((item) => {
+						const isDimmed = hoveredSkill !== null && hoveredSkill !== item.name;
+						const isHovered = hoveredSkill === item.name;
 
-							{/* Title & Role */}
-							<div className="mb-4">
-								<h3 className="text-xl font-bold text-foreground tracking-tight mb-1.5 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
-									{item.name}
-								</h3>
-								<div className="text-xs font-medium text-muted">
-									{item.role}
+						return (
+							<div
+								key={item.name}
+								onMouseEnter={() => setHoveredSkill(item.name)}
+								className={`liquid-glass-card p-7 flex flex-col justify-between group cursor-default transition-all duration-300 ${
+									isDimmed
+										? "opacity-30 scale-[0.97] blur-[0.4px]"
+										: isHovered
+										? "opacity-100 scale-[1.02] -translate-y-2.5 shadow-2xl border-blue-500/40"
+										: "opacity-100 scale-100"
+								}`}
+							>
+								{/* Top Specifier */}
+								<div className="flex items-center justify-between mb-6">
+									<span
+										className="w-3 h-3 rounded-full shadow-sm"
+										style={{ backgroundColor: item.dot }}
+									/>
+									<span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-foreground/5 text-muted">
+										{item.level}
+									</span>
+								</div>
+
+								{/* Title & Role */}
+								<div className="mb-4">
+									<h3 className="text-xl font-bold text-foreground tracking-tight mb-1.5 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
+										{item.name}
+									</h3>
+									<div className="text-xs font-medium text-muted">
+										{item.role}
+									</div>
+								</div>
+
+								{/* Description */}
+								<p className="text-xs sm:text-[13px] text-foreground/70 dark:text-zinc-400 leading-relaxed font-normal mb-4">
+									{item.description}
+								</p>
+
+								{/* Subtle Bottom Accent Indicator */}
+								<div className="mt-5 pt-3.5 border-t border-foreground/5 flex items-center justify-between text-[10px] text-muted font-mono">
+									<span>SYSTEM VERIFIED</span>
+									<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
 								</div>
 							</div>
-
-							{/* Description */}
-							<p className="text-xs sm:text-[13px] text-foreground/70 dark:text-zinc-400 leading-relaxed font-normal mb-4">
-								{item.description}
-							</p>
-
-							{/* Subtle Bottom Accent Indicator */}
-							<div className="mt-5 pt-3.5 border-t border-foreground/5 flex items-center justify-between text-[10px] text-muted font-mono">
-								<span>SYSTEM VERIFIED</span>
-								<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-							</div>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</section>

@@ -6,6 +6,7 @@ import { Projects } from "@/components/Projects";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { BackToTop } from "@/components/BackToTop";
 
 export default function Home() {
 	return (
@@ -19,6 +20,7 @@ export default function Home() {
 			<Projects />
 			<Skills />
 			<Footer />
+			<BackToTop />
 		</main>
 	);
 }

@@ -16,6 +16,7 @@ export function Projects() {
 	const { t } = useLanguage();
 	const [selectedProject, setSelectedProject] = useState<any>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
 	const sectionRef = useRef<HTMLElement>(null);
 	const gridRef = useRef<HTMLDivElement>(null);
@@ -105,18 +106,32 @@ export function Projects() {
 					</p>
 				</div>
 
-				{/* Bento Showcase Grid with Liquid Glass & Airy Spacing */}
+				{/* Bento Showcase Grid with Liquid Glass & Focus Dimming */}
 				<div
 					ref={gridRef}
+					onMouseLeave={() => setHoveredProject(null)}
 					className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10"
 				>
 					{t.projects.items.map((project: any, index: number) => {
+						const isDimmed = hoveredProject !== null && hoveredProject !== index;
+						const isHovered = hoveredProject === index;
+
 						return (
 							<div
 								key={project.id || index}
+								onMouseEnter={() => setHoveredProject(index)}
 								onMouseMove={handleCardMouseMove}
-								onMouseLeave={handleCardMouseLeave}
-								className="liquid-glass-card flex flex-col h-full group transition-all duration-300"
+								onMouseLeave={(e) => {
+									handleCardMouseLeave(e);
+									setHoveredProject(null);
+								}}
+								className={`liquid-glass-card flex flex-col h-full group transition-all duration-300 ${
+									isDimmed
+										? "opacity-30 scale-[0.97] blur-[0.4px]"
+										: isHovered
+										? "opacity-100 scale-[1.02] shadow-2xl border-blue-500/40"
+										: "opacity-100 scale-100"
+								}`}
 							>
 								{/* Card Header Bar */}
 								<div className="px-7 py-4.5 flex items-center justify-between border-b border-foreground/10 text-xs font-medium text-muted bg-foreground/[0.02]">
