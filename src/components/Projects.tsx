@@ -19,15 +19,29 @@ export function Projects() {
 
 	const sectionRef = useRef<HTMLElement>(null);
 	const gridRef = useRef<HTMLDivElement>(null);
+	const watermarkRef = useRef<HTMLDivElement>(null);
 
 	const handleOpenModal = (project: any) => {
 		setSelectedProject(project);
 		setIsModalOpen(true);
 	};
 
-	// GSAP ScrollTrigger Entrance Animation
+	// GSAP ScrollTrigger Entrance Animation & Parallax
 	useEffect(() => {
 		const ctx = gsap.context(() => {
+			if (watermarkRef.current) {
+				gsap.to(watermarkRef.current, {
+					y: -100,
+					ease: "none",
+					scrollTrigger: {
+						trigger: sectionRef.current,
+						start: "top bottom",
+						end: "bottom top",
+						scrub: 1.2,
+					},
+				});
+			}
+
 			if (gridRef.current) {
 				const cards = Array.from(gridRef.current.children);
 				gsap.from(cards, {
@@ -53,9 +67,18 @@ export function Projects() {
 		<section
 			ref={sectionRef}
 			id="projects"
-			className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 relative"
+			className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
 		>
-			<div className="max-w-7xl mx-auto">
+			{/* Parallax Background Typography */}
+			<div
+				ref={watermarkRef}
+				aria-hidden="true"
+				className="absolute -top-10 left-1/2 -translate-x-1/2 text-[14vw] font-black tracking-tighter text-foreground/[0.025] dark:text-white/[0.025] select-none pointer-events-none whitespace-nowrap z-0"
+			>
+				SHOWCASE
+			</div>
+
+			<div className="max-w-7xl mx-auto relative z-10">
 				{/* Section Header */}
 				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 md:mb-20 pb-8 border-b border-foreground/10 gap-8">
 					<div>
