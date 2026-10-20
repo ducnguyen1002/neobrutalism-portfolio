@@ -4,7 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ProjectModal } from "./ui/ProjectModal";
-import { MdWorkOutline, MdChevronRight } from "react-icons/md";
+import { Button } from "./ui/Button";
+import {
+	MdWorkOutline,
+	MdChevronRight,
+	MdExpandMore,
+	MdExpandLess,
+} from "react-icons/md";
 import { useLanguage } from "./Providers";
 import { SplitText } from "./ui/SplitText";
 
@@ -16,6 +22,7 @@ export function Projects() {
 	const { t } = useLanguage();
 	const [selectedProject, setSelectedProject] = useState<any>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [visibleCount, setVisibleCount] = useState(6);
 
 	const sectionRef = useRef<HTMLElement>(null);
 	const gridRef = useRef<HTMLDivElement>(null);
@@ -63,6 +70,43 @@ export function Projects() {
 		return () => ctx.revert();
 	}, []);
 
+	// Handle Load More: Show 6 more projects with smooth entrance
+	const handleLoadMore = () => {
+		const nextCount = visibleCount + 6;
+		setVisibleCount(nextCount);
+
+		// Animate newly added cards smoothly
+		setTimeout(() => {
+			if (gridRef.current) {
+				const allCards = Array.from(gridRef.current.children);
+				const newCards = allCards.slice(visibleCount, nextCount);
+				if (newCards.length > 0) {
+					gsap.fromTo(
+						newCards,
+						{ opacity: 0, y: 35, scale: 0.96 },
+						{
+							opacity: 1,
+							y: 0,
+							scale: 1,
+							duration: 0.65,
+							stagger: 0.1,
+							ease: "power2.out",
+							clearProps: "transform,opacity",
+						}
+					);
+				}
+			}
+		}, 30);
+	};
+
+	const handleShowLess = () => {
+		setVisibleCount(6);
+		// Scroll back smoothly to section top
+		sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+	};
+
+	const visibleProjects = (t.projects.items || []).slice(0, visibleCount);
+
 	return (
 		<section
 			ref={sectionRef}
@@ -101,7 +145,7 @@ export function Projects() {
 					ref={gridRef}
 					className="focus-dim-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
 				>
-					{t.projects.items.map((project: any, index: number) => (
+					{visibleProjects.map((project: any, index: number) => (
 						<div
 							key={project.id || index}
 							onClick={() => handleOpenModal(project)}
@@ -137,6 +181,51 @@ export function Projects() {
 						</div>
 					))}
 				</div>
+
+				{/* Load More Action Bar */}
+				{t.projects.items && t.projects.items.length > 6 && (
+					<div className="mt-16 md:mt-20 flex flex-col items-center justify-center gap-3.5">
+						{visibleCount < t.projects.items.length ? (
+							<Button
+								variant="secondary"
+								size="lg"
+								onClick={handleLoadMore}
+								className="px-9 py-4 rounded-full font-semibold text-sm sm:text-base border border-foreground/15 hover:border-[#1a73e8]/50 gap-3 transition-all shadow-md hover:scale-105 cursor-pointer"
+							>
+								<span>{t.projects.loadMore || "Xem thêm dự án"}</span>
+								<span className="text-xs px-2.5 py-0.5 rounded-full bg-[#1a73e8]/10 text-[#1a73e8] dark:text-[#8ab4f8] font-bold font-mono">
+									+6
+								</span>
+								<MdExpandMore className="w-5 h-5 text-[#1a73e8] dark:text-[#8ab4f8]" />
+							</Button>
+						) : (
+							<Button
+								variant="secondary"
+								size="lg"
+								onClick={handleShowLess}
+								className="px-8 py-3.5 rounded-full font-medium text-xs sm:text-sm border border-foreground/15 hover:border-[#1a73e8]/50 gap-2 transition-all cursor-pointer text-muted hover:text-foreground"
+							>
+								<span>{t.projects.showLess || "Thu gọn danh sách"}</span>
+								<MdExpandLess className="w-4 h-4" />
+							</Button>
+						)}
+
+						{/* Counter Status */}
+						<div className="text-xs text-muted font-medium font-mono flex items-center gap-1.5">
+							<span>
+								{t.projects.showing || "Đang hiển thị"}{" "}
+								<strong className="text-foreground">
+									{Math.min(visibleCount, t.projects.items.length)}
+								</strong>{" "}
+								{t.projects.of || "trên"} {t.projects.items.length}{" "}
+								{t.projects.projectsCount || "dự án"}
+							</span>
+							{visibleCount >= t.projects.items.length && (
+								<span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-1" />
+							)}
+						</div>
+					</div>
+				)}
 			</div>
 
 			{/* Detailed Specs Modal Triggered on Click */}
