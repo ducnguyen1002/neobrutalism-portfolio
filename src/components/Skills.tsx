@@ -5,13 +5,13 @@ import { Sparkles, CheckCircle2, Cpu, Zap, Layers, Activity } from "lucide-react
 
 const capabilities = [
 	{ name: "React 19", role: "Core UI Architecture", level: "Expert", dot: "#4285F4", description: "Concurrent rendering, Server Actions & reactive hooks" },
-	{ name: "Next.js 16", role: "Full-Stack App Router", level: "Expert", dot: "#8B5CF6", description: "Turbopack optimization, streaming SSR & hybrid routing" },
-	{ name: "TypeScript", role: "Type-Safe Architecture", level: "Expert", dot: "#1A73E8", description: "Strict static typing, generic interfaces & schema validation" },
-	{ name: "Tailwind CSS", role: "Modern Design Tokens", level: "Advanced", dot: "#06B6D4", description: "Micro-animations, responsive systems & CSS v4 engine" },
-	{ name: "RESTful API", role: "Network Data Protocols", level: "Advanced", dot: "#6366F1", description: "Resilient state sync, HTTP caching & endpoint orchestration" },
-	{ name: "GraphQL", role: "Optimized Query Layer", level: "Advanced", dot: "#EC4899", description: "Apollo Client, fine-grained schemas & real-time subscriptions" },
+	{ name: "Next.js 16", role: "Full-Stack App Router", level: "Expert", dot: "#9B72CF", description: "Turbopack optimization, streaming SSR & hybrid routing" },
+	{ name: "TypeScript", role: "Type-Safe Architecture", level: "Expert", dot: "#4285F4", description: "Strict static typing, generic interfaces & schema validation" },
+	{ name: "Tailwind CSS", role: "Modern Design Tokens", level: "Advanced", dot: "#34A853", description: "Micro-animations, responsive systems & CSS v4 engine" },
+	{ name: "RESTful API", role: "Network Data Protocols", level: "Advanced", dot: "#EA4335", description: "Resilient state sync, HTTP caching & endpoint orchestration" },
+	{ name: "GraphQL", role: "Optimized Query Layer", level: "Advanced", dot: "#EA4335", description: "Apollo Client, fine-grained schemas & real-time subscriptions" },
 	{ name: "Zustand", role: "Atomic State Management", level: "Advanced", dot: "#FBBC05", description: "Global reactive store, persistent state & middleware" },
-	{ name: "Directus CMS", role: "Headless Content Ops", level: "Advanced", dot: "#A855F7", description: "Dynamic relational schemas, permissions & webhook pipelines" },
+	{ name: "Directus CMS", role: "Headless Content Ops", level: "Advanced", dot: "#9B72CF", description: "Dynamic relational schemas, permissions & webhook pipelines" },
 	{ name: "Git & CI/CD", role: "Deployment Automation", level: "Proficient", dot: "#EA4335", description: "GitHub Actions, automated quality checks & zero-downtime deploys" },
 	{ name: "GSAP Motion", role: "Cinematic Micro-Interactions", level: "Advanced", dot: "#34A853", description: "ScrollTrigger, timeline choreographies & fluid physics" },
 ];
@@ -28,7 +28,7 @@ export function Skills() {
 				{/* Section Header */}
 				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-foreground/10 gap-6">
 					<div>
-						<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-bold tracking-wider uppercase mb-3">
+						<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-3">
 							<Sparkles className="w-3.5 h-3.5" />
 							{t.skills.badge}
 						</div>
@@ -41,12 +41,12 @@ export function Skills() {
 					</p>
 				</div>
 
-				{/* Google Bento Capability Matrix */}
+				{/* Google Bento Capability Matrix with Liquid Glass */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-					{capabilities.map((item, index) => (
+					{capabilities.map((item) => (
 						<div
 							key={item.name}
-							className="veo-card p-6 flex flex-col justify-between group"
+							className="liquid-glass-card p-6 flex flex-col justify-between group"
 						>
 							{/* Top Specifier */}
 							<div className="flex items-center justify-between mb-5">
@@ -64,18 +64,20 @@ export function Skills() {
 								<h3 className="text-xl font-bold text-foreground tracking-tight mb-1 group-hover:text-[#1a73e8] dark:group-hover:text-[#8ab4f8] transition-colors">
 									{item.name}
 								</h3>
-								<div className="text-xs font-medium text-muted mb-3">
+								<div className="text-xs font-medium text-muted">
 									{item.role}
 								</div>
-								<p className="text-xs text-foreground/75 dark:text-zinc-300 leading-relaxed font-normal">
-									{item.description}
-								</p>
 							</div>
 
-							{/* Card Bottom Indicator */}
-							<div className="pt-3 border-t border-foreground/10 flex items-center justify-between text-[11px] text-muted">
-								<span>Model {index + 1}.0</span>
-								<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 opacity-80" />
+							{/* Description */}
+							<p className="text-xs text-foreground/70 dark:text-zinc-400 leading-relaxed font-normal">
+								{item.description}
+							</p>
+
+							{/* Subtle Bottom Accent Indicator */}
+							<div className="mt-5 pt-3 border-t border-foreground/5 flex items-center justify-between text-[10px] text-muted font-mono">
+								<span>SYSTEM VERIFIED</span>
+								<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
 							</div>
 						</div>
 					))}

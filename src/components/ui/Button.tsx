@@ -15,9 +15,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			primary:
 				"bg-[#1a73e8] dark:bg-[#8ab4f8] text-white dark:text-[#08090d] hover:bg-[#1557b0] dark:hover:bg-[#adc8fa] shadow-[0_4px_20px_rgba(26,115,232,0.3)] dark:shadow-[0_4px_24px_rgba(138,180,248,0.3)] font-semibold",
 			secondary:
-				"bg-black/5 dark:bg-white/10 backdrop-blur-xl border border-black/10 dark:border-white/15 text-foreground hover:bg-black/10 dark:hover:bg-white/15 shadow-sm",
+				"bg-white/70 dark:bg-white/10 backdrop-blur-2xl border border-white/60 dark:border-white/15 text-foreground hover:bg-white/90 dark:hover:bg-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.2)] font-medium",
 			aurora:
-				"bg-gradient-to-r from-[#4285F4] via-[#8B5CF6] to-[#EC4899] text-white shadow-[0_6px_28px_rgba(139,92,246,0.35)] hover:shadow-[0_8px_36px_rgba(236,72,153,0.45)] hover:brightness-105 font-semibold",
+				"bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] text-white shadow-[0_6px_28px_rgba(66,133,244,0.35)] hover:shadow-[0_8px_36px_rgba(234,67,53,0.4)] hover:brightness-110 font-semibold",
 			outline:
 				"bg-transparent border border-foreground/20 text-foreground hover:border-foreground/60 hover:bg-foreground/5",
 			subtle:

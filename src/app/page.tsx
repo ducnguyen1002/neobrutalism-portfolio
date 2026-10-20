@@ -11,7 +11,7 @@ export default function Home() {
 	return (
 		<main className="min-h-screen relative overflow-x-hidden selection:bg-[#4285f4] selection:text-white">
 			<LoadingScreen />
-			<div className="veo-aurora-bg" />
+			<div className="google-aurora-bg" />
 			<CustomCursor />
 			<Navbar />
 			<Hero />

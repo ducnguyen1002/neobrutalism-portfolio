@@ -59,7 +59,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-4 sm:inset-8 md:inset-16 z-[101] pointer-events-none flex items-center justify-center p-2 sm:p-4"
           >
-            <div className="w-full max-w-4xl bg-white dark:bg-[#0c0e17] rounded-3xl border border-black/10 dark:border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.5)] flex flex-col pointer-events-auto max-h-[90vh] overflow-hidden">
+            <div className="w-full max-w-4xl liquid-glass rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.6)] flex flex-col pointer-events-auto max-h-[90vh] overflow-hidden">
               {/* Header Bar */}
               <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2.5">

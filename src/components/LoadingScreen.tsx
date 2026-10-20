@@ -46,7 +46,7 @@ export function LoadingScreen() {
 				>
 					<div className="max-w-md w-full text-center">
 						{/* Google Sparkle Animated Orb */}
-						<div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#8B5CF6] to-[#EC4899] p-0.5 mx-auto mb-8 shadow-[0_0_30px_rgba(66,133,244,0.4)]">
+						<div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] p-[2px] mx-auto mb-8 shadow-[0_0_35px_rgba(66,133,244,0.35)]">
 							<div className="w-full h-full rounded-full bg-background flex items-center justify-center">
 								<motion.div
 									animate={{ rotate: 360, scale: [1, 1.1, 1] }}
@@ -60,7 +60,7 @@ export function LoadingScreen() {
 						{/* Title */}
 						<h2 className="text-2xl sm:text-3xl font-black tracking-tight mb-2">
 							{t.loading.cooking}{" "}
-							<span className="veo-gradient-text">
+							<span className="google-gradient-text">
 								{t.loading.cookingHighlight}
 							</span>
 						</h2>
@@ -68,7 +68,7 @@ export function LoadingScreen() {
 						{/* Google 4-Color Gradient Progress Bar */}
 						<div className="h-2 w-full rounded-full bg-foreground/10 my-6 relative overflow-hidden">
 							<motion.div
-								className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#4285F4] via-[#8B5CF6] via-[#EC4899] to-[#06B6D4] rounded-full"
+								className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] rounded-full"
 								style={{ width: `${progress}%` }}
 							/>
 						</div>

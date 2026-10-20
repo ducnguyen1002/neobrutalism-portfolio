@@ -28,7 +28,7 @@ export function Footer() {
 
 					<h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4 text-foreground leading-[1.1]">
 						{t.footer.talk}{" "}
-						<span className="veo-gradient-text">
+						<span className="google-gradient-text">
 							{t.footer.talkHighlight}
 						</span>
 					</h2>

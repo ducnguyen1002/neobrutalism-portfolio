@@ -1,23 +1,16 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-	variable: "--font-google-sans",
-	subsets: ["vietnamese", "latin"],
-	weight: ["400", "500", "600", "700", "800"],
-});
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-	title: "DucNV // Front-End Engineering & Generative UI Architect",
-	description: "Portfolio of DucNV, Senior Front-End Developer inspired by Google Veo & Google DeepMind. Pushing the frontier of high-fidelity web experiences, React 19, and Next.js.",
+	title: "DucNV // Senior Front-End Developer",
+	description:
+		"Portfolio of DucNV, Senior Front-End Developer specializing in high-fidelity web applications, React 19, Next.js, and Google Design Systems.",
 	icons: {
 		icon: "/neobrutalism-portfolio/favicon.png",
 		apple: "/neobrutalism-portfolio/favicon.png",
 	},
 };
-
-import { Providers } from "@/components/Providers";
 
 export default function RootLayout({
 	children,
@@ -26,12 +19,25 @@ export default function RootLayout({
 }>) {
 	return (
 		<html
-			lang="en"
+			lang="vi"
 			suppressHydrationWarning
 		>
-			<body
-				className={`${plusJakartaSans.variable} antialiased`}
-			>
+			<head>
+				<link
+					rel="preconnect"
+					href="https://fonts.googleapis.com"
+				/>
+				<link
+					rel="preconnect"
+					href="https://fonts.gstatic.com"
+					crossOrigin="anonymous"
+				/>
+				<link
+					href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap"
+					rel="stylesheet"
+				/>
+			</head>
+			<body className="antialiased font-sans">
 				<Providers>{children}</Providers>
 			</body>
 		</html>

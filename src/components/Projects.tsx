@@ -22,7 +22,7 @@ export function Projects() {
 			className="py-28 px-4 relative"
 		>
 			<div className="max-w-6xl mx-auto">
-				{/* Google Veo Section Header */}
+				{/* Google Case Studies Section Header */}
 				<div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-foreground/10 gap-6">
 					<div>
 						<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-3">
@@ -31,7 +31,7 @@ export function Projects() {
 						</div>
 						<h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
 							{t.projects.title}{" "}
-							<span className="veo-gradient-text">
+							<span className="google-gradient-text">
 								{t.projects.highlight}
 							</span>
 						</h2>
@@ -41,13 +41,13 @@ export function Projects() {
 					</p>
 				</div>
 
-				{/* Bento Showcase Grid */}
+				{/* Bento Showcase Grid with Liquid Glass */}
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 					{t.projects.items.map((project: any, index: number) => {
 						return (
 							<div
 								key={project.id || index}
-								className="veo-card flex flex-col h-full group"
+								className="liquid-glass-card flex flex-col h-full group"
 							>
 								{/* Card Header Bar */}
 								<div className="px-6 py-4 flex items-center justify-between border-b border-foreground/10 text-xs font-medium text-muted bg-foreground/[0.02]">

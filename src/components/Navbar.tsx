@@ -27,29 +27,29 @@ export function Navbar() {
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:py-6 transition-all duration-300">
 			<div
-				className={`max-w-5xl mx-auto rounded-full transition-all duration-300 ${
+				className={`max-w-5xl mx-auto rounded-full transition-all duration-300 liquid-glass ${
 					scrolled
-						? "bg-white/85 dark:bg-[#0c0e17]/85 backdrop-blur-2xl border border-black/10 dark:border-white/15 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.8)]"
-						: "bg-white/60 dark:bg-[#0c0e17]/50 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]"
+						? "shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.8)]"
+						: "shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]"
 				}`}
 			>
 				<div className="flex items-center justify-between px-6 py-3 md:px-8 md:py-3.5">
-					{/* Google DeepMind / Veo Sparkle Brand */}
+					{/* Google Multi-Color Sparkle Brand */}
 					<Link
 						href="/"
 						className="flex items-center gap-2.5 group select-none"
 					>
-						{/* Google Multi-Color Sparkle */}
-						<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#8B5CF6] to-[#EC4899] p-0.5 flex items-center justify-center shadow-[0_0_12px_rgba(66,133,244,0.4)] group-hover:scale-105 transition-transform">
+						{/* Google 4-Color Sparkle */}
+						<div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] p-[1.5px] flex items-center justify-center shadow-[0_0_14px_rgba(66,133,244,0.35)] group-hover:scale-105 transition-transform">
 							<div className="w-full h-full rounded-full bg-white dark:bg-[#0c0e17] flex items-center justify-center">
 								<Sparkles className="w-4 h-4 text-[#4285F4] dark:text-[#8ab4f8]" />
 							</div>
 						</div>
 
-						<div className="flex items-center gap-1.5 font-bold tracking-tight text-base text-foreground">
+						<div className="flex items-center gap-2 font-bold tracking-tight text-base text-foreground">
 							<span>DucNV</span>
-							<span className="text-xs font-medium text-muted px-2 py-0.5 rounded-full bg-foreground/5 hidden sm:inline-block">
-								Veo Front-End
+							<span className="text-xs font-semibold text-muted px-2.5 py-0.5 rounded-full bg-foreground/5 hidden sm:inline-block">
+								Senior Front-End
 							</span>
 						</div>
 					</Link>
