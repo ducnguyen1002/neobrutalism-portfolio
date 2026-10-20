@@ -27,7 +27,7 @@ export function Navbar() {
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:py-6 transition-all duration-300">
 			<div
-				className={`max-w-5xl mx-auto rounded-full transition-all duration-300 liquid-glass ${
+				className={`max-w-6xl mx-auto rounded-full transition-all duration-300 liquid-glass ${
 					scrolled
 						? "shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.8)]"
 						: "shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]"

@@ -17,16 +17,16 @@ export function Marquee() {
 	];
 
 	return (
-		<div className="border-y border-foreground/10 py-5 overflow-hidden select-none bg-black/5 dark:bg-white/[0.02] backdrop-blur-md">
+		<div className="border-y border-foreground/10 py-7 md:py-8 overflow-hidden select-none bg-black/5 dark:bg-white/[0.02] backdrop-blur-md">
 			<motion.div
 				animate={{ x: [0, -1200] }}
-				transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-				className="flex whitespace-nowrap gap-12"
+				transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+				className="flex whitespace-nowrap gap-16"
 			>
 				{[...Array(6)].map((_, i) => (
 					<div
 						key={i}
-						className="flex gap-12 items-center"
+						className="flex gap-16 items-center"
 					>
 						{items.map((item) => (
 							<span

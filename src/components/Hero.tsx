@@ -1,14 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Play, Terminal, Layers, Activity, Zap } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import gsap from "gsap";
+import { Sparkles, ArrowRight, Layers, Zap } from "lucide-react";
 import { useLanguage } from "./Providers";
 import { Button } from "./ui/Button";
-import { useState } from "react";
 
 export function Hero() {
 	const { t } = useLanguage();
 	const [activePreset, setActivePreset] = useState(0);
+
+	const heroRef = useRef<HTMLDivElement>(null);
+	const badgeRef = useRef<HTMLDivElement>(null);
+	const headlineRef = useRef<HTMLHeadingElement>(null);
+	const subtitleRef = useRef<HTMLParagraphElement>(null);
+	const buttonsRef = useRef<HTMLDivElement>(null);
+	const sandboxRef = useRef<HTMLDivElement>(null);
+	const glowRef = useRef<HTMLDivElement>(null);
 
 	const presets = [
 		{
@@ -34,15 +42,130 @@ export function Hero() {
 		},
 	];
 
+	// GSAP Animations: Entrance Timeline & Floating Micro-Motion
+	useEffect(() => {
+		const ctx = gsap.context(() => {
+			// Floating Prompt Capsule
+			if (badgeRef.current) {
+				gsap.to(badgeRef.current, {
+					y: -5,
+					duration: 2.8,
+					repeat: -1,
+					yoyo: true,
+					ease: "sine.inOut",
+				});
+			}
+
+			// Staggered Entrance
+			const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+			tl.from(badgeRef.current, {
+				opacity: 0,
+				y: 20,
+				duration: 0.7,
+			})
+				.from(
+					headlineRef.current,
+					{
+						opacity: 0,
+						y: 35,
+						duration: 0.9,
+					},
+					"-=0.4"
+				)
+				.from(
+					subtitleRef.current,
+					{
+						opacity: 0,
+						y: 25,
+						duration: 0.8,
+					},
+					"-=0.5"
+				)
+				.from(
+					buttonsRef.current ? Array.from(buttonsRef.current.children) : [],
+					{
+						opacity: 0,
+						y: 20,
+						stagger: 0.1,
+						duration: 0.7,
+					},
+					"-=0.5"
+				)
+				.from(
+					sandboxRef.current,
+					{
+						opacity: 0,
+						scale: 0.95,
+						y: 40,
+						duration: 1.1,
+						ease: "power3.out",
+					},
+					"-=0.6"
+				);
+		}, heroRef);
+
+		return () => ctx.revert();
+	}, []);
+
+	// GSAP 3D Interactive Parallax Tilt on the Showcase Sandbox
+	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (!sandboxRef.current) return;
+		const rect = sandboxRef.current.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+		const centerX = rect.width / 2;
+		const centerY = rect.height / 2;
+
+		const rotateX = ((y - centerY) / centerY) * -4.5;
+		const rotateY = ((x - centerX) / centerX) * 4.5;
+
+		gsap.to(sandboxRef.current, {
+			rotateX,
+			rotateY,
+			transformPerspective: 1400,
+			duration: 0.45,
+			ease: "power2.out",
+		});
+
+		if (glowRef.current) {
+			gsap.to(glowRef.current, {
+				x: x - 200,
+				y: y - 200,
+				opacity: 0.22,
+				duration: 0.35,
+				ease: "power2.out",
+			});
+		}
+	};
+
+	const handleMouseLeave = () => {
+		if (!sandboxRef.current) return;
+		gsap.to(sandboxRef.current, {
+			rotateX: 0,
+			rotateY: 0,
+			duration: 0.8,
+			ease: "power2.out",
+		});
+
+		if (glowRef.current) {
+			gsap.to(glowRef.current, {
+				opacity: 0,
+				duration: 0.6,
+			});
+		}
+	};
+
 	return (
-		<section className="pt-36 pb-24 px-4 relative overflow-hidden">
-			<div className="max-w-6xl mx-auto flex flex-col items-center text-center">
+		<section
+			ref={heroRef}
+			className="pt-44 md:pt-48 pb-32 md:pb-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+		>
+			<div className="max-w-7xl mx-auto flex flex-col items-center text-center">
 				{/* Google Prompt Capsule with Liquid Glass */}
-				<motion.div
-					initial={{ opacity: 0, y: 15 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
-					className="google-prompt-capsule inline-flex items-center gap-3 px-5 py-2.5 mb-8 max-w-2xl text-left"
+				<div
+					ref={badgeRef}
+					className="google-prompt-capsule inline-flex items-center gap-3 px-6 py-3 mb-10 max-w-3xl text-left"
 				>
 					{/* Google 2-Tone Sparkle Orb */}
 					<div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#1a73e8] to-[#8b5cf6] p-[1.5px] flex items-center justify-center shrink-0 shadow-sm">
@@ -54,37 +177,31 @@ export function Hero() {
 						<strong className="text-[#1a73e8] dark:text-[#8ab4f8]">Next.js & React 19 // </strong>
 						{t.hero.promptText}
 					</span>
-				</motion.div>
+				</div>
 
-				{/* Google Sans Headline */}
-				<motion.h1
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.1 }}
-					className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.08] max-w-5xl mb-6"
+				{/* Google Sans Headline - Expansive and Cinematic */}
+				<h1
+					ref={headlineRef}
+					className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.08] max-w-6xl mb-8"
 				>
 					{t.hero.title1}{" "}
-					<span className="google-gradient-text block mt-1">
+					<span className="google-gradient-text block mt-2">
 						{t.hero.title2}
 					</span>
-				</motion.h1>
+				</h1>
 
-				{/* Subtitle */}
-				<motion.p
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.2 }}
-					className="text-lg sm:text-2xl text-foreground/75 dark:text-zinc-300 max-w-3xl mb-10 leading-relaxed font-normal"
+				{/* Subtitle with Airy Spacing */}
+				<p
+					ref={subtitleRef}
+					className="text-lg sm:text-2xl text-foreground/75 dark:text-zinc-300 max-w-3xl mb-12 leading-relaxed font-normal"
 				>
 					{t.hero.desc}
-				</motion.p>
+				</p>
 
 				{/* Google Pill CTAs */}
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.3 }}
-					className="flex flex-wrap items-center justify-center gap-4 mb-16"
+				<div
+					ref={buttonsRef}
+					className="flex flex-wrap items-center justify-center gap-5 mb-20"
 				>
 					<Button
 						size="lg"
@@ -93,7 +210,7 @@ export function Hero() {
 							const el = document.getElementById("projects");
 							if (el) el.scrollIntoView({ behavior: "smooth" });
 						}}
-						className="gap-2 px-8 py-3.5 text-base font-semibold"
+						className="gap-2 px-9 py-4 text-base font-semibold"
 					>
 						<Sparkles className="w-4 h-4" />
 						{t.hero.work}
@@ -106,28 +223,35 @@ export function Hero() {
 							const el = document.getElementById("about");
 							if (el) el.scrollIntoView({ behavior: "smooth" });
 						}}
-						className="gap-2 px-8 py-3.5 text-base font-medium"
+						className="gap-2 px-9 py-4 text-base font-medium"
 					>
 						{t.hero.contact}
 						<ArrowRight className="w-4 h-4 ml-1" />
 					</Button>
-				</motion.div>
+				</div>
 
-				{/* Interactive Showcase Sandbox with Liquid Glass */}
-				<motion.div
-					initial={{ opacity: 0, scale: 0.96 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.7, delay: 0.4 }}
-					className="liquid-glass-card w-full max-w-5xl rounded-3xl p-4 sm:p-6 shadow-2xl relative"
+				{/* Interactive Showcase Sandbox with GSAP 3D Tilt & Liquid Glass */}
+				<div
+					ref={sandboxRef}
+					onMouseMove={handleMouseMove}
+					onMouseLeave={handleMouseLeave}
+					className="liquid-glass-card w-full max-w-6xl rounded-3xl p-5 sm:p-8 shadow-2xl relative transition-shadow duration-500 overflow-hidden"
 				>
+					{/* Dynamic Specular Hover Light Follower */}
+					<div
+						ref={glowRef}
+						className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-[#1a73e8] to-[#8b5cf6] blur-3xl pointer-events-none opacity-0 -z-0"
+						style={{ left: 0, top: 0 }}
+					/>
+
 					{/* Interactive Preset Selector Bar */}
-					<div className="flex flex-col sm:flex-row items-center justify-between pb-4 mb-4 border-b border-foreground/10 gap-3">
-						<div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+					<div className="flex flex-col sm:flex-row items-center justify-between pb-5 mb-6 border-b border-foreground/10 gap-4 relative z-10">
+						<div className="flex items-center gap-2.5 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
 							{presets.map((preset, index) => (
 								<button
 									key={preset.id}
 									onClick={() => setActivePreset(index)}
-									className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all select-none whitespace-nowrap cursor-pointer ${
+									className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all select-none whitespace-nowrap cursor-pointer ${
 										activePreset === index
 											? "bg-[#1a73e8] text-white shadow-md shadow-blue-500/25"
 											: "bg-foreground/5 hover:bg-foreground/10 text-foreground/80"
@@ -139,13 +263,13 @@ export function Hero() {
 						</div>
 
 						<div className="flex items-center gap-2 font-mono text-xs text-muted">
-							<span className="w-2 h-2 rounded-full bg-[#34A853] animate-pulse" />
+							<span className="w-2.5 h-2.5 rounded-full bg-[#34A853] animate-pulse" />
 							<span>Architecture // 60 FPS // &lt; 50ms</span>
 						</div>
 					</div>
 
 					{/* Cinematic Display Screen with Glass Bevel */}
-					<div className="relative aspect-16/9 rounded-2xl overflow-hidden bg-black/40 border border-white/10 group shadow-inner">
+					<div className="relative aspect-16/9 rounded-2xl overflow-hidden bg-black/40 border border-white/10 group shadow-inner relative z-10">
 						<img
 							src={presets[activePreset].image}
 							alt={presets[activePreset].title}
@@ -153,12 +277,12 @@ export function Hero() {
 						/>
 
 						{/* Overlay Specs */}
-						<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-6 sm:p-8 text-left text-white">
+						<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-6 sm:p-10 text-left text-white">
 							<div className="flex items-center justify-between">
-								<span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold tracking-wider uppercase border border-white/20">
+								<span className="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold tracking-wider uppercase border border-white/20">
 									{presets[activePreset].tag}
 								</span>
-								<div className="flex items-center gap-3 text-xs font-mono bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10">
+								<div className="flex items-center gap-3 text-xs font-mono bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
 									<Zap className="w-3.5 h-3.5 text-yellow-400" />
 									<span>Latency: {presets[activePreset].metrics.latency}</span>
 									<span className="opacity-40">|</span>
@@ -167,7 +291,7 @@ export function Hero() {
 							</div>
 
 							<div>
-								<h3 className="text-xl sm:text-3xl font-black mb-2 text-white drop-shadow-md">
+								<h3 className="text-2xl sm:text-4xl font-black mb-3 text-white drop-shadow-md">
 									{presets[activePreset].title}
 								</h3>
 								<div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300 font-mono">
@@ -179,10 +303,10 @@ export function Hero() {
 					</div>
 
 					{/* Bottom Glass Indicator Bar */}
-					<div className="mt-4 pt-3 flex flex-wrap items-center justify-between text-xs text-muted px-2 gap-2">
+					<div className="mt-6 pt-4 flex flex-wrap items-center justify-between text-xs text-muted px-2 gap-3 relative z-10">
 						<div className="flex items-center gap-3">
 							<div className="flex items-center gap-1.5">
-								<span className="w-2 h-2 rounded-full bg-[#4285F4]" />
+								<span className="w-2 h-2 rounded-full bg-[#1a73e8]" />
 								<span className="font-semibold text-foreground/80">Google Material 3</span>
 							</div>
 							<span className="opacity-30">•</span>
@@ -196,7 +320,7 @@ export function Hero() {
 							DESIGNED FOR ULTRA PERFORMANCE &amp; ACCESSIBILITY
 						</div>
 					</div>
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);

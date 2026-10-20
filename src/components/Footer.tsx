@@ -2,13 +2,21 @@
 
 import { Github, Twitter, Linkedin, Copy, Check, Mail, Sparkles, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "./Providers";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./ui/Button";
+
+if (typeof window !== "undefined") {
+	gsap.registerPlugin(ScrollTrigger);
+}
 
 export function Footer() {
 	const { t } = useLanguage();
 	const [copied, setCopied] = useState(false);
 	const email = "ducduc1022000@gmail.com";
+	const footerRef = useRef<HTMLElement>(null);
+	const contentRef = useRef<HTMLDivElement>(null);
 
 	const handleCopyEmail = () => {
 		navigator.clipboard.writeText(email);
@@ -16,34 +24,62 @@ export function Footer() {
 		setTimeout(() => setCopied(false), 2000);
 	};
 
+	useEffect(() => {
+		const ctx = gsap.context(() => {
+			if (contentRef.current) {
+				gsap.from(contentRef.current.children, {
+					scrollTrigger: {
+						trigger: footerRef.current,
+						start: "top 85%",
+						toggleActions: "play none none none",
+					},
+					y: 40,
+					opacity: 0,
+					duration: 0.8,
+					stagger: 0.15,
+					ease: "power3.out",
+				});
+			}
+		}, footerRef);
+
+		return () => ctx.revert();
+	}, []);
+
 	return (
-		<footer id="about" className="py-28 px-4 border-t border-foreground/10 relative overflow-hidden">
-			<div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 relative z-10">
-				{/* Left Column */}
-				<div className="max-w-xl">
-					<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-4">
+		<footer
+			ref={footerRef}
+			id="about"
+			className="py-36 md:py-44 px-4 sm:px-6 lg:px-8 border-t border-foreground/10 relative overflow-hidden"
+		>
+			<div
+				ref={contentRef}
+				className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-16 relative z-10"
+			>
+				{/* Left Column with Airy Spacing */}
+				<div className="max-w-2xl">
+					<div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-[#1a73e8] dark:text-[#8ab4f8] text-xs font-bold tracking-wider uppercase mb-5">
 						<Sparkles className="w-3.5 h-3.5" />
 						CONNECT WITH ME
 					</div>
 
-					<h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4 text-foreground leading-[1.1]">
+					<h2 className="text-4xl sm:text-6xl font-black tracking-tight mb-6 text-foreground leading-[1.08]">
 						{t.footer.talk}{" "}
 						<span className="google-gradient-text">
 							{t.footer.talkHighlight}
 						</span>
 					</h2>
 
-					<p className="text-base sm:text-lg text-foreground/75 dark:text-zinc-300 mb-8 leading-relaxed font-normal">
+					<p className="text-base sm:text-xl text-foreground/75 dark:text-zinc-300 mb-10 leading-relaxed font-normal max-w-xl">
 						{t.footer.desc}
 					</p>
 
 					{/* Social Links */}
-					<div className="flex gap-3">
+					<div className="flex gap-4">
 						<a
 							href="https://github.com/ducnguyen1002"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="w-12 h-12 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-foreground transition-all hover:scale-105 shadow-sm"
+							className="w-13 h-13 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-foreground transition-all hover:scale-110 shadow-sm"
 							aria-label="GitHub"
 						>
 							<Github className="w-5 h-5" />
@@ -52,7 +88,7 @@ export function Footer() {
 							href="https://linkedin.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="w-12 h-12 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-[#1a73e8] dark:text-[#8ab4f8] transition-all hover:scale-105 shadow-sm"
+							className="w-13 h-13 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-[#1a73e8] dark:text-[#8ab4f8] transition-all hover:scale-110 shadow-sm"
 							aria-label="LinkedIn"
 						>
 							<Linkedin className="w-5 h-5" />
@@ -61,7 +97,7 @@ export function Footer() {
 							href="https://twitter.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="w-12 h-12 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-[#06b6d4] transition-all hover:scale-105 shadow-sm"
+							className="w-13 h-13 rounded-full flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 border border-foreground/10 text-foreground transition-all hover:scale-110 shadow-sm"
 							aria-label="Twitter"
 						>
 							<Twitter className="w-5 h-5" />
@@ -69,35 +105,43 @@ export function Footer() {
 					</div>
 				</div>
 
-				{/* Right Column */}
-				<div className="flex flex-col items-start md:items-end">
-					{/* Copyable Email Pill */}
-					<div className="px-5 py-3 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 backdrop-blur-xl mb-6 flex items-center gap-3 shadow-lg">
-						<Mail className="w-4 h-4 text-[#1a73e8] dark:text-[#8ab4f8]" />
-						<span className="text-sm sm:text-base font-semibold text-foreground">
-							{email}
-						</span>
-						<button
-							onClick={handleCopyEmail}
-							className="ml-2 p-1.5 rounded-full bg-foreground/10 hover:bg-foreground/15 text-foreground transition-colors"
-							title="Copy email"
-						>
-							{copied ? (
-								<Check className="w-4 h-4 text-emerald-500" />
-							) : (
-								<Copy className="w-4 h-4" />
-							)}
-						</button>
+				{/* Right Column: Liquid Glass Email Capsule */}
+				<div className="w-full md:w-auto flex flex-col items-start md:items-end gap-6">
+					<div className="liquid-glass rounded-3xl p-6 sm:p-8 w-full md:w-auto min-w-[320px] sm:min-w-[420px]">
+						<div className="text-xs uppercase font-bold text-muted tracking-wider mb-3">
+							DIRECT INBOX CHANNEL
+						</div>
+						<div className="flex items-center justify-between gap-4 pb-4 border-b border-foreground/10">
+							<span className="font-mono text-sm sm:text-base text-foreground font-semibold truncate">
+								{email}
+							</span>
+							<button
+								onClick={handleCopyEmail}
+								className="p-2.5 rounded-full hover:bg-foreground/10 transition-colors text-muted hover:text-foreground cursor-pointer"
+								title="Copy Email"
+							>
+								{copied ? (
+									<Check className="w-4 h-4 text-emerald-500" />
+								) : (
+									<Copy className="w-4 h-4" />
+								)}
+							</button>
+						</div>
+
+						<div className="pt-4 flex items-center justify-between">
+							<span className="text-xs text-muted">Availability</span>
+							<span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500">
+								<span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+								Open for Opportunities
+							</span>
+						</div>
 					</div>
 
-					<p className="text-xs text-muted mb-2 text-center md:text-right">
+					<div className="text-xs text-muted font-normal text-left md:text-right max-w-sm">
 						{t.footer.madeWith}{" "}
-						<span className="font-semibold text-foreground">Google Antigravity & Next.js 16</span>
-					</p>
-
-					<p className="text-xs text-muted/80 text-center md:text-right">
-						{t.footer.rights} © 2026.
-					</p>
+						<span className="font-semibold text-foreground">DucNV</span>.{" "}
+						{t.footer.rights}
+					</div>
 				</div>
 			</div>
 		</footer>
